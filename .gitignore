@@ -39,8 +39,6 @@ emms-streams
 
 # etc/ extras/ themes/ var/ 等自定义目录（这些通常是用户特定或生成的）
 etc/
-extras/
-themes/
 var/
 
 # Doom Emacs 特定（如果你的目录里有 .local）
