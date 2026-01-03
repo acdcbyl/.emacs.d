@@ -1,0 +1,39 @@
+#+TITLE: .emacs.d
+#+AUTHOR: aiser
+#+EMAIL: wtchel088@gmail.com
+#+DATE: <2026-01-03 周六>
+#+LANGUAGE: zh/en
+#+OPTIONS: ^:{}
+
+* 简介
+
+基于[[https://codeberg.org/ashton314/emacs-bedrock][emacs-bedrock]]创建的emacs设置，目前基本可用，支持evil
+
+* 特性
+| 特性     | 支持情况 |
+|----------+----------|
+| evil     | [X]      |
+| org-roam | [X]      |
+| lsp      | [X]      |
+| emms     | [X]      |
+| treemacs | [X]      |
+
+* 截图
+
+[[file:./assets/main.png]]
+
+[[file:./assets/go.png]]
+
+[[file:./assets/rust.png]]
+
+[[file:./assets/org.png]]
+
+* 快速开始
+
+** 安装
+
+手动克隆：
+
+#+begin_src bash
+git clone https://github.com/acdcbyl/.emacs.d.git ~/.emacs.d/
+#+end_src

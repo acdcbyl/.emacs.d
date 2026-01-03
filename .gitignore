@@ -1,0 +1,55 @@
+# -*- mode: gitignore; -*-
+# Emacs 通用临时/备份文件
+*~
+\#*\#
+.\#*
+*.elc
+auto-save-list/
+tramp
+.emacs.desktop
+.emacs.desktop.lock
+.eshell/history
+.eshell/lastdir
+.network-security.data
+.session
+
+# Org-mode 生成的文件
+.org-id-locations
+*_archive
+
+# Flycheck/Flymake 等检查临时文件
+*_flymake.*
+flycheck_*.el
+
+# ELPA 包管理（下载的包，不要提交！）
+elpa/
+eln-cache/
+elpa-*/
+eln-cache-*/
+
+# Emacs 备份目录（如果你配置了 backups）
+emacs-backup/
+backups/
+
+# EMMS（音乐播放器）缓存
+emms/
+emms-cache
+emms-history
+emms-streams
+
+# etc/ extras/ themes/ var/ 等自定义目录（这些通常是用户特定或生成的）
+etc/
+extras/
+themes/
+var/
+
+# Doom Emacs 特定（如果你的目录里有 .local）
+.local/
+.local*/
+
+# 其他常见
+*.cache*
+*.log
+.tree-sitter/
+.dap-breakpoints
+.projectile-cache
