@@ -139,12 +139,7 @@
 (use-package nerd-icons-corfu
   :ensure t
   :config
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
-  (setq nerd-icons-corfu-mapping
-      '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
-        (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
-        ;; ...
-        (t :style "cod" :icon "code" :face font-lock-warning-face))))
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package eshell
   :init

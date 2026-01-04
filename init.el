@@ -36,17 +36,6 @@
   :ensure t
   :demand t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Theme
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(load-file (expand-file-name "themes/catppuccin.el" user-emacs-directory))
-
-(use-package emacs
-  :config
-  (load-theme 'catppuccin t))          ; for light theme, use modus-operandi
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -72,3 +61,8 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+;; Load a private file for secrets, if it exists
+(let ((private-file (locate-user-emacs-file "lisp/private.el")))
+  (when (file-exists-p private-file)
+    (load private-file)))

@@ -28,13 +28,7 @@
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
 
-(use-package treesit
-  :ensure nil
-  :config
-  (setq treesit-language-source-alist
-        '((c . ("https://github.com/tree-sitter/tree-sitter-c"))
-          (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
-          (json . ("https://github.com/tree-sitter/tree-sitter-json")))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Version Control
@@ -104,11 +98,8 @@
   (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
 
   :config
-  ;(fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
+  (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
-  (add-to-list 'eglot-server-programs
-               '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
-               
   (add-to-list 'eglot-server-programs
                '(rust-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
                

@@ -10,13 +10,13 @@
 基于[[https://codeberg.org/ashton314/emacs-bedrock][emacs-bedrock]]创建的emacs设置，目前基本可用，支持evil
 
 * 特性
-| 特性     | 支持情况 |
-|----------+----------|
-| evil     | [X]      |
-| org-roam | [X]      |
-| lsp      | [X]      |
-| emms     | [X]      |
-| treemacs | [X]      |
+| 特性    | 支持情况 |
+|----------+------------|
+| evil     | [X]        |
+| org-roam | [X]        |
+| lsp      | [X]        |
+| emms     | [X]        |
+| treemacs | [X]        |
 
 * 截图
 

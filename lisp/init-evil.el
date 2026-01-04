@@ -36,6 +36,14 @@
   :ensure t
   :config
   (evil-collection-init))
+;; 添加注释快捷键
+(use-package evil-nerd-commenter
+  :ensure t
+  :after evil
+  :config
+  (general-def :states '(normal visual) ",/" 'evilnc-comment-or-uncomment-lines)
+  (general-def :states 'normal "gcc" 'evilnc-comment-or-uncomment-lines)
+  (general-def :states 'visual "gc" 'evilnc-comment-or-uncomment-lines))
 ;; 成对修改括号
 (use-package evil-surround
   :ensure t
@@ -145,15 +153,15 @@
     "w/" 'split-window-horizontally
     ;; tab
     "t" '(:wk "󰓩 tab")
-    "tc" 'tab-bar-close-tab
-    "tC" 'tab-bar-close-group-tabs
-    "tg" 'tab-bar-change-tab-group
-    "ti" 'tab-switcher
-    "tn" 'tab-bar-new-tab
-    "to" 'tab-bar-close-other-tabs
-    "tt" 'tab-bar-switch-to-tab
-    "t'" 'tab-bar-switch-to-recent-tab
-    "tr" 'tab-bar-rename-tab
+    "tc" 'centaur-tabs--kill-this-buffer-dont-ask
+    "tC" 'centaur-tabs-kill-all-buffers-in-current-group
+    "tg" 'centaur-tabs-switch-group
+    ;"ti" 'tab-switcher
+    "tn" 'centaur-tabs--create-new-tab
+    "to" 'centaur-tabs-kill-other-buffers-in-current-group
+    ;"tt" 'tab-bar-switch-to-tab
+    ;"t'" 'tab-bar-switch-to-recent-tab
+    ;"tr" 'centaur-tabs-project-name
     ;; search
     "s" '(:wk " search")
     "sj" 'evil-show-jumps
@@ -252,15 +260,14 @@
       "gl" 'find-library))
 
   ;; emms-browser-mode 的自定义键（使用 general-def）
+(with-eval-after-load 'emms-browser
   (general-def 'normal emms-browser-mode-map
-    ;; vim 风格导航
     "h" 'emms-browser-move-up-level
     "l" 'emms-browser-toggle-subitems
     (kbd "RET") 'emms-browser-add-tracks-and-play
-    ;; 其他有用的键位
     "za" 'emms-browser-toggle-subitems
     "zc" 'emms-browser-collapse-all
-    "zo" 'emms-browser-expand-all))
+    "zo" 'emms-browser-expand-all)))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
