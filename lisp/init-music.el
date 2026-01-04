@@ -1,16 +1,21 @@
-;;; Emacs Bedrock
-;;;
-;;; Extra config: emms Config
-;;; Codes
+;;; init-music.el --- Bring music play for emacs -*- lexical-binding: t -*-
 
+;;; Commentary:
+;;
+
+;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Core Packages
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package emms
   :ensure t
   :config
   (require 'emms-setup)
   (emms-all)
   (emms-default-players)
-  (emms-browser)
-  (emms-browser-mode)
   ;; 音乐目录
   (setq emms-source-file-default-directory "~/Music/")
   
@@ -43,6 +48,12 @@
 (use-package lyrics-fetcher
   :ensure t
   :after (emms)
+  :config
+  (setq lyrics-fetcher-genius-access-token "-qrPGzkNIyyD0MYV_VnxvO-iIZd8CmGKD_-SAUUKnGBKK-lEp3BHxnNWKkVC3NXw")
   :custom
   (lyrics-fetcher--generate-cover-sizes 'medium)
+  (lyrics-fetcher-genius-download-cover t)
   (lyrics-fetcher-use-backend 'neteasecloud))
+
+(provide 'init-music)
+;;; init-music.el ends here

@@ -1,6 +1,9 @@
-;;; Emacs Bedrock
-;;;
-;;; Extra config: UI Config
+;;; init-ui.el --- modeline,dashboard and icons -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+
+;;; Code:
 
 ;; 使用nerd-icons作为图标包
 (use-package nerd-icons
@@ -131,6 +134,11 @@
   :ensure t
   :after (treemacs evil))
 
-(use-package treemacs-icons-dired
+(use-package treemacs-nerd-icons
   :ensure t
-  :hook (dired-mode . treemacs-icons-dired-mode))  ; Dired 中目录前加文件夹图标
+  :config
+  (treemacs-nerd-icons-config))
+
+(provide 'init-ui)
+
+;;; init-ui.el ends here

@@ -1,26 +1,9 @@
-;;; Emacs Bedrock
-;;;
-;;; Extra config: Development tools
+;;; init-dev.el --- Programming development -*- lexical-binding: t -*-
 
-;;; Usage: Append or require this file from init.el for some software
-;;; development-focused packages.
-;;;
-;;; It is **STRONGLY** recommended that you use the base.el config if you want to
-;;; use Eglot. Lots of completion things will work better.
-;;;
-;;; This will try to use tree-sitter modes for many languages. Please run
-;;;
-;;;   M-x treesit-install-language-grammar
-;;;
-;;; Before trying to use a treesit mode.
+;;; Commentary:
+;;
 
-;;; Contents:
-;;;
-;;;  - Built-in config for developers
-;;;  - Version Control
-;;;  - Common file types
-;;;  - Eglot, the built-in LSP client for Emacs
-
+;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Built-in config for developers
@@ -91,6 +74,9 @@
   (rust-indent-where-clause t)
   (rust-load-optional-libraries t))
 
+(use-package qml-mode
+  :ensure t
+  :mode ("\\.qml\\'" . qml-mode))
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
 ;; looking for with a quick Internet search.
@@ -127,6 +113,9 @@
                '(rust-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
                
   (add-to-list 'eglot-server-programs
+               '(qml-mode . ("qmlls6" "-E"))) 
+  
+  (add-to-list 'eglot-server-programs
                '(go-mode . ("gopls" :initializationOptions
                             (:hints (:assignVariableTypes t
                                      :compositeLiteralFields t
@@ -147,3 +136,7 @@
  :config
  (setq projectile-mode-line "Projectile")
  (setq projectile-track-known-projects-automatically nil))
+
+(provide 'init-dev)
+
+;;; init-dev.el ends here

@@ -1,10 +1,9 @@
-;;; Emacs Bedrock
-;;;
-;;; Extra config: Vim emulation
-;;; Usage: Append or require this file from init.el for bindings in Emacs.
-;;; Contents:
-;;;
-;;; - Core Packages
+;;; init-evil.el --- Bring vim back -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+
+;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Core Packages
@@ -262,3 +261,6 @@
     "za" 'emms-browser-toggle-subitems
     "zc" 'emms-browser-collapse-all
     "zo" 'emms-browser-expand-all))
+
+(provide 'init-evil)
+;;; init-evil.el ends here
