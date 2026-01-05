@@ -21,20 +21,48 @@
   :custom
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic nil)
-  (doom-themes-treemacs-theme "doom-atom")
+  (doom-themes-neotree-file-icons t)
+  ;; (doom-themes-treemacs-theme "doom-atom")
   :config
   (load-theme 'doom-nord-aurora t)
-  (doom-themes-treemacs-config)
+  (doom-themes-neotree-config)
+  ;; (doom-themes-treemacs-config)
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
+  (with-eval-after-load 'neotree
+    (defun my-neotree-root-style (node)
+      (when (display-graphic-p)
+	(insert
+	 (concat
+	  (insert "  ")
+             (nerd-icons-octicon
+              "nf-oct-stack"
+              :height 1.0
+	      :v-adjust -0.2
+	      )
+	     )))
+  ;; insert project name
+  (insert
+   (propertize
+    (concat " " (or (neo-path--file-truename node) "-")
+              "\n")
+      'display '(raise -0.1))))
+  (advice-add 'doom-themes-neotree-insert-root :override #'my-neotree-root-style)
+)
+(with-eval-after-load 'neotree
+    (add-hook 'neo-after-create-hook
+              (lambda (_)
+                (with-current-buffer (neo-global--get-buffer)
+                  (face-remap-add-relative 'default
+                                           :background (face-background 'mode-line nil t))))))
 (with-eval-after-load 'treemacs
   (custom-set-faces
-   ;; 使用 mode-line 的背景色（通常比默认背景深）
+   ;; 使用 mode-line 的背景色
    `(treemacs-window-background-face 
      ((t (:background ,(face-attribute 'mode-line :background)))))
    ;; 高亮行用默认背景
    `(treemacs-hl-line-face 
-     ((t (:background ,(face-attribute 'default :background) :weight bold))))))
+     ((t (:background ,(face-attribute 'default :background)))))))
 )
 
 ;; 使用nerd-icons作为图标包
@@ -101,16 +129,6 @@
   (setq doom-modeline-modal-icon t)
 )
 
-
-;; 可选：自定义颜色
-;(custom-set-faces
- ;'(doom-modeline-buffer-modified ((t (:foreground "#ff6c6b" :weight bold))))
- ;'(doom-modeline-buffer-major-mode ((t (:foreground "#51afef" :weight bold))))
- ;'(doom-modeline-project-dir ((t (:foreground "#98be65" :weight bold))))
- ;'(doom-modeline-info ((t (:foreground "#51afef"))))
- ;'(doom-modeline-warning ((t (:foreground "#ECBE7B"))))
- ;'(doom-modeline-urgent ((t (:foreground "#ff6c6b")))))
-
 ;; 设置dashboard
 (use-package dashboard
   :ensure t
@@ -161,60 +179,90 @@
   :hook prog-mode)
 
 ;; 设置treemacs
-(use-package treemacs
-  :ensure t
-  :commands (treemacs-follow-mode
-             treemacs-filewatch-mode
-             treemacs-git-mode)
-  :custom-face
-  (cfrs-border-color ((t (:inherit posframe-border))))
-  :bind (([f8]        . treemacs)
-         ("M-0"       . treemacs-select-window)
-         ("C-x t 1"   . treemacs-delete-other-windows)
-         ("C-x t t"   . treemacs)
-         ("C-x t b"   . treemacs-bookmark)
-         ("C-x t C-t" . treemacs-find-file)
-         ("C-x t M-t" . treemacs-find-tag)
-         :map treemacs-mode-map
-         ([mouse-1]   . treemacs-single-click-expand-action))
-  :config
-  (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
-        treemacs-missing-project-action  'remove
-        treemacs-user-mode-line-format   'none
-        treemacs-sorting                 'alphabetic-asc
-        treemacs-follow-after-init       t
-        treemacs-width                   30
-        treemacs-no-png-images           nil)
-  (treemacs-filewatch-mode t)
-  (pcase (cons (not (null (executable-find "git")))
-               (not (null (executable-find "python3"))))
-    (`(t . t)
-     (treemacs-git-mode 'deferred))
-    (`(t . _)
-     (treemacs-git-mode 'simple))))
+;; (use-package treemacs
+;;   :ensure t
+;;   :commands (treemacs-follow-mode
+;;              treemacs-filewatch-mode
+;;              treemacs-git-mode)
+;;   :custom-face
+;;   (cfrs-border-color ((t (:inherit posframe-border))))
+;;   :bind (([f8]        . treemacs)
+;;          ("M-0"       . treemacs-select-window)
+;;          ("C-x t 1"   . treemacs-delete-other-windows)
+;;          ("C-x t t"   . treemacs)
+;;          ("C-x t b"   . treemacs-bookmark)
+;;          ("C-x t C-t" . treemacs-find-file)
+;;          ("C-x t M-t" . treemacs-find-tag)
+;;          :map treemacs-mode-map
+;;          ([mouse-1]   . treemacs-single-click-expand-action))
+;;   :config
+;;   (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
+;;         treemacs-missing-project-action  'remove
+;;         treemacs-user-mode-line-format   'none
+;;         treemacs-sorting                 'alphabetic-asc
+;;         treemacs-follow-after-init       t
+;;         treemacs-width                   30
+;;         treemacs-no-png-images           nil)
+;;   (treemacs-filewatch-mode t)
+;;   (pcase (cons (not (null (executable-find "git")))
+;;                (not (null (executable-find "python3"))))
+;;     (`(t . t)
+;;      (treemacs-git-mode 'deferred))
+;;     (`(t . _)
+;;      (treemacs-git-mode 'simple))))
 
-(use-package treemacs-evil
-  :ensure t
-  :after (treemacs evil))
+;; (use-package treemacs-evil
+;;   :ensure t
+;;   :after (treemacs evil))
 
 ;; (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
 ;;   :after (treemacs)
 ;;   :ensure t
 ;;   :config (treemacs-set-scope-type 'Tabs))
 
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
+;; (use-package treemacs-magit
+;;   :after (treemacs magit)
+;;   :ensure t)
 
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
+;; (use-package treemacs-projectile
+;;   :after (treemacs projectile)
+;;   :ensure t)
 
-(use-package treemacs-nerd-icons
+;; (use-package treemacs-nerd-icons
+;;   :ensure t
+;;   :after (treemacs)
+;;   :config
+;;   (treemacs-nerd-icons-config))
+
+;;设置neotree
+(use-package neotree
   :ensure t
-  :after (treemacs)
   :config
-  (treemacs-nerd-icons-config))
+  (setq neo-smart-open t)
+  (setq neo-theme (if (display-graphic-p) 'nerd-icons))
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  (setq neo-window-width 30)
+  (setq neo-window-fixed-size t)
+  (add-hook 'neotree-mode-hook ;; With evil
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
+                (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
+                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle))))
+
+;;设置tab
+(use-package tab-bar
+  :ensure nil ; 内置
+  :config
+  (setq tab-bar-close-button-show nil ; 隐藏关闭按钮
+		tab-bar-new-button-show nil ; 隐藏新建按钮
+)
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator)))
 
 (use-package centaur-tabs
   :ensure t
@@ -229,7 +277,7 @@
         centaur-tabs-show-navigation-buttons t
         centaur-tabs-set-bar 'under
         centaur-tabs-show-count nil
-	centaur-tabs-icon-type 'nerd-icons  ; or 'nerd-icons
+		centaur-tabs-icon-type 'nerd-icons  ; or 'nerd-icons
         ;; centaur-tabs-label-fixed-length 15
         ;; centaur-tabs-gray-out-icons 'buffer
         ;; centaur-tabs-plain-icons t

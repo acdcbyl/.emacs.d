@@ -9,6 +9,13 @@
 ;;;   Built-in config for developers
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package vterm
+  :ensure t
+  :defer t)
+
+(use-package quickrun
+  :ensure t
+  :defer t)
 
 (use-package emacs
   :config

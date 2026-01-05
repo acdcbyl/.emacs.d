@@ -17,7 +17,6 @@
 
 ;; Startup speed, annoyance suppression
 (setq gc-cons-threshold 10000000)
-
 ;; 调整从进程读取数据的缓冲区大小
 ;; 检查系统支持的最大管道大小`cat /proc/sys/fs/pipe-max-size`
 ;; 1048576 --1MB; 4194304 --4MB ; 8388608 --8MB 
@@ -44,7 +43,7 @@
 
                             ;; Setting the face in here prevents flashes of
                             ;; color as the theme gets activated
-                            (background-color . "#000000")
+                            ;; (background-color . "#000000")
                             (ns-appearance . dark)
                             (ns-transparent-titlebar . t)))
 

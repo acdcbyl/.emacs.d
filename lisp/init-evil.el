@@ -109,8 +109,8 @@
     "fD" '+delete-current-file
     "fy" '+copy-current-filename
     "fR" '+rename-current-file
-    "fn" 'treemacs-create-file
-    "fd" 'treemacs-create-dir
+    "fn" 'make-empty-file
+    "fd" 'make-directory 
     "fr" 'recentf-open-files
     "fl" 'find-file-literally
     "fj" 'dired-jump
@@ -154,14 +154,14 @@
     ;; tab
     "t" '(:wk "󰓩 tab")
     "tc" 'centaur-tabs--kill-this-buffer-dont-ask
-    "tC" 'centaur-tabs-kill-all-buffers-in-current-group
+    "tC" 'tab-bar-close-tab
     "tg" 'centaur-tabs-switch-group
-    ;"ti" 'tab-switcher
-    "tn" 'centaur-tabs--create-new-tab
+    "ti" 'tab-switcher
+    "tn" 'tab-new
     "to" 'centaur-tabs-kill-other-buffers-in-current-group
-    ;"tt" 'tab-bar-switch-to-tab
-    ;"t'" 'tab-bar-switch-to-recent-tab
-    ;"tr" 'centaur-tabs-project-name
+    "tt" 'tab-bar-switch-to-tab
+    "t'" 'tab-bar-switch-to-recent-tab
+    "tr" 'tab-bar-rename-tab
     ;; search
     "s" '(:wk " search")
     "sj" 'evil-show-jumps
@@ -192,9 +192,9 @@
     "o" '(:wk " open")
     "oc" 'org-capture
     "ol" 'org-store-link
-    "ot" 'treemacs
+    "ot" 'neotree-toggle
     "oe" 'eshell
-    "os" 'shell)
+    "os" 'vshell)
 
   ;; Org mode localleader 键绑定
   (with-eval-after-load 'org

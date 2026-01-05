@@ -11,14 +11,15 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package emms
+  :defer t
   :ensure t
   :config
   (require 'emms-setup)
   ;; 音乐目录
   (setq emms-source-file-default-directory "~/Music/")
   ;; 明确将播放器列表设置为只包含 MPD
-  (setq emms-player-list '(emms-player-mpd))  
   ;; 使用缓存来加速
+  (emms-cache-enable)
   (setq emms-cache-file "~/.emacs.d/emms/cache")
   
   ;; 异步加载封面，避免阻塞
