@@ -16,17 +16,11 @@
 | org-roam | [X]        |
 | lsp      | [X]        |
 | emms     | [X]        |
-| treemacs | [X]        |
+| neotree  | [X]        |
 
 * 截图
 
 [[file:./assets/main.png]]
-
-[[file:./assets/go.png]]
-
-[[file:./assets/rust.png]]
-
-[[file:./assets/org.png]]
 
 * 快速开始
 
@@ -37,3 +31,4 @@
 #+begin_src bash
 git clone https://github.com/acdcbyl/.emacs.d.git ~/.emacs.d/
 #+end_src
+

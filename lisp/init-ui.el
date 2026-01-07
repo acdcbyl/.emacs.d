@@ -142,7 +142,7 @@
   :config
   (defconst homepage-url "https://github.com/acdcbyl")
   :custom
-  (dashboard-startup-banner "~/.face")
+  (dashboard-startup-banner "~/.config/nvim/lua/plugins/dashboard-img/129229269_p0_master1200.png")
   (dashboard-image-banner-max-width 300)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
