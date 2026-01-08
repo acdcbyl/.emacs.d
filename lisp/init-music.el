@@ -15,36 +15,36 @@
   :ensure t
   :config
   (require 'emms-setup)
-  ;; 音乐目录
+  ;; Music directory
   (setq emms-source-file-default-directory "~/Music/")
-  ;; 明确将播放器列表设置为只包含 MPD
-  ;; 使用缓存来加速
+  ;; Explicitly set the player list to only include MPD
+  ;; Use cache to speed up
   (emms-cache-enable)
   (setq emms-cache-file "~/.emacs.d/emms/cache")
   
-  ;; 异步加载封面，避免阻塞
+  ;; Asynchronously load covers to avoid blocking
   (setq emms-browser-covers 'emms-browser-cache-thumbnail-async)
   
-  ;; 减少信息跟踪可以提速
+  ;; Reducing information tracking can speed things up
   (setq emms-track-description-function 'emms-info-track-description)
   
-  ;; 使用 MPD 可以显著提速（推荐）
+  ;; Using MPD can significantly speed things up (recommended)
   (require 'emms-player-mpd)
   (add-to-list 'emms-player-list 'emms-player-mpd)
   (setq emms-player-mpd-server-name "localhost")
   (setq emms-player-mpd-server-port "6600")
   
-  ;; 如果使用 MPD，让 MPD 处理音乐库
+  ;; If using MPD, let MPD handle the music library
   (setq emms-player-mpd-music-directory "~/Music/")
   
-  ;; 延迟加载信息
+  ;; Delay loading information
   (setq emms-info-asynchronously t)
   (setq emms-mode-line nil)
   (setq emms-lyrics-display-on-modeline nil)
   (setq emms-lyrics-display-on-minibuffer t)
   (with-eval-after-load 'emms
   (custom-set-faces
-   ;; 让 EMMS 继承主题的通用 face，这样换主题就自动适配了
+   ;; Let EMMS inherit the theme's common face, so that it will automatically adapt when changing themes
    '(emms-browser-track-face ((t (:inherit default))))
    '(emms-playlist-track-face ((t (:inherit default))))
    '(emms-playlist-selected-face ((t (:inherit highlight :weight bold))))
@@ -56,7 +56,7 @@
 )
   
 
-;; 配置covers工具
+;; Configure covers tool
 (use-package lyrics-fetcher
   :ensure t
   :after (emms)

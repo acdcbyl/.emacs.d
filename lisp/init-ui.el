@@ -57,21 +57,21 @@
                                            :background (face-background 'mode-line nil t))))))
 (with-eval-after-load 'treemacs
   (custom-set-faces
-   ;; 使用 mode-line 的背景色
+   ;; Use the background color of the mode-line
    `(treemacs-window-background-face 
      ((t (:background ,(face-attribute 'mode-line :background)))))
-   ;; 高亮行用默认背景
+   ;; Highlight the current line with the default background
    `(treemacs-hl-line-face 
      ((t (:background ,(face-attribute 'default :background)))))))
 )
 
-;; 使用nerd-icons作为图标包
+;; Use nerd-icons as the icon package
 (use-package nerd-icons
   :ensure t
   :when (display-graphic-p)
   :demand t)
 
-;; 为其他窗口适配图标
+;; Adapt icons for other windows
 (use-package nerd-icons-completion
   :ensure t
   :after (marginalia nerd-icons)
@@ -79,57 +79,56 @@
   (nerd-icons-completion-mode 1)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
-;; 为dired设置图标
+;; Set icons for dired
 (use-package nerd-icons-dired
   :ensure t
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
-;; 为ibuffer设置图标
+;; Set icons for ibuffer
 (use-package nerd-icons-ibuffer
   :ensure t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
-;; 设置doom-modeline
+;; Set up doom-modeline
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
   :config
-  ;; 你原来的设置保留大部分，只改下面这些
   (setq doom-modeline-height 30)
-  (setq doom-modeline-bar-width 6)                ; 细条太瘦，加粗一点更有存在感
-  (setq doom-modeline-window-width-limit fill-column)  ; 小窗口时自动收缩
+  (setq doom-modeline-bar-width 6)               
+  (setq doom-modeline-window-width-limit fill-column)  
 
-  ;; 文件名显示更清晰
-  (setq doom-modeline-buffer-file-name-style 'truncate-with-project)  ; 项目根 + 文件名，最实用
-  ;; 或者 'relative-to-project 只显示项目内的相对路径
+  ;; Display file names more clearly
+  (setq doom-modeline-buffer-file-name-style 'truncate-with-project)  
+  ;; Or 'relative-to-project' to only display the relative path within the project
 
-  ;; 图标和颜色
+  ;; Icons and colors
   (setq doom-modeline-icon t
         doom-modeline-major-mode-icon t
         doom-modeline-major-mode-color-icon t
         doom-modeline-buffer-state-icon t
         doom-modeline-buffer-modification-icon t)
 
-  ;; 简化一些不必要的显示，避免拥挤
-  (setq doom-modeline-minor-modes nil)           ; 你已经关了，很好
-  (setq doom-modeline-buffer-encoding 'nondefault)  ; 只在非 UTF-8 时显示，减少杂讯
-  (setq doom-modeline-indent-info nil)           ; 一般不需要，除非你很在意 tab/spaces
+  ;; Simplify some unnecessary displays to avoid clutter
+  (setq doom-modeline-minor-modes nil)           
+  (setq doom-modeline-buffer-encoding 'nondefault) 
+  (setq doom-modeline-indent-info nil)           j
 
-  ;; 位置信息更简洁
+  ;; More concise position information
   (setq doom-modeline-percent-position '(-3 "%p"))
   (setq doom-modeline-position-line-format '("%l"))
   (setq doom-modeline-position-column-format '(":%c"))
 
-  ;; 让段落间距更舒服
-  (setq doom-modeline-padded 8)  ; 默认 4，加大一点呼吸感更好
+  ;; Make paragraph spacing more comfortable
+  (setq doom-modeline-padded 8) 
 
-  ;; 可选：启用更现代的段落分隔符（斜线而不是竖线）
-  (setq doom-modeline-modal t)                   ; 显示 modal 状态（normal/insert 等）
+  ;; Optional: Enable more modern paragraph separators (slashes instead of vertical bars)
+  (setq doom-modeline-modal t)
   (setq doom-modeline-modal-icon t)
 )
 
-;; 设置dashboard
+;; Set up dashboard
 (use-package dashboard
   :ensure t
   :init
@@ -173,7 +172,7 @@
   :ensure t
   :hook prog-mode)
 
-;;dired美化增强
+;;Dired beautification and enhancement
 (use-package dired
   :config
   (setq dired-listing-switches
@@ -232,12 +231,12 @@
    ("M-b" . dirvish-history-go-backward)
    ("M-e" . dirvish-emerge-menu)))
 
-;;设置tab
+;;Set up tabs
 (use-package tab-bar
   :ensure nil ; 内置
   :config
-  (setq tab-bar-close-button-show nil ; 隐藏关闭按钮
-		tab-bar-new-button-show nil ; 隐藏新建按钮
+  (setq tab-bar-close-button-show nil 
+		tab-bar-new-button-show nil 
 )
 (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator)))
 
@@ -326,16 +325,16 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   :hook (after-init . spacious-padding-mode)
   :custom
   (spacious-padding-widths
-   '( :internal-border-width 20      ; 整体内部边框（左右上会用这个）
+   '( :internal-border-width 20      
       :internal-border-width-bottom 4 
-      :internal-border-width-top 20    ; 上部保持宽敞
+      :internal-border-width-top 20    
       :right-divider-width 16
       :fringe-width 12
       :mode-line-width 6))
   ;; (spacious-padding-subtle-mode-line t)
   )
 
-;;隐藏modeline
+;;Hide modeline
 (use-package hide-mode-line
   :ensure t
   :hook (((eat-mode

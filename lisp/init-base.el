@@ -113,7 +113,7 @@ If the new path's directories does not exist, create them."
 (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
-;; 设置字体
+;; Set font
 (set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

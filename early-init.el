@@ -17,8 +17,8 @@
 
 ;; Startup speed, annoyance suppression
 (setq gc-cons-threshold 10000000)
-;; 调整从进程读取数据的缓冲区大小
-;; 检查系统支持的最大管道大小`cat /proc/sys/fs/pipe-max-size`
+;; Adjust the buffer size for reading data from processes
+;; Check the maximum pipe size supported by the system `cat /proc/sys/fs/pipe-max-size`
 ;; 1048576 --1MB; 4194304 --4MB ; 8388608 --8MB 
 (setq read-process-output-max (* 1 1024 1024)) ;1MB
 (setq byte-compile-warnings '(not obsolete))
@@ -31,7 +31,7 @@
 ;; Default frame configuration: full screen, good-looking title bar on macOS
 (setq frame-resize-pixelwise t)
 (tool-bar-mode -1)                      ; All these tools are in the menu-bar anyway
-;; 关闭菜单栏
+;; Disable the menu bar
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (setq default-frame-alist '(

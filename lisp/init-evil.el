@@ -13,11 +13,11 @@
 (use-package evil
   :ensure t
   :preface
-  (customize-set-variable 'evil-want-keybinding nil) ;; 和evil-collection一起使用
-  (customize-set-variable 'evil-want-integration t) ;; 和evil-collection一起使用
+  (customize-set-variable 'evil-want-keybinding nil) ;; Use with evil-collection
+  (customize-set-variable 'evil-want-integration t) ;; Use with evil-collection
   (customize-set-variable 'evil-undo-system 'undo-redo)
-  (customize-set-variable 'evil-want-C-u-scroll t) ;; 翻页功能
-  (customize-set-variable 'evil-want-C-u-delete t) ;; 允许使用 Ctrl-u 删除到行首
+  (customize-set-variable 'evil-want-C-u-scroll t) ;; Page scroll function
+  (customize-set-variable 'evil-want-C-u-delete t) ;; Allow using Ctrl-u to delete to the beginning of the line
   (customize-set-variable 'evil-want-C-g-bindings t)
   :init
   (setq evil-respect-visual-line-mode t)
@@ -30,13 +30,13 @@
   (evil-set-initial-state 'emms-playlist-mode 'normal)
   ;; Configuring initial major mode for some modes
   (evil-set-initial-state 'vterm-mode 'emacs))
-;; evil-collection配置
+;; evil-collection configuration
 (use-package evil-collection
   :after evil
   :ensure t
   :config
   (evil-collection-init))
-;; 添加注释快捷键
+;; Add comment shortcut
 (use-package evil-nerd-commenter
   :ensure t
   :after evil
@@ -44,11 +44,11 @@
   (general-def :states '(normal visual) ",/" 'evilnc-comment-or-uncomment-lines)
   (general-def :states 'normal "gcc" 'evilnc-comment-or-uncomment-lines)
   (general-def :states 'visual "gc" 'evilnc-comment-or-uncomment-lines))
-;; 成对修改括号
+;; Modify parentheses in pairs
 (use-package evil-surround
   :ensure t
   :hook (after-init . global-evil-surround-mode))
-;; 方便的参数修改
+;; Convenient parameter modification
 (use-package evil-args
   :after evil
   :ensure t
@@ -63,35 +63,35 @@
   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
   (defun +config/evil-args-lisp ()
     (setq-local evil-args-delimiters '(" "))))
-;; 快捷退出
+;; Quick exit
 (use-package evil-escape
   :ensure t
   :after evil
   :init
-  (setq evil-escape-key-sequence "jk") ;; 设置快捷键序列
-  (setq evil-escape-delay 0.2) ;; 设置两个按键之间的时间
+  (setq evil-escape-key-sequence "jk") ;; Set shortcut key sequence
+  (setq evil-escape-delay 0.2) ;; Set the time between two key presses
   :config
   (evil-escape-mode 1))
 
-;; 使用 general.el 定义 leader keys
+;; Use general.el to define leader keys
 (use-package general
   :ensure t
   :after evil
   :config
-  ;; 定义全局 leader (SPC)
+  ;; Define global leader (SPC)
   (general-create-definer my-leader-def
     :states '(normal visual motion)
     :keymaps 'override
     :prefix "SPC"
     :non-normal-prefix "M-SPC")  ; 可选：在 insert/emacs 状态用 M-SPC
 
-  ;; 定义 localleader (SPC m)
+  ;; Define localleader (SPC m)
   (general-create-definer my-localleader-def
     :states '(normal visual motion)
     :keymaps 'override
     :prefix "SPC m")
 
-  ;; 全局 leader 键绑定
+  ;; Global leader key binding
   (my-leader-def
     ;; SPC, quit minibuffer.
     "SPC" 'keyboard-escape-quit
@@ -196,7 +196,7 @@
     "oe" 'eshell
     "os" 'vterm-other-window)
 
-  ;; Org mode localleader 键绑定
+  ;; Org mode localleader key binding
   (with-eval-after-load 'org
     (my-localleader-def
       :keymaps 'org-mode-map
@@ -244,7 +244,7 @@
       "it" 'org-time-stamp-inactive
       "iT" 'org-time-stamp))
 
-  ;; Emacs Lisp mode localleader 键绑定
+  ;; Emacs Lisp mode localleader key binding
   (with-eval-after-load 'elisp-mode
     (my-localleader-def
       :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
@@ -259,7 +259,7 @@
       "gv" 'find-variable
       "gl" 'find-library))
 
-  ;; emms-browser-mode 的自定义键（使用 general-def）
+  ;; Custom keys for emms-browser-mode (using general-def)
 (with-eval-after-load 'emms-browser
   (general-def 'normal emms-browser-mode-map
     "h" 'emms-browser-move-up-level

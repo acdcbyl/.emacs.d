@@ -106,8 +106,8 @@
   :bind
   (:map corfu-map
         ("SPC" . corfu-insert-separator)
-		;; ("TAB" . corfu-next)           ; Tab 选择下一个
-        ;; ("<backtab>" . corfu-previous) ; Shift-Tab 选择上一个
+		;; ("TAB" . corfu-next)           ; Tab to select next
+        ;; ("<backtab>" . corfu-previous) ; Shift-Tab to select previous
         ("C-n" . corfu-next)
         ("C-p" . corfu-previous)
 		))

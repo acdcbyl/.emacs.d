@@ -36,7 +36,7 @@
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
 
-;; 使用flycheck检查
+;; Use flycheck for checking
 
 (use-package flycheck
   :ensure t
@@ -48,7 +48,7 @@
   (flycheck-indication-mode 'right-fringe))
 
 
-;; 设置代码折叠
+;; Set up code folding
 (use-package treesit-fold
   :ensure t
   :config (global-treesit-fold-mode))
@@ -175,7 +175,7 @@
   :config
   (yas-reload-all))
 
-;; 官方代码片段集合
+;; Official snippet collection
 (use-package yasnippet-snippets
   :ensure t
   :after yasnippet)

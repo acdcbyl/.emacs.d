@@ -20,10 +20,10 @@
 ;;; Phase 1 variables
 
 ;;; Phase 2 variables
-;; 告诉 Emacs 用 Hunspell，并指定词典目录（如果默认找不到）
+;; Tell Emacs to use Hunspell, and specify the dictionary directory (if it can't be found by default)
 (setq ispell-program-name "hunspell")
 
-;; 指定默认词典（改成你想要的，比如 en_US, zh_CN 等）
+;; Specify the default dictionary (change it to what you want, e.g., en_US, zh_CN, etc.)
 (setq ispell-dictionary "en_US")
 ;; Agenda variables
 (setq org-directory "~/Documents/org/") ; Non-absolute paths for agenda and
@@ -162,7 +162,7 @@
 ;        org-roam-ui-update-on-save t
 ;        org-roam-ui-open-on-start t))
 
-;; 安装并配置 org-modern
+;; Install and configure org-modern
 (use-package org-modern
   :ensure t
   :hook (org-mode . org-modern-mode)
