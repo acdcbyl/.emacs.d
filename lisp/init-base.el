@@ -114,7 +114,7 @@ If the new path's directories does not exist, create them."
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
 ;; 设置字体
-(set-face-attribute 'default nil :family "Iosevka SS07" :height 150)
+(set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

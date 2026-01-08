@@ -192,9 +192,9 @@
     "o" '(:wk " open")
     "oc" 'org-capture
     "ol" 'org-store-link
-    "ot" 'neotree-toggle
+    "ot" 'dirvish-side
     "oe" 'eshell
-    "os" 'vshell)
+    "os" 'vterm-other-window)
 
   ;; Org mode localleader 键绑定
   (with-eval-after-load 'org

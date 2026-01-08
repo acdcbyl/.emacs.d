@@ -4,16 +4,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(avy cape centaur-tabs colorful-mode corfu-terminal dashboard
-		 doom-modeline doom-themes elcord elisp-autofmt embark-consult
-		 evil-args evil-collection evil-escape evil-nerd-commenter
-		 evil-surround general go-mode good-scroll hide-mode-line
-		 json-mode lyrics-fetcher magit marginalia neotree
-		 nerd-icons-completion nerd-icons-corfu nerd-icons-dired
-		 nerd-icons-ibuffer no-littering orderless org-modern org-roam
-		 projectile qml-mode quick-run quickrun rainbow-delimiters
-		 rust-mode spacious-padding vertico vterm wgrep yaml-mode)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

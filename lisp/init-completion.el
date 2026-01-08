@@ -103,12 +103,14 @@
   (corfu-auto-delay 0.1)         ; 延迟时间（秒）
   (corfu-auto-prefix 2)          ; 输入多少字符后触发
   (corfu-cycle t)                ; 允许循环选择
-  (corfu-preselect 'prompt)      ; 预选第一个候选项
   :bind
   (:map corfu-map
         ("SPC" . corfu-insert-separator)
+		;; ("TAB" . corfu-next)           ; Tab 选择下一个
+        ;; ("<backtab>" . corfu-previous) ; Shift-Tab 选择上一个
         ("C-n" . corfu-next)
-        ("C-p" . corfu-previous)))
+        ("C-p" . corfu-previous)
+		))
 
 ;; Part of corfu
 (use-package corfu-popupinfo

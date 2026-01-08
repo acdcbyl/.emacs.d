@@ -26,6 +26,7 @@
   (setq major-mode-remap-alist
         '((yaml-mode . yaml-ts-mode)
           (bash-mode . bash-ts-mode)
+          (go-mode . go-ts-mode)
           (js2-mode . js-ts-mode)
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
@@ -35,7 +36,22 @@
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
 
+;; 使用flycheck检查
 
+(use-package flycheck
+  :ensure t
+  :hook (prog-mode . flycheck-mode)
+  :custom
+  (flycheck-temp-prefix ".flycheck")
+  (flycheck-check-syntax-automatically '(save mode-enabled))
+  (flycheck-emacs-lisp-load-path 'inherit)
+  (flycheck-indication-mode 'right-fringe))
+
+
+;; 设置代码折叠
+(use-package treesit-fold
+  :ensure t
+  :config (global-treesit-fold-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Version Control
@@ -64,7 +80,11 @@
 
 (use-package go-mode
   :ensure t
-  :mode ("\\.go\\'" . go-mode))
+  :mode ("\\.go\\'" . go-mode)
+  :config
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'gofmt-before-save nil t))))
 
 (use-package rust-mode
   :ensure t
@@ -98,7 +118,7 @@
   ;; Configure hooks to automatically turn-on eglot for selected modes
   :hook
   ((rust-mode) . eglot-ensure)
-  ((go-mode) . eglot-ensure)
+  ((go-ts-mode) . eglot-ensure)
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -114,12 +134,19 @@
                '(qml-mode . ("qmlls6" "-E"))) 
   
   (add-to-list 'eglot-server-programs
-               '(go-mode . ("gopls" :initializationOptions
+               '(go-ts-mode . ("gopls" :initializationOptions
                             (:hints (:assignVariableTypes t
                                      :compositeLiteralFields t
                                      :parameterNames t
                                      :functionTypeParameters t)))))
   )
+
+;;eglot doc box
+(use-package eldoc-box
+  :ensure t
+  :config
+  (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
+  (add-hook 'eldoc-box-buffer-setup-hook #'eldoc-box-prettify-ts-errors 0 t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -135,6 +162,23 @@
  (setq projectile-mode-line "Projectile")
  (setq projectile-track-known-projects-automatically nil))
 
-(provide 'init-dev)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Snippet Config
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; yasnippet
+(use-package yasnippet
+  :ensure t
+  :hook ((prog-mode . yas-minor-mode)
+         (text-mode . yas-minor-mode))
+  :config
+  (yas-reload-all))
 
+;; 官方代码片段集合
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet)
+
+(provide 'init-dev)
 ;;; init-dev.el ends here

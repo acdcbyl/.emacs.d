@@ -159,11 +159,6 @@
                                dashboard-insert-newline
                                dashboard-insert-footer)))
 
-;; 设置good scroll
-(use-package good-scroll
- :ensure t
- :if window-system     ; 在图形化界面时才使用这个插件
- :init (good-scroll-mode))
 ;; Colorize color names in buffers
 (use-package colorful-mode
   :ensure t
@@ -178,82 +173,64 @@
   :ensure t
   :hook prog-mode)
 
-;; 设置treemacs
-;; (use-package treemacs
-;;   :ensure t
-;;   :commands (treemacs-follow-mode
-;;              treemacs-filewatch-mode
-;;              treemacs-git-mode)
-;;   :custom-face
-;;   (cfrs-border-color ((t (:inherit posframe-border))))
-;;   :bind (([f8]        . treemacs)
-;;          ("M-0"       . treemacs-select-window)
-;;          ("C-x t 1"   . treemacs-delete-other-windows)
-;;          ("C-x t t"   . treemacs)
-;;          ("C-x t b"   . treemacs-bookmark)
-;;          ("C-x t C-t" . treemacs-find-file)
-;;          ("C-x t M-t" . treemacs-find-tag)
-;;          :map treemacs-mode-map
-;;          ([mouse-1]   . treemacs-single-click-expand-action))
-;;   :config
-;;   (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
-;;         treemacs-missing-project-action  'remove
-;;         treemacs-user-mode-line-format   'none
-;;         treemacs-sorting                 'alphabetic-asc
-;;         treemacs-follow-after-init       t
-;;         treemacs-width                   30
-;;         treemacs-no-png-images           nil)
-;;   (treemacs-filewatch-mode t)
-;;   (pcase (cons (not (null (executable-find "git")))
-;;                (not (null (executable-find "python3"))))
-;;     (`(t . t)
-;;      (treemacs-git-mode 'deferred))
-;;     (`(t . _)
-;;      (treemacs-git-mode 'simple))))
-
-;; (use-package treemacs-evil
-;;   :ensure t
-;;   :after (treemacs evil))
-
-;; (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
-;;   :after (treemacs)
-;;   :ensure t
-;;   :config (treemacs-set-scope-type 'Tabs))
-
-;; (use-package treemacs-magit
-;;   :after (treemacs magit)
-;;   :ensure t)
-
-;; (use-package treemacs-projectile
-;;   :after (treemacs projectile)
-;;   :ensure t)
-
-;; (use-package treemacs-nerd-icons
-;;   :ensure t
-;;   :after (treemacs)
-;;   :config
-;;   (treemacs-nerd-icons-config))
-
-;;设置neotree
-(use-package neotree
-  :ensure t
+;;dired美化增强
+(use-package dired
   :config
-  (setq neo-smart-open t)
-  (setq neo-theme (if (display-graphic-p) 'nerd-icons))
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  (setq neo-window-width 30)
-  (setq neo-window-fixed-size t)
-  (add-hook 'neotree-mode-hook ;; With evil
-              (lambda ()
-                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-                (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
-                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
-                (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
-                (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
-                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
-                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle))))
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --group-directories-first --no-group")
+  ;; this command is useful when you want to close the window of `dirvish-side'
+  ;; automatically when opening a file
+  (put 'dired-find-alternate-file 'disabled nil))
+
+(use-package dirvish
+  :ensure t
+  :init
+  ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-yank.el" user-emacs-directory))
+  ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-collapse.el" user-emacs-directory))
+  ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-peek.el" user-emacs-directory))
+  ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-vc.el" user-emacs-directory))
+  ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-subtree.el" user-emacs-directory))
+  ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-side.el" user-emacs-directory))
+  (dirvish-override-dired-mode)
+  :custom
+  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
+   '(("h" "~/"                          "Home")
+     ("d" "~/Downloads/"                "Downloads")
+     ("m" "/mnt/"                       "Drives")
+     ("s" "/ssh:my-remote-server")      "SSH server"
+     ("e" "/sudo:root@localhost:/etc")  "Modify program settings"
+     ("t" "~/.local/share/Trash/files/" "TrashCan")))
+  :config
+  (dirvish-peek-mode)             ; Preview files in minibuffer
+  (dirvish-side-follow-mode)      ; similar to `treemacs-follow-mode'
+  (setq dirvish-mode-line-format
+        '(:left (sort symlink) :right (omit yank index)))
+  (setq dirvish-attributes           ; The order *MATTERS* for some attributes
+        '(vc-state subtree-state nerd-icons collapse git-msg file-time file-size)
+        dirvish-side-attributes
+        '(vc-state nerd-iocns collapse file-size))
+  ;; open large directory (over 20000 files) asynchronously with `fd' command
+  (setq dirvish-large-directory-threshold 20000)
+  :bind ; Bind `dirvish-fd|dirvish-side|dirvish-dwim' as you see fit
+  (("C-c f" . dirvish)
+   :map dirvish-mode-map               ; Dirvish inherits `dired-mode-map'
+   ("h"   . dired-up-directory)        ; So you can adjust `dired' bindings here
+   ("?"   . dirvish-dispatch)          ; [?] a helpful cheatsheet
+   ("a"   . dirvish-setup-menu)        ; [a]ttributes settings:`t' toggles mtime, `f' toggles fullframe, etc.
+   ("f"   . dirvish-file-info-menu)    ; [f]ile info
+   ("o"   . dirvish-quick-access)      ; [o]pen `dirvish-quick-access-entries'
+   ("s"   . dirvish-quicksort)         ; [s]ort flie list
+   ("r"   . dirvish-history-jump)      ; [r]ecent visited
+   ("l"   . dirvish-ls-switches-menu)  ; [l]s command flags
+   ("v"   . dirvish-vc-menu)           ; [v]ersion control commands
+   ("*"   . dirvish-mark-menu)
+   ("y"   . dirvish-yank-menu)
+   ("N"   . dirvish-narrow)
+   ("^"   . dirvish-history-last)
+   ("TAB" . dirvish-subtree-toggle)
+   ("M-f" . dirvish-history-go-forward)
+   ("M-b" . dirvish-history-go-backward)
+   ("M-e" . dirvish-emerge-menu)))
 
 ;;设置tab
 (use-package tab-bar
