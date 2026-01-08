@@ -24,7 +24,7 @@
   (doom-themes-neotree-file-icons t)
   ;; (doom-themes-treemacs-theme "doom-atom")
   :config
-  (load-theme 'doom-nord-aurora t)
+  (load-theme 'doom-one t)
   (doom-themes-neotree-config)
   ;; (doom-themes-treemacs-config)
   (doom-themes-visual-bell-config)
@@ -113,7 +113,7 @@
   ;; Simplify some unnecessary displays to avoid clutter
   (setq doom-modeline-minor-modes nil)           
   (setq doom-modeline-buffer-encoding 'nondefault) 
-  (setq doom-modeline-indent-info nil)           j
+  (setq doom-modeline-indent-info nil)           
 
   ;; More concise position information
   (setq doom-modeline-percent-position '(-3 "%p"))
@@ -233,7 +233,7 @@
 
 ;;Set up tabs
 (use-package tab-bar
-  :ensure nil ; 内置
+  :ensure nil 
   :config
   (setq tab-bar-close-button-show nil 
 		tab-bar-new-button-show nil 

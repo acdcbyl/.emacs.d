@@ -9,7 +9,7 @@
 ;;;   Built-in config for developers
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package vterm
+(use-package eat
   :ensure t
   :defer t)
 
@@ -27,6 +27,7 @@
         '((yaml-mode . yaml-ts-mode)
           (bash-mode . bash-ts-mode)
           (go-mode . go-ts-mode)
+		  (rust-mode . rust-ts-mode)
           (js2-mode . js-ts-mode)
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
@@ -38,14 +39,14 @@
 
 ;; Use flycheck for checking
 
-(use-package flycheck
-  :ensure t
-  :hook (prog-mode . flycheck-mode)
-  :custom
-  (flycheck-temp-prefix ".flycheck")
-  (flycheck-check-syntax-automatically '(save mode-enabled))
-  (flycheck-emacs-lisp-load-path 'inherit)
-  (flycheck-indication-mode 'right-fringe))
+;; (use-package flycheck
+;;   :ensure t
+;;   :hook (prog-mode . flycheck-mode)
+;;   :custom
+;;   (flycheck-temp-prefix ".flycheck")
+;;   (flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (flycheck-emacs-lisp-load-path 'inherit)
+;;   (flycheck-indication-mode 'right-fringe))
 
 
 ;; Set up code folding
@@ -80,17 +81,18 @@
 
 (use-package go-mode
   :ensure t
-  :mode ("\\.go\\'" . go-mode)
+  ;; :mode ("\\.go\\'" . go-mode)
   :config
-  (add-hook 'go-mode-hook
+(add-hook 'go-ts-mode-hook
             (lambda ()
-              (add-hook 'before-save-hook 'gofmt-before-save nil t))))
+              (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
 
 (use-package rust-mode
   :ensure t
-  :mode ("\\.rs\\'" . rust-mode)
   :config
-  (setq rust-format-on-save t)
+  (add-hook 'rust-ts-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'eglot-format-buffer nil t)))
   :custom
   (rust-indent-where-clause t)
   (rust-load-optional-libraries t))
@@ -117,7 +119,7 @@
 
   ;; Configure hooks to automatically turn-on eglot for selected modes
   :hook
-  ((rust-mode) . eglot-ensure)
+  ((rust-ts-mode) . eglot-ensure)
   ((go-ts-mode) . eglot-ensure)
 
   :custom
@@ -128,7 +130,7 @@
   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
   (add-to-list 'eglot-server-programs
-               '(rust-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
+               '(rust-ts-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
                
   (add-to-list 'eglot-server-programs
                '(qml-mode . ("qmlls6" "-E"))) 
@@ -160,7 +162,7 @@
  :bind (("C-c p" . projectile-command-map))
  :config
  (setq projectile-mode-line "Projectile")
- (setq projectile-track-known-projects-automatically nil))
+ (setq projectile-track-known-projects-automatically t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

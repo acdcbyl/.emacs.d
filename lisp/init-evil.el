@@ -15,13 +15,13 @@
   :preface
   (customize-set-variable 'evil-want-keybinding nil) ;; Use with evil-collection
   (customize-set-variable 'evil-want-integration t) ;; Use with evil-collection
-  (customize-set-variable 'evil-undo-system 'undo-redo)
+  (customize-set-variable 'evil-undo-system 'undo-fu)
   (customize-set-variable 'evil-want-C-u-scroll t) ;; Page scroll function
   (customize-set-variable 'evil-want-C-u-delete t) ;; Allow using Ctrl-u to delete to the beginning of the line
   (customize-set-variable 'evil-want-C-g-bindings t)
   :init
   (setq evil-respect-visual-line-mode t)
-  (setq evil-undo-system 'undo-redo)
+  ;; (setq evil-undo-system 'undo-fu)
   ;; Enable this if you want C-u to scroll up, more like pure Vim
   ;(setq evil-want-C-u-scroll t)
   :config
@@ -83,7 +83,7 @@
     :states '(normal visual motion)
     :keymaps 'override
     :prefix "SPC"
-    :non-normal-prefix "M-SPC")  ; 可选：在 insert/emacs 状态用 M-SPC
+    :non-normal-prefix "M-SPC") 
 
   ;; Define localleader (SPC m)
   (general-create-definer my-localleader-def
@@ -193,8 +193,7 @@
     "oc" 'org-capture
     "ol" 'org-store-link
     "ot" 'dirvish-side
-    "oe" 'eshell
-    "os" 'vterm-other-window)
+    "os" 'eat-other-window)
 
   ;; Org mode localleader key binding
   (with-eval-after-load 'org

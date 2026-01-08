@@ -18,13 +18,13 @@
 ;;  :if window-system     ; Only use this plugin in graphical interface
 ;;  :init (good-scroll-mode))
 
-(use-package sublimity
-  :ensure t
-  :config
-  (require 'sublimity-scroll)
-  ;; (require 'sublimity-map)   ;Minimap function
-  ;; (require 'sublimity-attractive)  ;Cursor effect
-  (sublimity-mode 1))
+;; (use-package sublimity
+;;   :ensure t
+;;   :config
+;;   (require 'sublimity-scroll)
+;;   ;; (require 'sublimity-map)   ;Minimap function
+;;   ;; (require 'sublimity-attractive)  ;Cursor effect
+;;   (sublimity-mode 1))
 ;; Set Chinese font
 ;; (use-package cnfonts
 ;;   :ensure t
@@ -35,6 +35,22 @@
   :ensure t
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
   :hook (emacs-lisp-mode . elisp-autofmt-mode))
+
+;; wakatime
+(use-package wakatime-mode
+  :ensure t
+  :config
+  (global-wakatime-mode))
+
+;; better undo
+(use-package undo-fu
+  :ensure t)
+
+;; undo session
+(use-package undo-fu-session
+  :ensure t
+  :config
+  (undo-fu-session-global-mode))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

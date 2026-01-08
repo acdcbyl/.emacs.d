@@ -15,6 +15,11 @@
 (setopt auto-revert-check-vc-info t)
 (global-auto-revert-mode)
 
+;; undo-limit
+(setq undo-limit 67108864) ; 64mb.
+(setq undo-strong-limit 100663296) ; 96mb.
+(setq undo-outer-limit 1006632960) ; 960mb.
+
 ;; Save history of minibuffer
 (savehist-mode)
 
