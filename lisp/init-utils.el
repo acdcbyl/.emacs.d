@@ -6,11 +6,11 @@
 ;;; Code:
 
 ;; discord ipc
-(use-package elcord
-  :ensure t
-  :init (elcord-mode)
-  :config
-  (setq elcord-quiet t))
+(use-package
+ elcord
+ :ensure t
+ :init (elcord-mode)
+ :config (setq elcord-quiet t))
 
 ;; Set up good scroll
 ;; (use-package good-scroll
@@ -31,26 +31,24 @@
 ;;   :init (cnfonts-mode 1))
 
 ;; make elisp-autofmt
-(use-package elisp-autofmt
-  :ensure t
-  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
-  :hook (emacs-lisp-mode . elisp-autofmt-mode))
+(use-package
+ elisp-autofmt
+ :ensure t
+ :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+ :hook (emacs-lisp-mode . elisp-autofmt-mode)
+ :custom (elisp-autofmt-on-save-p 'always))
 
 ;; wakatime
-(use-package wakatime-mode
-  :ensure t
-  :config
-  (global-wakatime-mode))
+(use-package wakatime-mode :ensure t :config (global-wakatime-mode))
 
 ;; better undo
-(use-package undo-fu
-  :ensure t)
+(use-package undo-fu :ensure t)
 
 ;; undo session
-(use-package undo-fu-session
-  :ensure t
-  :config
-  (undo-fu-session-global-mode))
+(use-package
+ undo-fu-session
+ :ensure t
+ :config (undo-fu-session-global-mode))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

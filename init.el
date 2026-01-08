@@ -3,7 +3,10 @@
 ;;; Code:
 
 (when (< emacs-major-version 29)
-  (error (format "Emacs Bedrock only works with Emacs 29 and newer; you have version ~a" emacs-major-version)))
+  (error
+   (format
+    "Emacs Bedrock only works with Emacs 29 and newer; you have version ~a"
+    emacs-major-version)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -24,17 +27,23 @@
 ;; MELPA packages quickly:
 ;;
 (with-eval-after-load 'package
-  (add-to-list 'package-archives '("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/") t)
-  (add-to-list 'package-archives '("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/") t)
-  (add-to-list 'package-archives '("nongnu" . "https://mirrors.ustc.edu.cn/elpa/nongnu/") t))
+  (add-to-list 'package-archives
+               '("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+               t)
+  (add-to-list 'package-archives
+               '("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+               t)
+  (add-to-list 'package-archives
+               '("nongnu"
+                 .
+                 "https://mirrors.ustc.edu.cn/elpa/nongnu/")
+               t))
 
 ;; If you want to turn off the welcome screen, uncomment this
 ;(setopt inhibit-splash-screen t)
 
 ;; Keep ~/.emacs.d/ clean.
-(use-package no-littering
-  :ensure t
-  :demand t)
+(use-package no-littering :ensure t :demand t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -51,6 +60,7 @@
 (require 'init-dev)
 (require 'init-completion)
 (require 'init-music)
+;; (require 'init-tg)
 (require 'init-org)
 (require 'init-evil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

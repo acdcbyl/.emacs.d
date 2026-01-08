@@ -1,4 +1,4 @@
-;;; init-music.el --- Bring music play for emacs -*- lexical-binding: t -*-
+;;; init-tg.el --- Bring telegram for emacs -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
@@ -10,7 +10,12 @@
 ;;; Core Packages
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package mpdel :ensure t :config (mpdel-mode 1))
+;; need tdlib
+(use-package telega
+  :ensure t
+  :commands (telega)
+  :defer t)
 
-(provide 'init-music)
-;;; init-music.el ends here
+(provide 'init-tg)
+
+;; init-tg ends here
