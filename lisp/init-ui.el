@@ -74,6 +74,7 @@
  (doom-modeline-unicode-fallback t)
  (doom-modeline-enable-word-count nil))
 
+
 ;; Set up dashboard
 (use-package
  dashboard
@@ -144,7 +145,7 @@
  dirvish
  :ensure t
  :init (dirvish-override-dired-mode)
- :custom
+ :custom (dirvish-side-width 30)
  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
   '(("h" "~/" "Home")
     ("d" "~/Downloads/" "Downloads")
@@ -300,7 +301,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     :internal-border-width-bottom 4
     :internal-border-width-top 20
     :right-divider-width 16
-    :fringe-width 12
+    :fringe-width 0
     :mode-line-width 6))
  ;; (spacious-padding-subtle-mode-line t)
  )

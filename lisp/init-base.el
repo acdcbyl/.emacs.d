@@ -80,7 +80,6 @@ If the new path's directories does not exist, create them."
 ;;;   Interface enhancements/defaults
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; Mode line information
 (setopt line-number-mode t) ; Show current line in modeline
 (setopt column-number-mode t) ; Show column as well
