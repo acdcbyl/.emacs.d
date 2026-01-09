@@ -17,52 +17,23 @@
 ;;  emacs
 ;;  :config
 ;;  (load-theme 'catppuccin t)) ; for light theme, use modus-operandi
+;; (use-package
+;;  kaolin-themes
+;;  :ensure t
+;;  :config
+;;  (load-theme 'kaolin-galaxy t)
+;;  (kaolin-treemacs-theme))
 (use-package
  doom-themes
  :ensure t
  :custom (doom-themes-enable-bold t) (doom-themes-enable-italic t)
  ;; (doom-themes-neotree-file-icons t)
  ;; (doom-themes-treemacs-theme "doom-atom")
- :config (load-theme 'doom-ayu-mirage t)
+ :config (load-theme 'doom-tokyo-night t)
  ;; (doom-themes-neotree-config)
  ;; (doom-themes-treemacs-config)
  ;; (doom-themes-visual-bell-config)
- (doom-themes-org-config)
- (with-eval-after-load 'neotree
-   (defun my-neotree-root-style (node)
-     (when (display-graphic-p)
-       (insert
-        (concat
-         (insert "  ")
-         (nerd-icons-octicon
-          "nf-oct-stack"
-          :height 1.0
-          :v-adjust -0.2))))
-     ;; insert project name
-     (insert
-      (propertize (concat
-                   " "
-                   (or (neo-path--file-truename node) "-") "\n")
-                  'display '(raise -0.1))))
-   (advice-add
-    'doom-themes-neotree-insert-root
-    :override #'my-neotree-root-style))
- (with-eval-after-load 'neotree
-   (add-hook
-    'neo-after-create-hook
-    (lambda (_)
-      (with-current-buffer (neo-global--get-buffer)
-        (face-remap-add-relative
-         'default
-         :background (face-background 'mode-line nil t))))))
- (with-eval-after-load 'treemacs
-   (custom-set-faces
-    ;; Use the background color of the mode-line
-    `(treemacs-window-background-face
-      ((t (:background ,(face-attribute 'mode-line :background)))))
-    ;; Highlight the current line with the default background
-    `(treemacs-hl-line-face
-      ((t (:background ,(face-attribute 'default :background))))))))
+ (doom-themes-org-config))
 
 
 ;; Use nerd-icons as the icon package
@@ -93,40 +64,15 @@
 (use-package
  doom-modeline
  :ensure t
- :init (doom-modeline-mode 1)
- :config
- (setq doom-modeline-height 30)
- (setq doom-modeline-bar-width 6)
- (setq doom-modeline-window-width-limit fill-column)
-
- ;; Display file names more clearly
- (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
- ;; Or 'relative-to-project' to only display the relative path within the project
-
- ;; Icons and colors
- (setq
-  doom-modeline-icon t
-  doom-modeline-major-mode-icon t
-  doom-modeline-major-mode-color-icon t
-  doom-modeline-buffer-state-icon t
-  doom-modeline-buffer-modification-icon t)
-
- ;; Simplify some unnecessary displays to avoid clutter
- (setq doom-modeline-minor-modes nil)
- (setq doom-modeline-buffer-encoding 'nondefault)
- (setq doom-modeline-indent-info nil)
-
- ;; More concise position information
- (setq doom-modeline-percent-position '(-3 "%p"))
- (setq doom-modeline-position-line-format '("%l"))
- (setq doom-modeline-position-column-format '(":%c"))
-
- ;; Make paragraph spacing more comfortable
- (setq doom-modeline-padded 8)
-
- ;; Optional: Enable more modern paragraph separators (slashes instead of vertical bars)
- (setq doom-modeline-modal t)
- (setq doom-modeline-modal-icon t))
+ :hook (after-init . doom-modeline-mode)
+ :custom
+ (doom-modeline-irc nil)
+ (doom-modeline-mu4e nil)
+ (doom-modeline-gnus nil)
+ (doom-modeline-github nil)
+ (doom-modeline-persp-name nil)
+ (doom-modeline-unicode-fallback t)
+ (doom-modeline-enable-word-count nil))
 
 ;; Set up dashboard
 (use-package
@@ -197,14 +143,7 @@
 (use-package
  dirvish
  :ensure t
- :init
- ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-yank.el" user-emacs-directory))
- ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-collapse.el" user-emacs-directory))
- ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-peek.el" user-emacs-directory))
- ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-vc.el" user-emacs-directory))
- ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-subtree.el" user-emacs-directory))
- ;; (load-file (expand-file-name "elpa/dirvish-2.3.0/extensions/dirvish-side.el" user-emacs-directory))
- (dirvish-override-dired-mode)
+ :init (dirvish-override-dired-mode)
  :custom
  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
   '(("h" "~/" "Home")
@@ -334,7 +273,10 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
       (centaur-tabs-get-group-name (current-buffer))))))
  :hook
  (dashboard-mode . centaur-tabs-local-mode)
- (term-mode . centaur-tabs-local-mode)
+ (eat-mode . centaur-tabs-local-mode)
+ (mpdel-browser-mode . centaur-tabs-local-mode)
+ (mpdel-tablist-mode . centaur-tabs-local-mode)
+ (mpdel-playlist-mode . centaur-tabs-local-mode)
  (calendar-mode . centaur-tabs-local-mode)
  (org-agenda-mode . centaur-tabs-local-mode)
  :bind
@@ -388,6 +330,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   '((vc-annotate-mode :select t :inhibit-window-quit t :same t)
     ("*quickrun*" :select t :inhibit-window-quit t :same t)
     (profiler-report-mode :select t)
+    (eat-mode :select t :inhibit-window-quit t :popup t)
     (xwidget-webkit-mode :select t :same t)
     (flycheck-error-list-mode :select t :align t :size 10)
     (comint-mode :select t :align t :size 0.4)
@@ -403,15 +346,17 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     ("*Process List*" :select t :align t :size 0.3)
     ("\\*MPDel\\*"
      :regexp t
+     :inhibit-window-quit t
      :select t
-     :size 0.5
-     :align right
+     ;; :size 1
+     ;; :align right
+     ;; :inhibit-window-quit
      :popup t)
     ("\\*mpdel-Current playlist\\*"
      :regexp t
      :select t
-     :size 0.5
-     :align right
+     ;; :size 0.5
+     ;; :align right
      :popup t)
     ("*Messages*" :select nil :size 0.25 :align below :popup t)
     ("*compilation*" :select t :size 0.3 :align below :popup t)

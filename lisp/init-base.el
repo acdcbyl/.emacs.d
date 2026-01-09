@@ -4,7 +4,7 @@
 ;;
 
 ;;; Code:
-(setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
+(setopt initial-major-mode 'fundamental-mode) ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
 
 ;; Automatically reread from disk if the underlying file changes
@@ -41,10 +41,15 @@
 (defun bedrock--backup-file-name (fpath)
   "Return a new file path of a given file path.
 If the new path's directories does not exist, create them."
-  (let* ((backupRootDir "~/.emacs.d/emacs-backup/")
-         (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path
-         (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
-    (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
+  (let*
+      ((backupRootDir "~/.emacs.d/emacs-backup/")
+       (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath)) ; remove Windows driver letter in path
+       (backupFilePath
+        (replace-regexp-in-string
+         "//" "/"
+         (concat backupRootDir filePath "~"))))
+    (make-directory (file-name-directory backupFilePath)
+                    (file-name-directory backupFilePath))
     backupFilePath))
 (setopt make-backup-file-name-function 'bedrock--backup-file-name)
 
@@ -59,10 +64,7 @@ If the new path's directories does not exist, create them."
 
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
+(use-package which-key :ensure t :config (which-key-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -71,7 +73,7 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Most completion settings are handled by Vertico/Corfu/Orderless in init-completion.el
-(setopt enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
+(setopt enable-recursive-minibuffers t) ; Use the minibuffer whilst in the minibuffer
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -80,14 +82,16 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Mode line information
-(setopt line-number-mode t)                        ; Show current line in modeline
-(setopt column-number-mode t)                      ; Show column as well
+(setopt line-number-mode t) ; Show current line in modeline
+(setopt column-number-mode t) ; Show column as well
+;; (setq display-line-numbers-type 'relative)
+;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (setopt display-line-numbers-width 3)           ; Set a minimum width
+(setopt x-underline-at-descent-line nil) ; Prettier underlines
+(setopt switch-to-buffer-obey-display-actions t) ; Make switching buffers more consistent
 
-(setopt x-underline-at-descent-line nil)           ; Prettier underlines
-(setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
-
-(setopt show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
-(setopt indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
+(setopt show-trailing-whitespace nil) ; By default, don't underline trailing spaces
+(setopt indicate-buffer-boundaries 'left) ; Show buffer top and bottom in the margin
 
 ;; Enable horizontal scrolling
 (setopt mouse-wheel-tilt-scroll t)
@@ -100,16 +104,11 @@ If the new path's directories does not exist, create them."
 (setopt tab-width 4)
 
 ;; Misc. UI tweaks
-(blink-cursor-mode -1)                                ; Steady cursor
-(pixel-scroll-precision-mode)                         ; Smooth scrolling
+(blink-cursor-mode -1) ; Steady cursor
+(pixel-scroll-precision-mode) ; Smooth scrolling
 
 ;; Use common keystrokes by default
 (cua-mode)
-
-;; Display line numbers in programming mode
-(setq display-line-numbers-type 'relative)  ; 设置为相对行号
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(setopt display-line-numbers-width 3)           ; Set a minimum width
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)
@@ -119,7 +118,9 @@ If the new path's directories does not exist, create them."
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
 ;; Set font
-(set-face-attribute 'default nil :family "Sarasa Term SC Nerd" :height 150)
+(set-face-attribute 'default nil
+                    :family "Sarasa Term SC Nerd"
+                    :height 150)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
