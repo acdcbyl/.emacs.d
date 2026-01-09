@@ -36,7 +36,15 @@
 
 ;; Use flycheck for checking
 
-(use-package flycheck :ensure t :init (global-flycheck-mode))
+(use-package
+ flycheck
+ :ensure t
+ :hook (prog-mode . flycheck-mode)
+ :custom
+ (flycheck-temp-prefix ".flycheck")
+ (flycheck-check-syntax-automatically '(save mode-enabled))
+ (flycheck-emacs-lisp-load-path 'inherit)
+ (flycheck-indication-mode 'right-fringe))
 
 (use-package
  flycheck-eglot
