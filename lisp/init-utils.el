@@ -35,8 +35,8 @@
  elisp-autofmt
  :ensure t
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
- :hook (emacs-lisp-mode . elisp-autofmt-mode)
- :custom (elisp-autofmt-on-save-p 'always))
+ :hook (emacs-lisp-mode . elisp-autofmt-mode))
+ ; :custom (elisp-autofmt-on-save-p 'always))
 
 ;; wakatime
 (use-package wakatime-mode :ensure t :config (global-wakatime-mode))

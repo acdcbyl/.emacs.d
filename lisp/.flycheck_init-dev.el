@@ -44,14 +44,6 @@
  :after (flycheck eglot)
  :config (global-flycheck-eglot-mode 1))
 
-;; flycheck for rust
-(use-package
- flycheck-rust
- :ensure t
- :config
- (with-eval-after-load 'rust-ts-mode
-   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
-
 ;; Set up code folding
 (use-package
  treesit-fold

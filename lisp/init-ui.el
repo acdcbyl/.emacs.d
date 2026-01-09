@@ -11,8 +11,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(load-file (expand-file-name "themes/catppuccin.el" user-emacs-directory))
-
 ;; (use-package
 ;;  emacs
 ;;  :config
@@ -27,8 +25,6 @@
  doom-themes
  :ensure t
  :custom (doom-themes-enable-bold t) (doom-themes-enable-italic t)
- ;; (doom-themes-neotree-file-icons t)
- ;; (doom-themes-treemacs-theme "doom-atom")
  :config (load-theme 'doom-tokyo-night t)
  ;; (doom-themes-neotree-config)
  ;; (doom-themes-treemacs-config)
@@ -278,6 +274,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
  (mpdel-browser-mode . centaur-tabs-local-mode)
  (mpdel-tablist-mode . centaur-tabs-local-mode)
  (mpdel-playlist-mode . centaur-tabs-local-mode)
+ (eldoc-box-hover-mode . centaur-tabs-local-mode)
  (calendar-mode . centaur-tabs-local-mode)
  (org-agenda-mode . centaur-tabs-local-mode)
  :bind
@@ -326,7 +323,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
  shackle
  :ensure t
  :hook (after-init . shackle-mode)
- :custom (shackle-default-size 0.5) (shackle-default-alignment 'below)
+ :custom (shackle-default-size 0.4) (shackle-default-alignment 'below)
  (shackle-rules
   '((vc-annotate-mode :select t :inhibit-window-quit t :same t)
     ("*quickrun*" :select t :inhibit-window-quit t :same t)
