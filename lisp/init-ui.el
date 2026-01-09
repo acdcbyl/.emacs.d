@@ -314,6 +314,10 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     term-mode
     vterm-mode
     embark-collect-mode
+    quickrun--mode
+    mpdel-browser-mode
+    mpdel-tablist-mode
+    mpdel-playlist-mode
     lsp-ui-imenu-mode
     pdf-annot-list-mode)
    . turn-on-hide-mode-line-mode)))
@@ -347,19 +351,19 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     ("*Async Shell Command*" :select nil :align t :size 0.4)
     ("*Org-Babel Error Output*" :select nil :align t :size 0.3)
     ("*Process List*" :select t :align t :size 0.3)
-    ("\\*MPDel\\*"
+    ("\\* MPDel\\ *"
      :regexp t
      ;; :inhibit-window-quit t
      :select t
-     ;; :size 1
-     ;; :align right
+     :size 0.4
+     :align blow
      ;; :inhibit-window-quit
      :popup t)
     ("\\*mpdel-Current playlist\\*"
      :regexp t
      :select t
-     ;; :size 0.5
-     ;; :align right
+     :size 0.4
+     :align blow
      :popup t)
     ("*Messages*" :select nil :size 0.25 :align below :popup t)
     ("*compilation*" :select t :size 0.3 :align below :popup t)
