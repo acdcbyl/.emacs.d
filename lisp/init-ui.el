@@ -274,7 +274,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
  (mpdel-browser-mode . centaur-tabs-local-mode)
  (mpdel-tablist-mode . centaur-tabs-local-mode)
  (mpdel-playlist-mode . centaur-tabs-local-mode)
- (eldoc-box-hover-mode . centaur-tabs-local-mode)
+ ;; (eldoc-box-hover-mode . centaur-tabs-local-mode)
  (calendar-mode . centaur-tabs-local-mode)
  (org-agenda-mode . centaur-tabs-local-mode)
  :bind
@@ -326,7 +326,12 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
  :custom (shackle-default-size 0.4) (shackle-default-alignment 'below)
  (shackle-rules
   '((vc-annotate-mode :select t :inhibit-window-quit t :same t)
-    ("*quickrun*" :select t :inhibit-window-quit t :same t)
+    ("*quickrun*"
+     :select t
+     :size 0.4
+     :align below
+     :popup t
+     :inhibit-window-quit t)
     (profiler-report-mode :select t)
     (eat-mode :select t :inhibit-window-quit t :popup t)
     (xwidget-webkit-mode :select t :same t)
@@ -344,7 +349,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     ("*Process List*" :select t :align t :size 0.3)
     ("\\*MPDel\\*"
      :regexp t
-     :inhibit-window-quit t
+     ;; :inhibit-window-quit t
      :select t
      ;; :size 1
      ;; :align right
