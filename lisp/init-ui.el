@@ -272,6 +272,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
  (dashboard-mode . centaur-tabs-local-mode)
  (eat-mode . centaur-tabs-local-mode)
  (mpdel-browser-mode . centaur-tabs-local-mode)
+ (mpdel-song-mode . centaur-tabs-local-mode)
  (mpdel-tablist-mode . centaur-tabs-local-mode)
  (mpdel-playlist-mode . centaur-tabs-local-mode)
  ;; (eldoc-box-hover-mode . centaur-tabs-local-mode)
@@ -318,6 +319,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     mpdel-browser-mode
     mpdel-tablist-mode
     mpdel-playlist-mode
+    mpdel-song-mode
     lsp-ui-imenu-mode
     pdf-annot-list-mode)
    . turn-on-hide-mode-line-mode)))
@@ -357,7 +359,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
      :select t
      :size 0.4
      :align blow
-     ;; :inhibit-window-quit
      :popup t)
     ("\\*mpdel-Current playlist\\*"
      :regexp t
