@@ -154,9 +154,12 @@
              git-msg
              file-time
              file-size)
-  dirvish-side-attributes '(vc-state nerd-iocns collapse file-size))
+  dirvish-side-attributes '(vc-state nerd-icons collapse file-size))
  ;; open large directory (over 20000 files) asynchronously with `fd' command
  (setq dirvish-large-directory-threshold 20000)
+ (setq
+  dired-listing-switches
+  "-l --almost-all --human-readable --group-directories-first --no-group --time-style=iso")
  :bind ; Bind `dirvish-fd|dirvish-side|dirvish-dwim' as you see fit
  (("C-c f" . dirvish)
   :map dirvish-mode-map ; Dirvish inherits `dired-mode-map'
