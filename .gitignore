@@ -49,6 +49,7 @@ var/
 *.cache*
 *.log
 .tree-sitter/
+tree-sitter/
 .dap-breakpoints
 .projectile-cache
 lisp/private.el

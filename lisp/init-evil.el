@@ -26,7 +26,7 @@
  ;(setq evil-want-C-u-scroll t)
  :config (evil-mode)
  ;; Configuring initial major mode for some modes
- (evil-set-initial-state 'vterm-mode 'emacs)
+ ;; (evil-set-initial-state 'vterm-mode 'emacs)
  ;; (evil-set-initial-state 'emms-browser-mode 'normal)
  ;; (evil-set-initial-state 'emms-playlist-mode 'normal)
  )
@@ -69,15 +69,6 @@
  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
  (defun +config/evil-args-lisp ()
    (setq-local evil-args-delimiters '(" "))))
-;; Quick exit
-;; (use-package
-;;  evil-escape
-;;  :ensure t
-;;  :after evil
-;;  :init
-;;  (setq evil-escape-key-sequence "jk") ;; Set shortcut key sequence
-;;  (setq evil-escape-delay 0.2) ;; Set the time between two key presses
-;;  :config (evil-escape-mode 1))
 
 ;; Use general.el to define leader keys
 (use-package
@@ -398,7 +389,7 @@
     'org-time-stamp))
 
  ;; Emacs Lisp mode localleader key binding
- (with-eval-after-load 'elisp-mode
+ (with-eval-after-load 'emacs-lisp-mode
    (my-localleader-def
     :keymaps
     '(emacs-lisp-mode-map lisp-interaction-mode-map)
