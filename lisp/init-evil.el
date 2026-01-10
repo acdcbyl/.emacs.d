@@ -70,14 +70,14 @@
  (defun +config/evil-args-lisp ()
    (setq-local evil-args-delimiters '(" "))))
 ;; Quick exit
-(use-package
- evil-escape
- :ensure t
- :after evil
- :init
- (setq evil-escape-key-sequence "jk") ;; Set shortcut key sequence
- (setq evil-escape-delay 0.2) ;; Set the time between two key presses
- :config (evil-escape-mode 1))
+;; (use-package
+;;  evil-escape
+;;  :ensure t
+;;  :after evil
+;;  :init
+;;  (setq evil-escape-key-sequence "jk") ;; Set shortcut key sequence
+;;  (setq evil-escape-delay 0.2) ;; Set the time between two key presses
+;;  :config (evil-escape-mode 1))
 
 ;; Use general.el to define leader keys
 (use-package
@@ -85,6 +85,13 @@
  :ensure t
  :after evil
  :config
+ ;; For quick esc
+ (general-evil-setup)
+ (general-imap
+  "j" ; imap = insert mode keymap
+  (general-key-dispatch
+   'self-insert-command
+   :timeout 0.20 "k" 'evil-normal-state))
  ;; Define global leader (SPC)
  (general-create-definer
   my-leader-def
