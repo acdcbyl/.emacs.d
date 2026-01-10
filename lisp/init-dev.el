@@ -154,13 +154,17 @@
        :parameterNames t
        :functionTypeParameters t))))))
 
-;;eglot doc box
+;;eglot doc mouse
 (use-package
- eldoc-box
+ eldoc-mouse
  :ensure t
- :config (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
- (add-hook 'eldoc-box-buffer-setup-hook #'eldoc-box-prettify-ts-errors
-           0 t))
+ :defer t
+ ;; replace <f1> <f1> to a key you like, "C-h ." maybe. Displaying document on a popup when you press a key.
+ :bind
+ (:map
+  eldoc-mouse-mode-map
+  ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
+ :hook eldoc-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

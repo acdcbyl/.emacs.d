@@ -16,7 +16,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Startup speed, annoyance suppression
-(setq gc-cons-threshold most-positive-fixnum)
+(setq
+ ;; set a high value before initialization, and it should be reduced to a
+ ;; proper value after init
+ gc-cons-threshold most-positive-fixnum
+ gc-cons-percentage 0.3
+ read-process-output-max (* 10 1024 1024))
+
+(defun my/setup-gc ()
+  (setq
+   gc-cons-threshold (* 100 1024 1024)
+   gc-cons-percentage 0.3
+   read-process-output-max (* 10 1024 1024)
+
+   ;; Don’t compact font caches during GC.
+   inhibit-compacting-font-caches t))
+(add-hook 'after-init-hook #'my/setup-gc)
+
 (setq byte-compile-warnings '(not obsolete))
 (setq warning-suppress-log-types '((comp) (bytecomp)))
 (setq native-comp-async-report-warnings-errors 'silent)
