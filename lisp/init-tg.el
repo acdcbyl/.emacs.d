@@ -17,5 +17,4 @@
   :defer t)
 
 (provide 'init-tg)
-
-;; init-tg ends here
+;;; init-tg.el ends here

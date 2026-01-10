@@ -30,6 +30,14 @@
 ;; Disable the menu bar
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
+;; For long file
+(setq-default bidi-display-reordering nil)
+(setq
+ bidi-inhibit-bpa t
+ long-line-threshold 1000
+ large-hscroll-threshold 1000
+ syntax-wholeline-max 1000)
+
 (setq default-frame-alist
       '(
         ; (fullscreen . maximized)

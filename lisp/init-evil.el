@@ -412,39 +412,7 @@
     "gv"
     'find-variable
     "gl"
-    'find-library))
-
- ;; Custom keys for mpdel-playlist-mode
- (with-eval-after-load 'mpdel-playlist
-   (general-def
-    'normal
-    mpdel-playlist-mode-map
-    "j"
-    'next-line
-    "k"
-    'previous-line
-    "gg"
-    'evil-goto-first-line
-    "G"
-    'evil-goto-line
-    (kbd "RET")
-    'mpdel-playlist-play
-    "d"
-    'mpdel-playlist-delete
-    "D"
-    'libmpdel-current-playlist-clear
-    "C-j"
-    'mpdel-playlist-move-down
-    "C-k"
-    'mpdel-playlist-move-up
-    "q"
-    'quit-window
-    "/"
-    'evil-search-forward
-    "n"
-    'evil-search-next
-    "N"
-    'evil-search-previous)))
+    'find-library)))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
