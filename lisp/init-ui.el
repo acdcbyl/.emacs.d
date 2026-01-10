@@ -11,16 +11,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package
-;;  emacs
-;;  :config
-;;  (load-theme 'catppuccin t)) ; for light theme, use modus-operandi
-;; (use-package
-;;  kaolin-themes
-;;  :ensure t
-;;  :config
-;;  (load-theme 'kaolin-galaxy t)
-;;  (kaolin-treemacs-theme))
 (use-package
  doom-themes
  :ensure t
@@ -45,10 +35,10 @@
   'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 ;; Set icons for dired
-(use-package
- nerd-icons-dired
- :ensure t
- :hook (dired-mode . nerd-icons-dired-mode))
+;; (use-package
+;;  nerd-icons-dired
+;;  :ensure t
+;;  :hook (dired-mode . nerd-icons-dired-mode))
 
 ;; Set icons for ibuffer
 (use-package

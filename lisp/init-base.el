@@ -6,7 +6,8 @@
 ;;; Code:
 (setopt initial-major-mode 'fundamental-mode) ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
-
+;; Don't delete files diretly
+(setq delete-by-moving-to-trash t)
 ;; Automatically reread from disk if the underlying file changes
 (setopt auto-revert-avoid-polling t)
 ;; Some systems don't do file notifications well; see
