@@ -108,15 +108,15 @@
  (my-leader-def
   ;; SPC, quit minibuffer.
   "SPC"
-  'keyboard-escape-quit
+  '(keyboard-escape-quit :wk "󱊷 escape")
   ;; Clear highlights
   "S-SPC"
-  'lazy-highlight-cleanup
+  '(lazy-highlight-cleanup :wk "󰿞 highlight-cleanup")
   ;; Resume
   "'"
-  'vertico-repeat
+  '(vertico-repeat :wk " vertico-repeat")
   ";"
-  'avy-resume
+  '(avy-resume :wk " avy-resume")
   ;; file
   "f"
   '(:wk "󰈔 files")
@@ -205,7 +205,7 @@
   'quickrun
   ;; window
   "w"
-  'evil-window-map
+  '(evil-window-map :wk " window-map")
   "wx"
   'kill-buffer-and-window
   "wu"
@@ -292,8 +292,6 @@
   "ms"
   'mpdel-song-open
   "mp"
-  'libmpdel-play
-  "mP"
   'libmpdel-playback-play-pause
   "m]"
   'libmpdel-playback-next
@@ -306,11 +304,11 @@
   "m-"
   'libmpdel-volume-decrease
   "mr"
-  'libmpdel-playback-random
+  'libmpdel-playback-set-random
   "mR"
-  'libmpdel-playback-repeat
+  'libmpdel-playback-set-repeat
   "mc"
-  'libmpdel-current-playlist-clear
+  'libmpdel-playlist-clear
   ;; feeds
   "r" ;;means rss
   '(:wk " feed")
@@ -318,6 +316,27 @@
   'elfeed
   "ru"
   'elfeed-update
+  ;; Git
+  "g"
+  '(:wk " magit")
+  "gm"
+  'magit
+  "gp"
+  'magit-push
+  "gP"
+  'magit-pull
+  "gb"
+  'magit-branch
+  "gc"
+  'magit-clone
+  "gC"
+  'magit-clean
+  "gl"
+  'magit-log
+  "gd"
+  'magit-dispatch
+  "gD"
+  'magit-diff
   ;; open
   "o"
   '(:wk " open")

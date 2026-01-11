@@ -106,10 +106,10 @@
  (corfu-cycle t) ; 允许循环选择
  :bind
  (:map
-  corfu-map ("SPC" . corfu-insert-separator)
+  corfu-map ("SPC" . corfu-insert-separator)))
  ;;  ;; ("TAB" . corfu-next)           ; Tab to select next
  ;;  ;; ("<backtab>" . corfu-previous) ; Shift-Tab to select previous
-  ("C-n" . corfu-next) ("C-p" . corfu-previous)))
+  ;; ("C-n" . corfu-next) ("C-p" . corfu-previous)))
 
 ;; Part of corfu
 (use-package
