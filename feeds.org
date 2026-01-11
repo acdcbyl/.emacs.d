@@ -1,0 +1,15 @@
+#+TITLE: Elfeed Feeds
+
+* Feeds                                                              :elfeed:
+** Emacs                                                             :emacs:
+*** [[https://planet.emacslife.com/atom.xml][Planet Emacslife]]     :planet:
+*** [[https://irreal.org/blog/?feed=rss2][Irreal]]                 :irreal:
+*** [[https://www.reddit.com/r/emacs.rss][r/emacs]]                :reddit:
+
+** 科技/编程                                                    :tech:programming:
+*** [[https://www.phoronix.com/rss.php][Phoronix]]                 :linux:
+
+** 背书                                                           :learn:
+*** [[https://plink.anyfeeder.com/weixin/banyuetan-weixin][半月谈]]                    :半月谈:
+*** [[https://plink.anyfeeder.com/people-daily][人民日报]]                    :人民日报:
+
