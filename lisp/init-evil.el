@@ -35,6 +35,7 @@
  evil-collection
  :after evil
  :ensure t
+ :custom (evil-collection-corfu-key-themes '(default tab-n-go))
  :config (evil-collection-init))
 ;; Add comment shortcut
 (use-package
@@ -229,6 +230,8 @@
   'tab-bar-switch-to-recent-tab
   "tr"
   'tab-bar-rename-tab
+  "tw"
+  'tabspaces-open-or-create-project-and-workspace
   ;; search
   "s"
   '(:wk " search")
