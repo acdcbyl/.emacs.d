@@ -61,7 +61,7 @@
 (require 'init-completion)
 (require 'init-music)
 (require 'init-feed)
-;; (require 'init-tg)
+(require 'init-workspaces)
 (require 'init-org)
 (require 'init-evil)
 

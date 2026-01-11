@@ -172,14 +172,18 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package
- projectile
- :ensure t
- :hook (after-init . projectile-mode)
- :bind (("C-c p" . projectile-command-map))
- :config
- (setq projectile-mode-line "Projectile")
- (setq projectile-track-known-projects-automatically t))
+;; (use-package
+;;  projectile
+;;  :ensure t
+;;  :hook (after-init . projectile-mode)
+;;  :bind (("C-c p" . projectile-command-map))
+;;  :config
+;;  (setq projectile-mode-line "Projectile")
+;;  (setq projectile-track-known-projects-automatically t))
+
+(use-package project
+  :ensure nil
+  :bind (("C-c p" . project-switch-project)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

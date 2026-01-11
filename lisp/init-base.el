@@ -100,8 +100,8 @@ If the new path's directories does not exist, create them."
 
 ;; We won't set these, but they're good to know about
 ;;
-;; (setopt indent-tabs-mode nil)
-(setopt tab-width 4)
+(setopt indent-tabs-mode nil)
+;; (setopt tab-width 4)
 
 ;; Misc. UI tweaks
 (blink-cursor-mode -1) ; Steady cursor

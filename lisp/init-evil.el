@@ -246,7 +246,23 @@
   'consult-line
   ;; project
   "p"
-  'projectile-command-map
+  '(:wk " project")
+  "pf"
+  'project-find-file
+  "pp"
+  'project-switch-project
+  "pb"
+  'project-switch-to-buffer
+  "pg"
+  'project-find-regexp
+  "pd"
+  'project-find-dir
+  "pk"
+  'project-kill-buffers
+  "ps"
+  'project-shell
+  "pc"
+  'project-compile
   ;; app
   "a"
   '(:wk "󰀻 app")

@@ -66,6 +66,7 @@
 (use-package
  dashboard
  :ensure t
+ :diminish dashboard-mode
  :init
  ;; Format: "(icon title help action face prefix suffix)"
  (setq dashboard-navigator-buttons
@@ -214,7 +215,6 @@
   centaur-tabs-left-edge-margin nil)
  (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
  (centaur-tabs-headline-match)
- ;; (centaur-tabs-group-by-projectile-project)
  ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
  ;; (setq centaur-tabs-adjust-buffer-order t)
  (centaur-tabs-mode t)
@@ -284,25 +284,27 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ("] t" . centaur-tabs-forward)
   ("[ t" . centaur-tabs-backward)))
 
-(use-package spacious-padding
-  :ensure t
-  :config
-  ;; These are the default values, but I keep them here for visibility.
-  ;; Also check `spacious-padding-subtle-frame-lines'.
-  (setq spacious-padding-widths
-        '( :internal-border-width 15
-           :header-line-width 2
-           ;; :mode-line-width 6
-           :custom-button-width 3
-           :tab-width 2
-           :right-divider-width 30
-           :scroll-bar-width 0
-           :fringe-width 0))
+(use-package
+ spacious-padding
+ :ensure t
+ :config
+ ;; These are the default values, but I keep them here for visibility.
+ ;; Also check `spacious-padding-subtle-frame-lines'.
+ (setq spacious-padding-widths
+       '(:internal-border-width
+         15
+         :header-line-width 2
+         ;; :mode-line-width 6
+         :custom-button-width 3
+         :tab-width 2
+         :right-divider-width 30
+         :scroll-bar-width 0
+         :fringe-width 0))
 
-  (spacious-padding-mode 1)
+ (spacious-padding-mode 1)
 
-  ;; Set a key binding if you need to toggle spacious padding.
-  (define-key global-map (kbd "<f8>") #'spacious-padding-mode))
+ ;; Set a key binding if you need to toggle spacious padding.
+ (define-key global-map (kbd "<f8>") #'spacious-padding-mode))
 
 ;;Hide modeline
 (use-package
