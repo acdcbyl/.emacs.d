@@ -9,8 +9,9 @@
 (use-package
  elcord
  :ensure t
- :init (elcord-mode)
- :config (setq elcord-quiet t))
+ :defer t
+ :init (setq elcord-quiet t)
+ :config (elcord-mode))
 
 ;; Set up good scroll
 ;; (use-package good-scroll
@@ -39,7 +40,7 @@
  ; :custom (elisp-autofmt-on-save-p 'always))
 
 ;; wakatime
-(use-package wakatime-mode :ensure t :config (global-wakatime-mode))
+(use-package wakatime-mode :ensure t :defer 5 :config (global-wakatime-mode))
 
 ;; better undo
 (use-package undo-fu :ensure t)
@@ -48,7 +49,15 @@
 (use-package
  undo-fu-session
  :ensure t
+ :defer t
  :config (undo-fu-session-global-mode))
+
+;; test speed
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; 启动后自动显示报告
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

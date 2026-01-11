@@ -59,15 +59,20 @@
  evil-args
  :after evil
  :ensure t
- :hook (emacs-lisp-mode . +config/evil-args-lisp)
+ :hook ((prog-mode . +config/evil-args-setup)
+        (emacs-lisp-mode . +config/evil-args-lisp))
  :config
  (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
- (define-key evil-normal-state-map "L" 'evil-forward-arg)
- (define-key evil-normal-state-map "H" 'evil-backward-arg)
- (define-key evil-motion-state-map "L" 'evil-forward-arg)
- (define-key evil-motion-state-map "H" 'evil-backward-arg)
- (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+ 
+ (defun +config/evil-args-setup ()
+   "Set up evil-args keybindings in current buffer."
+   (evil-local-set-key 'normal "L" 'evil-forward-arg)
+   (evil-local-set-key 'normal "H" 'evil-backward-arg)
+   (evil-local-set-key 'motion "L" 'evil-forward-arg)
+   (evil-local-set-key 'motion "H" 'evil-backward-arg)
+   (evil-local-set-key 'normal "K" 'evil-jump-out-args))
+ 
  (defun +config/evil-args-lisp ()
    (setq-local evil-args-delimiters '(" "))))
 

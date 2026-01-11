@@ -64,6 +64,7 @@
 (use-package
  treesit-fold
  :ensure t
+ :defer 1
  :config (global-treesit-fold-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -82,14 +83,14 @@
 
 (use-package markdown-mode :hook ((markdown-mode . visual-line-mode)))
 
-(use-package yaml-mode :ensure t)
+(use-package yaml-mode :ensure t :mode "\\.ya?ml\\'")
 
-(use-package json-mode :ensure t)
+(use-package json-mode :ensure t :mode "\\.json\\'")
 
 (use-package
  go-mode
  :ensure t
- ;; :mode ("\\.go\\'" . go-mode)
+ :defer t
  :config
  (add-hook
   'go-ts-mode-hook
@@ -99,6 +100,7 @@
 (use-package
  rust-mode
  :ensure t
+ :defer t
  :config
  (add-hook
   'rust-ts-mode-hook

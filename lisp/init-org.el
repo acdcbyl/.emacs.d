@@ -165,6 +165,7 @@
 (use-package
  org-roam
  :ensure t
+ :defer t
  :config (org-roam-db-autosync-mode)
  ;; Dedicated side window for backlinks
  (add-to-list

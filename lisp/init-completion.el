@@ -133,6 +133,7 @@
 (use-package
  cape
  :ensure t
+ :defer t
  :init
  (add-to-list
   'completion-at-point-functions #'cape-dabbrev)
@@ -167,7 +168,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Modify search results en masse
-(use-package wgrep :ensure t :config (setq wgrep-auto-save-buffer t))
+(use-package wgrep :ensure t :defer t :config (setq wgrep-auto-save-buffer t))
 
 (provide 'init-completion)
 
