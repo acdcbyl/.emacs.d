@@ -60,6 +60,7 @@
 (require 'init-dev)
 (require 'init-completion)
 (require 'init-music)
+(require 'init-feed)
 ;; (require 'init-tg)
 (require 'init-org)
 (require 'init-evil)

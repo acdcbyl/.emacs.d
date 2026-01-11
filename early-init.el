@@ -44,7 +44,7 @@
 (setq frame-inhibit-implied-resize t)
 (tool-bar-mode -1) ; All these tools are in the menu-bar anyway
 ;; Disable the menu bar
-(scroll-bar-mode -1)
+;; (scroll-bar-mode -1)
 (menu-bar-mode -1)
 ;; For long file
 (setq-default bidi-display-reordering nil)
@@ -58,8 +58,8 @@
       '(
         ; (fullscreen . maximized)
         ;; You can turn off scroll bars by uncommenting these lines:
-        ;; (vertical-scroll-bars . nil)
-        ;; (horizontal-scroll-bars . nil)
+        (vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)
 
         ;; Setting the face in here prevents flashes of
         ;; color as the theme gets activated

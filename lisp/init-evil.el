@@ -287,6 +287,13 @@
   'libmpdel-playback-repeat
   "mc"
   'libmpdel-current-playlist-clear
+  ;; feeds
+  "r" ;;means rss
+  '(:wk " feed")
+  "re"
+  'elfeed
+  "ru"
+  'elfeed-update
   ;; open
   "o"
   '(:wk " open")

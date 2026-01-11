@@ -10,7 +10,8 @@
 ;;;   Theme
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;; (load-file "~/.emacs.d/themes/noctalia-theme.el")
+;; (load-theme 'noctalia t)
 (use-package
  doom-themes
  :ensure t
@@ -267,6 +268,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
  (mpdel-browser-mode . centaur-tabs-local-mode)
  (mpdel-song-mode . centaur-tabs-local-mode)
  (mpdel-tablist-mode . centaur-tabs-local-mode)
+ (elfeed-show-mode . centaur-tabs-local-mode)
+ (elfeed-search-mode . centaur-tabs-local-mode)
  (mpdel-playlist-mode . centaur-tabs-local-mode)
  ;; (eldoc-box-hover-mode . centaur-tabs-local-mode)
  (calendar-mode . centaur-tabs-local-mode)
@@ -281,21 +284,25 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ("] t" . centaur-tabs-forward)
   ("[ t" . centaur-tabs-backward)))
 
-(use-package
- spacious-padding
- :ensure t
- :hook (after-init . spacious-padding-mode)
- :custom
- (spacious-padding-widths
-  '(:internal-border-width
-    20
-    :internal-border-width-bottom 4
-    :internal-border-width-top 20
-    :right-divider-width 16
-    :fringe-width 0
-    :mode-line-width 6))
- ;; (spacious-padding-subtle-mode-line t)
- )
+(use-package spacious-padding
+  :ensure t
+  :config
+  ;; These are the default values, but I keep them here for visibility.
+  ;; Also check `spacious-padding-subtle-frame-lines'.
+  (setq spacious-padding-widths
+        '( :internal-border-width 15
+           :header-line-width 2
+           ;; :mode-line-width 6
+           :custom-button-width 3
+           :tab-width 2
+           :right-divider-width 30
+           :scroll-bar-width 0
+           :fringe-width 0))
+
+  (spacious-padding-mode 1)
+
+  ;; Set a key binding if you need to toggle spacious padding.
+  (define-key global-map (kbd "<f8>") #'spacious-padding-mode))
 
 ;;Hide modeline
 (use-package
