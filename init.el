@@ -78,3 +78,5 @@
 (let ((private-file (locate-user-emacs-file "lisp/private.el")))
   (when (file-exists-p private-file)
     (load private-file)))
+
+;;; init.el ends here
