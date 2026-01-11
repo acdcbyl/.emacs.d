@@ -99,17 +99,22 @@
  corfu
  :ensure t
  :init (global-corfu-mode)
- :custom
- (corfu-auto t) ; 自动弹出补全
- (corfu-auto-delay 0.1) ; 延迟时间（秒）
- (corfu-auto-prefix 2) ; 输入多少字符后触发
- (corfu-cycle t) ; 允许循环选择
+ :custom (corfu-auto t) (corfu-auto-delay 0.2) (corfu-cycle t)
+ ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
+ (corfu-preselect 'prompt)
+ (corfu-auto-trigger ".") ;; Custom trigger characters
+ (corfu-quit-no-match 'separator) ;; or t
  :bind
  (:map
-  corfu-map ("SPC" . corfu-insert-separator)))
- ;;  ;; ("TAB" . corfu-next)           ; Tab to select next
- ;;  ;; ("<backtab>" . corfu-previous) ; Shift-Tab to select previous
-  ;; ("C-n" . corfu-next) ("C-p" . corfu-previous)))
+  corfu-map
+  ("TAB" . corfu-next)
+  ([tab] . corfu-next)
+  ("S-TAB" . corfu-previous)
+  ("SPC" . corfu-insert-separator)
+  ([backtab] . corfu-previous)))
+;;  ;; ("TAB" . corfu-next)           ; Tab to select next
+;;  ;; ("<backtab>" . corfu-previous) ; Shift-Tab to select previous
+;; ("C-n" . corfu-next) ("C-p" . corfu-previous)))
 
 ;; Part of corfu
 (use-package
@@ -168,7 +173,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Modify search results en masse
-(use-package wgrep :ensure t :defer t :config (setq wgrep-auto-save-buffer t))
+(use-package
+ wgrep
+ :ensure t
+ :defer t
+ :config (setq wgrep-auto-save-buffer t))
 
 (provide 'init-completion)
 

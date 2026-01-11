@@ -35,8 +35,11 @@
  evil-collection
  :after evil
  :ensure t
- :custom (evil-collection-corfu-key-themes '(default tab-n-go))
- :config (evil-collection-init))
+ ;; :custom (evil-collection-corfu-key-themes '(default tab-n-go))
+ :config
+ (setq evil-collection-mode-list
+       (delq 'corfu evil-collection-mode-list))
+ (evil-collection-init))
 ;; Add comment shortcut
 (use-package
  evil-nerd-commenter
@@ -59,12 +62,13 @@
  evil-args
  :after evil
  :ensure t
- :hook ((prog-mode . +config/evil-args-setup)
-        (emacs-lisp-mode . +config/evil-args-lisp))
+ :hook
+ ((prog-mode . +config/evil-args-setup)
+  (emacs-lisp-mode . +config/evil-args-lisp))
  :config
  (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
- 
+
  (defun +config/evil-args-setup ()
    "Set up evil-args keybindings in current buffer."
    (evil-local-set-key 'normal "L" 'evil-forward-arg)
@@ -72,7 +76,7 @@
    (evil-local-set-key 'motion "L" 'evil-forward-arg)
    (evil-local-set-key 'motion "H" 'evil-backward-arg)
    (evil-local-set-key 'normal "K" 'evil-jump-out-args))
- 
+
  (defun +config/evil-args-lisp ()
    (setq-local evil-args-delimiters '(" "))))
 
