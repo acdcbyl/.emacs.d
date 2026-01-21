@@ -268,6 +268,8 @@
   "pg"
   'project-find-regexp
   "pd"
+  'project-dired
+  "pD"
   'project-find-dir
   "pk"
   'project-kill-buffers

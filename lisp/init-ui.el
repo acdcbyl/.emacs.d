@@ -86,6 +86,10 @@
  (dashboard-setup-startup-hook)
  :config (defconst homepage-url "https://github.com/acdcbyl")
  :custom
+ (dashboard-projects-backend 'project-el)
+ (dashboard-path-style 'truncate-middle)
+ ;; (dashboard-path-max-length 60)
+ ;; (dashboard-center-content t)
  (dashboard-startup-banner
   "~/.config/nvim/lua/plugins/dashboard-img/129229269_p0_master1200.png")
  (dashboard-image-banner-max-width 300)
@@ -182,6 +186,8 @@
   ("M-f" . dirvish-history-go-forward)
   ("M-b" . dirvish-history-go-backward)
   ("M-e" . dirvish-emerge-menu)))
+
+(use-package dired-subtree :ensure t)
 
 ;;Set up tabs
 (use-package

@@ -24,6 +24,8 @@
        '((yaml-mode . yaml-ts-mode)
          (bash-mode . bash-ts-mode)
          (go-mode . go-ts-mode)
+         (c-mode . c-ts-mode)
+         (c++-mode . c++-ts-mode)
          (rust-mode . rust-ts-mode)
          (js2-mode . js-ts-mode)
          (typescript-mode . typescript-ts-mode)
@@ -109,7 +111,17 @@
  (rust-indent-where-clause t)
  (rust-load-optional-libraries t))
 
-(use-package qml-mode :ensure t :mode ("\\.qml\\'" . qml-mode))
+(use-package
+ js2-mode
+ :ensure t
+ :config
+ (add-hook
+  'js-ts-mode-hook
+  (lambda ()
+    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
+
+(add-to-list 'load-path "~/.emacs.d/otherlisp/qml-ts-mode/")
+(require 'qml-ts-mode)
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
 ;; looking for with a quick Internet search.
@@ -129,9 +141,13 @@
  ;; no :ensure t here because it's built-in
 
  ;; Configure hooks to automatically turn-on eglot for selected modes
- :hook ((rust-ts-mode) . eglot-ensure) ((go-ts-mode) . eglot-ensure)
+ :hook
+ ((rust-ts-mode) . eglot-ensure)
+ ((go-ts-mode) . eglot-ensure)
+ ((qml-ts-mode) . eglot-ensure)
 
- :custom (eglot-send-changes-idle-time 0.1)
+ :custom
+ (eglot-send-changes-idle-time 0.1)
  (eglot-extend-to-xref t) ; activate Eglot in referenced non-project files
 
  :config
@@ -141,7 +157,7 @@
   'eglot-server-programs
   '(rust-ts-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
 
- (add-to-list 'eglot-server-programs '(qml-mode . ("qmlls6" "-E")))
+ (add-to-list 'eglot-server-programs '(qml-ts-mode . ("qmlls6" "-E")))
 
  (add-to-list
   'eglot-server-programs
@@ -183,9 +199,10 @@
 ;;  (setq projectile-mode-line "Projectile")
 ;;  (setq projectile-track-known-projects-automatically t))
 
-(use-package project
-  :ensure nil
-  :bind (("C-c p" . project-switch-project)))
+(use-package
+ project
+ :ensure nil
+ :bind (("C-c p" . project-switch-project)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
