@@ -75,7 +75,8 @@
  (("<f2>" . open-dashboard)
   :map
   dashboard-mode-map
-  ("q" . quit-dashboard))
+  ("q" . quit-dashboard)
+  ("M-r" . restore-session))
  :hook (dashboard-mode . (lambda () (setq-local frame-title-format nil)))
  :init
  (setq dashboard-navigator-buttons

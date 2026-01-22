@@ -58,6 +58,7 @@
 (require 'init-utils)
 (require 'init-ui)
 (require 'init-dev)
+(require 'init-dap)
 (require 'init-completion)
 (require 'init-music)
 (require 'init-feed)
