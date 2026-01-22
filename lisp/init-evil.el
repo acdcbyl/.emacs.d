@@ -218,6 +218,13 @@
   'split-window-vertically
   "w/"
   'split-window-horizontally
+  ;;Workspace
+  "W"
+  '(evil-window-map :wk " workspaces")
+  "Wr"
+  'tabspaces-restore-session
+  "Ws"
+  'tabspaces-save-session
   ;; tab
   "t"
   '(:wk "󰓩 tab")

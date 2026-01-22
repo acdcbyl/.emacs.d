@@ -12,6 +12,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (load-file "~/.emacs.d/themes/noctalia-theme.el")
 ;; (load-theme 'noctalia t)
+
 (use-package
  doom-themes
  :ensure t
@@ -61,14 +62,22 @@
  (doom-modeline-unicode-fallback t)
  (doom-modeline-enable-word-count nil))
 
+(defvar my-use-dashboard t
+  "enable dashboard")
 
 ;; Set up dashboard
 (use-package
  dashboard
  :ensure t
+ :if my-use-dashboard
  :diminish dashboard-mode
+ :bind
+ (("<f2>" . open-dashboard)
+  :map
+  dashboard-mode-map
+  ("q" . quit-dashboard))
+ :hook (dashboard-mode . (lambda () (setq-local frame-title-format nil)))
  :init
- ;; Format: "(icon title help action face prefix suffix)"
  (setq dashboard-navigator-buttons
        `(((,(if (fboundp 'nerd-icons-octicon)
                 (nerd-icons-octicon "nf-oct-mark_github")
@@ -82,14 +91,71 @@
            "Upgrade"
            "Upgrade packages synchronously"
            (lambda (&rest _) (package-upgrade-all nil))
-           success))))
+           success)
+          (,(if (fboundp 'nerd-icons-octicon)
+                (nerd-icons-octicon "nf-oct-history")
+              "↺")
+           "Restore"
+           "Restore previous session"
+           (lambda (&rest _) (restore-session))))))
  (dashboard-setup-startup-hook)
  :config (defconst homepage-url "https://github.com/acdcbyl")
+
+ ;; restore-session
+ (defun restore-session ()
+   "Restore the previous session."
+   (interactive)
+   (message "Restoring previous session...")
+   (quit-window t)
+
+   (when (fboundp 'tabspaces-mode)
+     (unless tabspaces-mode
+       (tabspaces-mode t))
+     (tabspaces-restore-session))
+
+   (message "Restoring previous session...done"))
+
+ ;; recover layouts
+ (defvar dashboard-recover-layout-p nil
+   "Whether recovers the layout.")
+
+ ;; 打开 dashboard
+ (defun open-dashboard ()
+   "Open the *dashboard* buffer and jump to the first widget."
+   (interactive)
+   (if (length>
+        (window-list-1)
+        (if (and (fboundp 'treemacs-current-visibility)
+                 (eq (treemacs-current-visibility) 'visible))
+            2
+          1))
+       (setq dashboard-recover-layout-p t))
+
+   (delete-other-windows)
+
+   (dashboard-refresh-buffer))
+
+ (defun quit-dashboard ()
+   "Quit dashboard window."
+   (interactive)
+   (quit-window t)
+
+   (when (fboundp 'tabspaces-mode)
+     (unless tabspaces-mode
+       (tabspaces-mode t)
+       (tabspaces-switch-or-create-workspace tabspaces-default-tab)))
+
+   (when dashboard-recover-layout-p
+     (cond
+      ((bound-and-true-p tab-bar-history-mode)
+       (tab-bar-history-back))
+      ((bound-and-true-p winner-mode)
+       (winner-undo)))
+     (setq dashboard-recover-layout-p nil)))
+
  :custom
  (dashboard-projects-backend 'project-el)
  (dashboard-path-style 'truncate-middle)
- ;; (dashboard-path-max-length 60)
- ;; (dashboard-center-content t)
  (dashboard-startup-banner
   "~/.config/nvim/lua/plugins/dashboard-img/129229269_p0_master1200.png")
  (dashboard-image-banner-max-width 300)
