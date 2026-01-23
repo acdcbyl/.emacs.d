@@ -84,9 +84,9 @@ If the new path's directories does not exist, create them."
 ;; Mode line information
 (setopt line-number-mode t) ; Show current line in modeline
 (setopt column-number-mode t) ; Show column as well
-;; (setq display-line-numbers-type 'relative)
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-;; (setopt display-line-numbers-width 3)           ; Set a minimum width
+(setq display-line-numbers 'relative)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setopt display-line-numbers-width 3)           ; Set a minimum width
 (setopt x-underline-at-descent-line nil) ; Prettier underlines
 (setopt switch-to-buffer-obey-display-actions t) ; Make switching buffers more consistent
 
