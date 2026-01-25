@@ -109,7 +109,7 @@
 
 (use-package yaml-mode :ensure t :mode "\\.ya?ml\\'")
 
-(use-package json-mode :ensure t :mode "\\.json\\'")
+(use-package json-mode :ensure t)
 
 (use-package go-mode :ensure t :defer t)
 ;; :config

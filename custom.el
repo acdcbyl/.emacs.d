@@ -14,8 +14,8 @@
                 eldoc-mouse elfeed-org elisp-autofmt embark-consult
                 evil-args evil-collection evil-nerd-commenter
                 evil-surround flycheck-eglot flycheck-rust general
-                go-mode hide-mode-line hydra indent-bars js2-mode
-                json-mode magit marginalia mpdel-embark
+                go-mode helpful hide-mode-line hydra indent-bars
+                js2-mode json-mode magit marginalia mpdel-embark
                 nerd-icons-completion nerd-icons-corfu
                 nerd-icons-ibuffer no-littering orderless org-modern
                 org-roam pfuture quickrun rainbow-delimiters rust-mode
