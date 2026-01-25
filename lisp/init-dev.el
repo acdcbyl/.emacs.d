@@ -68,6 +68,15 @@
  :ensure t
  :defer 1
  :config (global-treesit-fold-mode))
+
+;; Set up code format
+(use-package
+ apheleia
+ :ensure t
+ :diminish apheleia-mode
+ :config (apheleia-global-mode +1)
+ (setf (alist-get 'python-ts-mode apheleia-mode-alist)
+       '(ruff-isort ruff)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Version Control
@@ -89,36 +98,32 @@
 
 (use-package json-mode :ensure t :mode "\\.json\\'")
 
-(use-package
- go-mode
- :ensure t
- :defer t
- :config
- (add-hook
-  'go-ts-mode-hook
-  (lambda ()
-    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
+(use-package go-mode :ensure t :defer t)
+;; :config
+;; (add-hook
+;;  'go-ts-mode-hook
+;;  (lambda ()
+;;    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
 
 (use-package
  rust-mode
  :ensure t
  :defer t
- :config
- (add-hook
-  'rust-ts-mode-hook
-  (lambda () (add-hook 'before-save-hook 'eglot-format-buffer nil t)))
+ :init (setq rust-mode-treesitter-derive t)
+ ;; :config
+ ;; (add-hook
+ ;;  'rust-ts-mode-hook
+ ;;  (lambda () (add-hook 'before-save-hook 'eglot-format-buffer nil t)))
  :custom
  (rust-indent-where-clause t)
  (rust-load-optional-libraries t))
 
-(use-package
- js2-mode
- :ensure t
- :config
- (add-hook
-  'js-ts-mode-hook
-  (lambda ()
-    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
+(use-package js2-mode :ensure t)
+;; :config
+;; (add-hook
+;;  'js-ts-mode-hook
+;;  (lambda ()
+;;    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
 
 (add-to-list 'load-path "~/.emacs.d/otherlisp/qml-ts-mode/")
 (require 'qml-ts-mode)
@@ -144,6 +149,7 @@
  :hook
  ((rust-ts-mode) . eglot-ensure)
  ((go-ts-mode) . eglot-ensure)
+ ((python-ts-mode) . eglot-ensure)
  ((qml-ts-mode) . eglot-ensure)
 
  :custom
@@ -158,6 +164,9 @@
   '(rust-ts-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
 
  (add-to-list 'eglot-server-programs '(qml-ts-mode . ("qmlls6" "-E")))
+
+ (add-to-list
+  'eglot-server-programs '(python-ts-mode . ("ty" "server")))
 
  (add-to-list
   'eglot-server-programs
