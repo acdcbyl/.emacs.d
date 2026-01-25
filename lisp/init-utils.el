@@ -7,11 +7,11 @@
 
 ;; discord ipc
 (use-package
- elcord
- :ensure t
- :defer t
- :init (setq elcord-quiet t)
- :config (elcord-mode))
+  elcord
+  :ensure t
+  :defer t
+  :init (setq elcord-quiet t)
+  :config (elcord-mode))
 
 ;; Set up good scroll
 ;; (use-package good-scroll
@@ -32,12 +32,12 @@
 ;;   :init (cnfonts-mode 1))
 
 ;; make elisp-autofmt
-(use-package
- elisp-autofmt
- :ensure t
- :commands (elisp-autofmt-mode elisp-autofmt-buffer)
- :hook (emacs-lisp-mode . elisp-autofmt-mode))
- ; :custom (elisp-autofmt-on-save-p 'always))
+;; (use-package
+;;  elisp-autofmt
+;;  :ensure t
+;;  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+;;  :hook (emacs-lisp-mode . elisp-autofmt-mode))
+                                        ; :custom (elisp-autofmt-on-save-p 'always))
 
 ;; wakatime
 (use-package wakatime-mode :ensure t :defer 5 :config (global-wakatime-mode))
@@ -47,10 +47,10 @@
 
 ;; undo session
 (use-package
- undo-fu-session
- :ensure t
- :defer t
- :config (undo-fu-session-global-mode))
+  undo-fu-session
+  :ensure t
+  :defer t
+  :config (undo-fu-session-global-mode))
 
 ;; test speed
 (use-package benchmark-init

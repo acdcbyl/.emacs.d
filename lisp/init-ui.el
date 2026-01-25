@@ -189,6 +189,10 @@
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters :ensure t :hook prog-mode)
 
+;; More features help
+
+
+
 ;;Dired beautification and enhancement
 (use-package
  dired
