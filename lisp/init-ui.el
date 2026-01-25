@@ -120,7 +120,7 @@
   (defvar dashboard-recover-layout-p nil
     "Whether recovers the layout.")
 
-  ;; 打开 dashboard
+  ;; open dashboard
   (defun open-dashboard ()
     "Open the *dashboard* buffer and jump to the first widget."
     (interactive)
@@ -158,8 +158,8 @@
   (dashboard-projects-backend 'project-el)
   (dashboard-path-style 'truncate-middle)
   (dashboard-startup-banner
-   "~/.config/nvim/lua/plugins/dashboard-img/129229269_p0_master1200.png")
-  (dashboard-image-banner-max-width 300)
+   "~/.emacs.d/assets/GNUEmacs.png")
+  (dashboard-image-banner-max-width 600)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-items '((recents . 10) (projects . 7)))
@@ -193,6 +193,7 @@
 (use-package
   helpful
   :ensure t
+  :defer t
   )
 
 ;;Dired beautification and enhancement
@@ -262,7 +263,7 @@
 
 (use-package dired-subtree :ensure t)
 
-;;Set up tabs
+;;Set up tab line
 (use-package
   tab-bar
   :ensure nil
@@ -296,7 +297,7 @@
   (centaur-tabs-headline-match)
   ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
   ;; (setq centaur-tabs-adjust-buffer-order t)
-  (centaur-tabs-mode t)
+  ;; (centaur-tabs-mode t)
   (setq uniquify-separator "/")
   (setq uniquify-buffer-name-style 'forward)
   (defun centaur-tabs-buffer-groups ()
@@ -355,6 +356,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ;; (eldoc-box-hover-mode . centaur-tabs-local-mode)
   (calendar-mode . centaur-tabs-local-mode)
   (org-agenda-mode . centaur-tabs-local-mode)
+  (after-init . centaur-tabs-mode)
   :bind
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward)

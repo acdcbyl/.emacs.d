@@ -20,8 +20,8 @@
                 nerd-icons-ibuffer no-littering orderless org-modern
                 org-roam pfuture quickrun rainbow-delimiters rust-mode
                 shackle spacious-padding tabspaces treesit-fold
-                undo-fu undo-fu-session vertico wakatime-mode wgrep
-                yaml-mode yasnippet-snippets))
+                undo-fu undo-fu-session vertico vim-tab-bar
+                wakatime-mode wgrep yaml-mode yasnippet-snippets))
  '(package-vc-selected-packages
    '((qml-ts-mode :url "https://github.com/darcamo/qml-ts-mode.git"))))
 (custom-set-faces

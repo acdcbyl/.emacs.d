@@ -8,6 +8,9 @@
     "Only works with Emacs 29 and newer; you have version ~a"
     emacs-major-version)))
 
+;; Manual package initialization
+(package-initialize)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Basic settings

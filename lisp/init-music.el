@@ -13,16 +13,12 @@
 (use-package
  mpdel
  :ensure t
- ;; :defer t
- ;; :init
- ;; (with-eval-after-load 'mpdel
- ;;   (evil-collection-mpdel-setup))
- :config (mpdel-mode 1))
+ :commands (mpdel-mode mpdel-song-open)
+ :defer t)
 ;; for embark
 (use-package
  mpdel-embark
  :ensure t
- :demand t
  :after (embark mpdel)
  :config
  (progn

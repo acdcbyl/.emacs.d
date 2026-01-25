@@ -14,7 +14,6 @@
 (use-package
  avy
  :ensure t
- :demand t
  :bind
  (("C-c j" . avy-goto-line) ("s-j" . avy-goto-char-timer)))
 
@@ -53,7 +52,6 @@
 (use-package
  embark
  :ensure t
- :demand t
  :after avy
  :bind (("C-c a" . embark-act)) ; bind this to an easy key to hit
  :init

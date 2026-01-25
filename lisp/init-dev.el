@@ -138,8 +138,10 @@
 ;;  (lambda ()
 ;;    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
 
-(add-to-list 'load-path "~/.emacs.d/otherlisp/qml-ts-mode/")
-(require 'qml-ts-mode)
+(use-package qml-ts-mode
+  :load-path "~/.emacs.d/otherlisp/qml-ts-mode/"
+  :mode "\\.qml\\'"
+  :defer t)
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
 ;; looking for with a quick Internet search.

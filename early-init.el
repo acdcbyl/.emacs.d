@@ -1,4 +1,5 @@
-;;;  ________                                                _______                 __                            __
+;;; early-init.el --- The before init entry for emacs -*- lexical-binding: t -*-
+;;; Commentary:
 ;;; /        |                                              /       \               /  |                          /  |
 ;;; $$$$$$$$/ _____  ____   ______   _______  _______       $$$$$$$  | ______   ____$$ | ______   ______   _______$$ |   __
 ;;; $$ |__   /     \/    \ /      \ /       |/       |      $$ |__$$ |/      \ /    $$ |/      \ /      \ /       $$ |  /  |
@@ -8,7 +9,7 @@
 ;;; $$       $$ | $$ | $$ $$    $$ $$       /     $$/       $$    $$/$$       $$    $$ $$ |     $$    $$/$$       $$ | $$  |
 ;;; $$$$$$$$/$$/  $$/  $$/ $$$$$$$/ $$$$$$$/$$$$$$$/        $$$$$$$/  $$$$$$$/ $$$$$$$/$$/       $$$$$$/  $$$$$$$/$$/   $$/
 
-
+;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Basic settings for quick startup and convenience
@@ -23,12 +24,20 @@
  gc-cons-percentage 0.3
  read-process-output-max (* 10 1024 1024))
 
+;; Defer package loading until after init
+(setq package-enable-at-startup nil)
+
+;; Speed up startup by disabling file-name-handler-alist temporarily
+(defvar my--file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
 (defun my/setup-gc ()
   (setq
    gc-cons-threshold (* 100 1024 1024)
    gc-cons-percentage 0.3
    read-process-output-max (* 10 1024 1024)
-
+   ;; Restore file-name-handler-alist
+   file-name-handler-alist my--file-name-handler-alist
    ;; Don’t compact font caches during GC.
    inhibit-compacting-font-caches t))
 (add-hook 'after-init-hook #'my/setup-gc)
@@ -56,7 +65,7 @@
 
 (setq default-frame-alist
       '(
-        ; (fullscreen . maximized)
+                                        ; (fullscreen . maximized)
         ;; You can turn off scroll bars by uncommenting these lines:
         (vertical-scroll-bars . nil)
         (horizontal-scroll-bars . nil)
@@ -66,3 +75,4 @@
         ;; (background-color . "#000000")
         (ns-appearance . dark)
         (ns-transparent-titlebar . t)))
+;;; early-init.el ends here
