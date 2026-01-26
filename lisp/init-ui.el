@@ -82,23 +82,27 @@
   (setq dashboard-navigator-buttons
         `(((,(if (fboundp 'nerd-icons-octicon)
                  (nerd-icons-octicon "nf-oct-mark_github")
-               "★")
+               )
             "GitHub"
             "Browse"
             (lambda (&rest _) (browse-url homepage-url)))
            (,(if (fboundp 'nerd-icons-octicon)
+                 (nerd-icons-octicon "nf-oct-history")
+               )
+            "Restore"
+            "Restore previous session"
+            (lambda (&rest _) (restore-session)))
+           (,(if (fboundp 'nerd-icons-octicon)
+                 (nerd-icons-octicon "nf-oct-tools"))
+            "Settings" "Open custom file"
+            (lambda (&rest _) (find-file custom-file)))
+           (,(if (fboundp 'nerd-icons-octicon)
                  (nerd-icons-octicon "nf-oct-download")
-               "♺")
+               )
             "Upgrade"
             "Upgrade packages synchronously"
             (lambda (&rest _) (package-upgrade-all nil))
-            success)
-           (,(if (fboundp 'nerd-icons-octicon)
-                 (nerd-icons-octicon "nf-oct-history")
-               "↺")
-            "Restore"
-            "Restore previous session"
-            (lambda (&rest _) (restore-session))))))
+            success))))
   (dashboard-setup-startup-hook)
   :config (defconst homepage-url "https://github.com/acdcbyl")
 
@@ -153,16 +157,25 @@
        ((bound-and-true-p winner-mode)
         (winner-undo)))
       (setq dashboard-recover-layout-p nil)))
-
+  :custom-face
+  (dashboard-heading ((t (:inherit (font-lock-string-face bold)))))
+  (dashboard-items-face ((t (:weight normal))))
+  (dashboard-no-items-face ((t (:weight normal))))
   :custom
+  (dashboard-page-separator "\f\n")
+  (dashboard-path-style 'truncate-middle)
+  (dashboard-center-content t)
+  (dashboard-vertically-center-content t)
   (dashboard-projects-backend 'project-el)
   (dashboard-path-style 'truncate-middle)
+  (dashboard-path-max-length 60)
   (dashboard-startup-banner
    "~/.emacs.d/assets/GNUEmacs.png")
-  (dashboard-image-banner-max-width 600)
+  (dashboard-image-banner-max-width 400)
   (dashboard-set-heading-icons t)
+  ;; (dashboard-show-shortcuts nil)
   (dashboard-set-file-icons t)
-  (dashboard-items '((recents . 10) (projects . 7)))
+  (dashboard-items '((recents . 10) (bookmarks . 5)(projects . 7)))
   (dashboard-startupify-list
    '(dashboard-insert-banner
      dashboard-insert-newline
@@ -175,6 +188,14 @@
      dashboard-insert-newline
      dashboard-insert-footer)))
 
+;; Display ugly ^L page breaks as tidy horizontal lines
+(use-package page-break-lines
+  :ensure t
+  :defer t
+  :diminish
+  :hook (after-init . global-page-break-lines-mode)
+  :config (dolist (mode '(dashboard-mode emacs-news-mode))
+            (add-to-list 'page-break-lines-modes mode)))
 ;; Colorize color names in buffers
 (use-package
   colorful-mode
@@ -382,7 +403,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           :tab-width 2
           :right-divider-width 30
           :scroll-bar-width 0
-          :fringe-width 0))
+          :fringe-width 1))
 
   (spacious-padding-mode 1)
 
