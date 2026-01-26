@@ -403,8 +403,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           :tab-width 2
           :right-divider-width 30
           :scroll-bar-width 0
-          :fringe-width 1))
-
+          :fringe-width nil))
+  (setq-default left-fringe-width 0) ;; close left fringe
   (spacious-padding-mode 1)
 
   ;; Set a key binding if you need to toggle spacious padding.
