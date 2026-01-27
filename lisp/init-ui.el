@@ -17,7 +17,7 @@
   doom-themes
   :ensure t
   :custom (doom-themes-enable-bold t) (doom-themes-enable-italic t)
-  :config (load-theme 'doom-tokyo-night t)
+  :config (load-theme 'doom-nord-aurora t)
   ;; (doom-themes-neotree-config)
   ;; (doom-themes-treemacs-config)
   ;; (doom-themes-visual-bell-config)

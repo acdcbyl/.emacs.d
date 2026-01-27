@@ -61,7 +61,7 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Show the help buffer after startup
-;(add-hook 'after-init-hook 'help-quick)
+                                        ;(add-hook 'after-init-hook 'help-quick)
 
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
@@ -84,7 +84,7 @@ If the new path's directories does not exist, create them."
 ;; Mode line information
 (setopt line-number-mode t) ; Show current line in modeline
 (setopt column-number-mode t) ; Show column as well
-(setq display-line-numbers 'relative)
+(setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setopt display-line-numbers-width 3)           ; Set a minimum width
 (setopt x-underline-at-descent-line nil) ; Prettier underlines
