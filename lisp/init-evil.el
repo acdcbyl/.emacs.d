@@ -106,7 +106,7 @@
     my-localleader-def
     :states '(normal visual motion)
     :keymaps 'override
-    :prefix "SPC m")
+    :prefix "SPC O")
 
   ;; Global leader key binding
   (my-leader-def

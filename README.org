@@ -15,8 +15,9 @@
 | evil     | [X]      |
 | org-roam | [X]      |
 | lsp      | [X]      |
-| emms     | [X]      |
-| neotree  | [X]      |
+| mpdel    | [X]      |
+| dirvish  | [X]      |
+| magit    | [X]      |
 
 * 截图
 
