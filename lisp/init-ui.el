@@ -10,14 +10,17 @@
 ;;;   Theme
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (load-file "~/.emacs.d/themes/noctalia-theme.el")
-;; (load-theme 'noctalia t)
+
+;; (use-package
+;;   catppuccin-theme
+;;   :load-path "~/Workspace/Emacs-plugins/emacs/"
+;;   :config (load-theme 'catppuccin t))
 
 (use-package
   doom-themes
   :ensure t
   :custom (doom-themes-enable-bold t) (doom-themes-enable-italic t)
-  :config (load-theme 'doom-nord-aurora t)
+  :config (load-theme 'doom-tokyo-night t)
   ;; (doom-themes-neotree-config)
   ;; (doom-themes-treemacs-config)
   ;; (doom-themes-visual-bell-config)
@@ -282,7 +285,7 @@
    ("M-b" . dirvish-history-go-backward)
    ("M-e" . dirvish-emerge-menu)))
 
-(use-package dired-subtree :ensure t)
+;; (use-package dired-subtree :ensure t)
 
 ;;Set up tab line
 (use-package

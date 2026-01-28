@@ -53,11 +53,11 @@
   :config (undo-fu-session-global-mode))
 
 ;; test speed
-(use-package benchmark-init
-  :ensure t
-  :config
-  ;; 启动后自动显示报告
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+;; (use-package benchmark-init
+;;   :ensure t
+;;   :config
+;;   ;; 启动后自动显示报告
+;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

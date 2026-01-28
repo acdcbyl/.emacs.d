@@ -75,7 +75,8 @@
   apheleia
   :ensure t
   :diminish apheleia-mode
-  :config (apheleia-global-mode +1)
+  :hook (prog-mode . apheleia-mode)
+  :config
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
         '(ruff-isort ruff)))
 
@@ -105,11 +106,11 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package markdown-mode :hook ((markdown-mode . visual-line-mode)))
+(use-package markdown-mode :defer t :hook ((markdown-mode . visual-line-mode)))
 
-(use-package yaml-mode :ensure t :mode "\\.ya?ml\\'")
+(use-package yaml-mode :ensure t :defer t :mode "\\.ya?ml\\'")
 
-(use-package json-mode :ensure t)
+(use-package json-mode :ensure t :defer t)
 
 (use-package go-mode :ensure t :defer t)
 ;; :config

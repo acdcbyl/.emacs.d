@@ -7,6 +7,7 @@
  '(custom-safe-themes
    '("a2d20d9c83d3e505faf577c9067d219473ca75511b53f4bc65b1ca99876eea83"
      default))
+ '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
  '(package-selected-packages nil)
  '(package-vc-selected-packages
    '((qml-ts-mode :url "https://github.com/darcamo/qml-ts-mode.git"))))

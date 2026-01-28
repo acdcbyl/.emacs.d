@@ -44,7 +44,7 @@
 (use-package
   evil-nerd-commenter
   :ensure t
-  :after evil
+  :after (evil general)
   :config
   (general-def
     :states '(normal visual) ",/" 'evilnc-comment-or-uncomment-lines)

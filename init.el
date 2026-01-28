@@ -43,7 +43,7 @@
                t))
 
 ;; If you want to turn off the welcome screen, uncomment this
-;(setopt inhibit-splash-screen t)
+                                        ;(setopt inhibit-splash-screen t)
 
 ;; Keep ~/.emacs.d/ clean.
 (use-package no-littering :ensure t :demand t)
@@ -85,16 +85,3 @@
     (load private-file)))
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-vc-selected-packages
-   '((qml-ts-mode :url "https://github.com/darcamo/qml-ts-mode.git"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

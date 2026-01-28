@@ -190,9 +190,7 @@
 (use-package
  org-modern
  :ensure t
- :config
- (with-eval-after-load 'org
-   (global-org-modern-mode)))
+ :hook (org-mode . org-modern-mode))
 
 (provide 'init-org)
 ;;; init-org.el ends here

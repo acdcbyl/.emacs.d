@@ -53,9 +53,8 @@
 (setq frame-inhibit-implied-resize t)
 (tool-bar-mode -1) ; All these tools are in the menu-bar anyway
 ;; Disable the menu bar
-;; (scroll-bar-mode -1)
 (menu-bar-mode -1)
-;; For long file
+;; For long file,See also https://emacs-china.org/t/topic/25811/9
 (setq-default bidi-display-reordering nil)
 (setq
  bidi-inhibit-bpa t
@@ -65,7 +64,7 @@
 
 (setq default-frame-alist
       '(
-                                        ; (fullscreen . maximized)
+        ;; (fullscreen . maximized)
         ;; You can turn off scroll bars by uncommenting these lines:
         (vertical-scroll-bars . nil)
         (horizontal-scroll-bars . nil)
