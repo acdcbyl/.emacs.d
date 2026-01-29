@@ -51,6 +51,60 @@
   :ensure t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
+;; Set up breadcrumb
+(use-package breadcrumb
+  :ensure t
+  :defer t
+  :hook (prog-mode . breadcrumb-mode)
+  :config
+  ;; Add icons.See also https://github.com/joaotavora/breadcrumb/issues/6
+  (advice-add #'breadcrumb--format-project-node :around
+              (lambda (og p more &rest r)
+                "Icon For File"
+                (let ((string (apply og p more r)))
+                  (if (not more)
+                      (concat (nerd-icons-icon-for-file string)
+                              " " string)
+                    (concat (nerd-icons-faicon
+                             "nf-fa-folder_open"
+                             :face 'breadcrumb-project-crumbs-face)
+                            " "
+                            string)))))
+
+  (advice-add #'breadcrumb--project-crumbs-1 :filter-return
+              (lambda (return)
+                "Icon for Parent Node"
+                (if (listp return)
+                    (setf (car return)
+                          (concat
+                           " "
+                           (nerd-icons-faicon
+                            "nf-fa-rocket"
+                            :face 'breadcrumb-project-base-face)
+                           " "
+                           (car return))))
+                return))
+
+  (advice-add #'breadcrumb--format-ipath-node :around
+              (lambda (og p more &rest r)
+                "Icon for items"
+                (let ((string (apply og p more r)))
+                  (if (not more)
+                      (concat (nerd-icons-codicon
+                               "nf-cod-symbol_field"
+                               :face 'breadcrumb-imenu-leaf-face)
+                              " " string)
+                    (cond ((string= string "Packages")
+                           (concat (nerd-icons-codicon "nf-cod-package" :face 'breadcrumb-imenu-crumbs-face) " " string))
+                          ((string= string "Requires")
+                           (concat (nerd-icons-codicon "nf-cod-file_submodule" :face 'breadcrumb-imenu-crumbs-face) " " string))
+                          ((or (string= string "Variable") (string= string "Variables"))
+                           (concat (nerd-icons-codicon "nf-cod-symbol_variable" :face 'breadcrumb-imenu-crumbs-face) " " string))
+                          ((string= string "Function")
+                           (concat (nerd-icons-mdicon "nf-md-function_variant" :face 'breadcrumb-imenu-crumbs-face) " " string))
+                          (t string))))))
+  )
+
 ;; Set up doom-modeline
 (use-package
   doom-modeline
@@ -60,6 +114,7 @@
   (doom-modeline-irc nil)
   (doom-modeline-mu4e nil)
   (doom-modeline-gnus nil)
+  (doom-modeline-lsp t)
   (doom-modeline-github nil)
   (doom-modeline-persp-name nil)
   (doom-modeline-unicode-fallback t)

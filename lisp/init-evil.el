@@ -461,6 +461,8 @@
       'org-add-note
       "it"
       'org-time-stamp-inactive
+      "ii"
+      'org-toggle-inline-images
       "iT"
       'org-time-stamp))
 

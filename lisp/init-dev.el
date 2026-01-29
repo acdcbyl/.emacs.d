@@ -106,7 +106,17 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package markdown-mode :defer t :hook ((markdown-mode . visual-line-mode)))
+(use-package markdown-mode
+  :defer t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :hook ((markdown-mode . visual-line-mode)))
+
+(use-package grip-mode
+  :ensure t
+  :defer t
+  :config
+  (setq grip-command 'go-grip) ;; auto, grip, go-grip or mdopen
+  :hook ((markdown-mode org-mode) . grip-mode))
 
 (use-package yaml-mode :ensure t :defer t :mode "\\.ya?ml\\'")
 
@@ -177,7 +187,7 @@
   ;; Sometimes you need to tell Eglot where to find the language server
   (add-to-list
    'eglot-server-programs
-   '(rust-ts-mode . ("rust-analyzer"))) ; 注意：rust-analyzer 通常不需要 --lsp 参数
+   '(rust-ts-mode . ("rust-analyzer")))
 
   (add-to-list 'eglot-server-programs '(qml-ts-mode . ("qmlls6" "-E")))
 
