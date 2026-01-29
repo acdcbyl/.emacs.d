@@ -56,6 +56,9 @@
   :ensure t
   :defer t
   :hook (prog-mode . breadcrumb-mode)
+  :custom
+  (breadcrumb-project-crumb-separator " > ")
+  (breadcrumb-imenu-crumb-separator " > ")
   :config
   ;; Add icons.See also https://github.com/joaotavora/breadcrumb/issues/6
   (advice-add #'breadcrumb--format-project-node :around
