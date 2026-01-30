@@ -8,6 +8,11 @@
     "Only works with Emacs 29 and newer; you have version ~a"
     emacs-major-version)))
 
+;; Set custom file
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; Manual package initialization
 (package-initialize)
 
@@ -54,8 +59,11 @@
 ;;;   load files
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (let ((dir (locate-user-emacs-file "lisp")))
-  (add-to-list 'load-path (file-name-as-directory dir)))
+  (add-to-list 'load-path (file-name-as-directory dir))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
 
 (require 'init-base)
 (require 'init-utils)
@@ -70,12 +78,5 @@
 (require 'init-evil)
 ;; if you don't want to use `use-package :vc'
 ;; (require 'init-package)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Built-in customization framework
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
+
 ;;; init.el ends here

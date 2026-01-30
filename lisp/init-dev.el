@@ -21,18 +21,11 @@
   ;; Tell Emacs to prefer the treesitter mode
   ;; You'll want to run the command `M-x treesit-install-language-grammar' before editing.
   (setq major-mode-remap-alist
-        '((yaml-mode . yaml-ts-mode)
-          (bash-mode . bash-ts-mode)
+        '((bash-mode . bash-ts-mode)
           (conf-toml-mode . toml-ts-mode)
-          (go-mode . go-ts-mode)
           (c-mode . c-ts-mode)
           (c++-mode . c++-ts-mode)
-          (rust-mode . rust-ts-mode)
-          (js2-mode . js-ts-mode)
-          (typescript-mode . typescript-ts-mode)
-          (json-mode . json-ts-mode)
-          (css-mode . css-ts-mode)
-          (python-mode . python-ts-mode)))
+          (css-mode . css-ts-mode)))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -45,7 +38,7 @@
   :hook (prog-mode . flycheck-mode)
   :custom
   (flycheck-temp-prefix ".flycheck")
-  (flycheck-check-syntax-automatically '(save mode-enabled))
+  (flycheck-check-syntax-automatically '(save idle-change new-line mode-enabled))
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-indication-mode 'right-fringe))
 
@@ -54,14 +47,6 @@
   :ensure t
   :after (flycheck eglot)
   :config (global-flycheck-eglot-mode 1))
-
-;; flycheck for rust
-(use-package
-  flycheck-rust
-  :ensure t
-  :config
-  (with-eval-after-load 'rust-ts-mode
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 ;; Set up code folding
 (use-package
@@ -75,10 +60,7 @@
   apheleia
   :ensure t
   :diminish apheleia-mode
-  :hook (prog-mode . apheleia-mode)
-  :config
-  (setf (alist-get 'python-ts-mode apheleia-mode-alist)
-        '(ruff-isort ruff)))
+  :hook (prog-mode . apheleia-mode))
 
 ;; Indentation guide-bars
 (use-package
@@ -91,6 +73,7 @@
   (indent-bars-no-descend-lists 'skip)
   (indent-bars-treesit-support t)
   (indent-bars-treesit-ignore-blank-lines-types '("module")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Version Control
@@ -99,63 +82,6 @@
 
 ;; Magit: best Git client to ever exist
 (use-package magit :ensure t :bind (("C-x g" . magit-status)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Common file types
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package markdown-mode
-  :defer t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :hook ((markdown-mode . visual-line-mode)))
-
-(use-package grip-mode
-  :ensure t
-  :defer t
-  :config
-  (setq grip-command 'go-grip) ;; auto, grip, go-grip or mdopen
-  :hook ((markdown-mode org-mode) . grip-mode))
-
-(use-package yaml-mode :ensure t :defer t :mode "\\.ya?ml\\'")
-
-(use-package json-mode :ensure t :defer t)
-
-(use-package go-mode :ensure t :defer t)
-;; :config
-;; (add-hook
-;;  'go-ts-mode-hook
-;;  (lambda ()
-;;    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
-
-(use-package
-  rust-mode
-  :ensure t
-  :defer t
-  :init (setq rust-mode-treesitter-derive t)
-  ;; :config
-  ;; (add-hook
-  ;;  'rust-ts-mode-hook
-  ;;  (lambda () (add-hook 'before-save-hook 'eglot-format-buffer nil t)))
-  :custom
-  (rust-indent-where-clause t)
-  (rust-load-optional-libraries t))
-
-(use-package js2-mode :ensure t)
-;; :config
-;; (add-hook
-;;  'js-ts-mode-hook
-;;  (lambda ()
-;;    (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
-
-(use-package qml-ts-mode
-  :load-path "~/.emacs.d/otherlisp/qml-ts-mode/"
-  :mode "\\.qml\\'"
-  :defer t)
-;; Emacs ships with a lot of popular programming language modes. If it's not
-;; built in, you're almost certain to find a mode for the language you're
-;; looking for with a quick Internet search.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -171,41 +97,13 @@
   eglot
   ;; no :ensure t here because it's built-in
 
-  ;; Configure hooks to automatically turn-on eglot for selected modes
-  :hook
-  ((rust-ts-mode) . eglot-ensure)
-  ((go-ts-mode) . eglot-ensure)
-  ((python-ts-mode) . eglot-ensure)
-  ((qml-ts-mode) . eglot-ensure)
-
   :custom
   (eglot-send-changes-idle-time 0.1)
   (eglot-extend-to-xref t) ; activate Eglot in referenced non-project files
 
   :config
   (fset #'jsonrpc--log-event #'ignore) ; massive perf boost---don't log every event
-  ;; Sometimes you need to tell Eglot where to find the language server
-  (add-to-list
-   'eglot-server-programs
-   '(rust-ts-mode . ("rust-analyzer")))
-
-  (add-to-list 'eglot-server-programs '(qml-ts-mode . ("qmlls6" "-E")))
-
-  (add-to-list
-   'eglot-server-programs '(python-ts-mode . ("ty" "server")))
-
-  (add-to-list
-   'eglot-server-programs
-   '(go-ts-mode
-     .
-     ("gopls"
-      :initializationOptions
-      (:hints
-       (:assignVariableTypes
-        t
-        :compositeLiteralFields t
-        :parameterNames t
-        :functionTypeParameters t))))))
+  )
 
 ;;eglot doc mouse
 (use-package
@@ -219,20 +117,22 @@
    ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
   :hook eldoc-mode)
 
+;;eglot booster
+(use-package
+  eglot-booster
+  :ensure t
+  :vc (:url "https://github.com/jdtsmith/eglot-booster"
+            :rev :newest)
+  :after eglot
+  :init
+  (setq eglot-booster-io-only t)
+  :config (eglot-booster-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Project Config
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (use-package
-;;  projectile
-;;  :ensure t
-;;  :hook (after-init . projectile-mode)
-;;  :bind (("C-c p" . projectile-command-map))
-;;  :config
-;;  (setq projectile-mode-line "Projectile")
-;;  (setq projectile-track-known-projects-automatically t))
 
 (use-package
   project
@@ -254,6 +154,22 @@
 
 ;; Official snippet collection
 (use-package yasnippet-snippets :ensure t :after yasnippet)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Language Configs
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'init-go)
+(require 'init-rust)
+(require 'init-python)
+(require 'init-js)
+(require 'init-markdown)
+(require 'init-yaml)
+(require 'init-json)
+(require 'init-qml)
+(require 'init-elisp)
 
 (provide 'init-dev)
 ;;; init-dev.el ends here

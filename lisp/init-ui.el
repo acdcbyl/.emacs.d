@@ -52,7 +52,8 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 ;; Set up breadcrumb
-(use-package breadcrumb
+(use-package
+  breadcrumb
   :ensure t
   :defer t
   :hook (prog-mode . breadcrumb-mode)
