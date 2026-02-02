@@ -48,6 +48,16 @@
 
 ;; Silence stupid startup message
 (setq inhibit-startup-echo-area-message (user-login-name))
+;; Reduce the clutter in the fringes; we'd like to reserve that space for more
+;; useful information, like diff-hl and flycheck.
+(setq-default indicate-buffer-boundaries nil)
+
+;; See alse https://emacs-china.org/t/fringe-face/20143/4
+(setq window-divider-default-places t
+      window-divider-default-bottom-width 1
+      window-divider-default-right-width 1)
+;; Make sure new frames use window-divider
+(add-hook 'before-make-frame-hook 'window-divider-mode)
 ;; Default frame configuration: full screen, good-looking title bar on macOS
 (setq frame-resize-pixelwise t)
 (setq frame-inhibit-implied-resize t)

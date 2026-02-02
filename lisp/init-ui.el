@@ -446,6 +446,9 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (mpdel-browser-mode . centaur-tabs-local-mode)
   (mpdel-song-mode . centaur-tabs-local-mode)
   (mpdel-tablist-mode . centaur-tabs-local-mode)
+  (dirvish-directory-view-mode . centaur-tabs-local-mode)
+  (dirvish-special-preview-mode . centaur-tabs-local-mode)
+  (dired-mode . centaur-tabs-local-mode)
   (elfeed-show-mode . centaur-tabs-local-mode)
   (elfeed-search-mode . centaur-tabs-local-mode)
   (helpful-mode . centaur-tabs-local-mode)
@@ -480,7 +483,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           :right-divider-width 30
           :scroll-bar-width 0
           :fringe-width nil))
-  (setq-default left-fringe-width 0) ;; close left fringe
   (spacious-padding-mode 1)
 
   ;; Set a key binding if you need to toggle spacious padding.

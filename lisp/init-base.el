@@ -122,6 +122,12 @@ If the new path's directories does not exist, create them."
                     :family "Sarasa Term SC Nerd"
                     :height 150)
 
+;;; Fringes
+;; Reduce the clutter in the fringes; we'd like to reserve that space for more
+;; useful information, like diff-hl and flycheck.
+(setq-default indicate-buffer-boundaries nil
+              indicate-empty-lines nil)
+;; (setq-default left-fringe-width 0) ;; close left fringe
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Tab-bar configuration
