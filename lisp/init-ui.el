@@ -26,6 +26,13 @@
   ;; (doom-themes-visual-bell-config)
   (doom-themes-org-config))
 
+;; Add solaire-mode for better ui.
+(use-package
+  solaire-mode
+  :ensure t
+  :config
+  (solaire-global-mode +1)
+  :hook (dashboard-mode . turn-off-solaire-mode))
 
 ;; Use nerd-icons as the icon package
 (use-package nerd-icons :ensure t :when (display-graphic-p) :demand t)
@@ -52,62 +59,67 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 ;; Set up breadcrumb
-(use-package
-  breadcrumb
-  :ensure t
-  :defer t
-  :hook (prog-mode . breadcrumb-mode)
-  :custom
-  (breadcrumb-project-crumb-separator " > ")
-  (breadcrumb-imenu-crumb-separator " > ")
-  :config
-  ;; Add icons.See also https://github.com/joaotavora/breadcrumb/issues/6
-  (advice-add #'breadcrumb--format-project-node :around
-              (lambda (og p more &rest r)
-                "Icon For File"
-                (let ((string (apply og p more r)))
-                  (if (not more)
-                      (concat (nerd-icons-icon-for-file string)
-                              " " string)
-                    (concat (nerd-icons-faicon
-                             "nf-fa-folder_open"
-                             :face 'breadcrumb-project-crumbs-face)
-                            " "
-                            string)))))
+;; (use-package
+;;   breadcrumb
+;;   :ensure t
+;;   :defer t
+;;   :hook (prog-mode . breadcrumb-mode)
+;;   :custom
+;;   (breadcrumb-project-crumb-separator " > ")
+;;   (breadcrumb-imenu-crumb-separator " > ")
+;;   :custom-face
+;;   (breadcrumb-project-crumbs-face ((t (:height 0.9 :weight bold))))
+;;   (breadcrumb-imenu-crumbs-face ((t (:height 0.9 :weight bold))))
+;;   (breadcrumb-project-base-face ((t (:height 0.9 :weight bold))))
+;;   (breadcrumb-imenu-leaf-face ((t (:height 0.9 :weight bold))))
+;;   :config
+;;   ;; Add icons.See also https://github.com/joaotavora/breadcrumb/issues/6
+;;   (advice-add #'breadcrumb--format-project-node :around
+;;               (lambda (og p more &rest r)
+;;                 "Icon For File"
+;;                 (let ((string (apply og p more r)))
+;;                   (if (not more)
+;;                       (concat (nerd-icons-icon-for-file string)
+;;                               " " string)
+;;                     (concat (nerd-icons-faicon
+;;                              "nf-fa-folder_open"
+;;                              :face 'breadcrumb-project-crumbs-face)
+;;                             " "
+;;                             string)))))
 
-  (advice-add #'breadcrumb--project-crumbs-1 :filter-return
-              (lambda (return)
-                "Icon for Parent Node"
-                (if (listp return)
-                    (setf (car return)
-                          (concat
-                           " "
-                           (nerd-icons-faicon
-                            "nf-fa-rocket"
-                            :face 'breadcrumb-project-base-face)
-                           " "
-                           (car return))))
-                return))
+;;   (advice-add #'breadcrumb--project-crumbs-1 :filter-return
+;;               (lambda (return)
+;;                 "Icon for Parent Node"
+;;                 (if (listp return)
+;;                     (setf (car return)
+;;                           (concat
+;;                            " "
+;;                            (nerd-icons-faicon
+;;                             "nf-fa-rocket"
+;;                             :face 'breadcrumb-project-base-face)
+;;                            " "
+;;                            (car return))))
+;;                 return))
 
-  (advice-add #'breadcrumb--format-ipath-node :around
-              (lambda (og p more &rest r)
-                "Icon for items"
-                (let ((string (apply og p more r)))
-                  (if (not more)
-                      (concat (nerd-icons-codicon
-                               "nf-cod-symbol_field"
-                               :face 'breadcrumb-imenu-leaf-face)
-                              " " string)
-                    (cond ((string= string "Packages")
-                           (concat (nerd-icons-codicon "nf-cod-package" :face 'breadcrumb-imenu-crumbs-face) " " string))
-                          ((string= string "Requires")
-                           (concat (nerd-icons-codicon "nf-cod-file_submodule" :face 'breadcrumb-imenu-crumbs-face) " " string))
-                          ((or (string= string "Variable") (string= string "Variables"))
-                           (concat (nerd-icons-codicon "nf-cod-symbol_variable" :face 'breadcrumb-imenu-crumbs-face) " " string))
-                          ((string= string "Function")
-                           (concat (nerd-icons-mdicon "nf-md-function_variant" :face 'breadcrumb-imenu-crumbs-face) " " string))
-                          (t string))))))
-  )
+;;   (advice-add #'breadcrumb--format-ipath-node :around
+;;               (lambda (og p more &rest r)
+;;                 "Icon for items"
+;;                 (let ((string (apply og p more r)))
+;;                   (if (not more)
+;;                       (concat (nerd-icons-codicon
+;;                                "nf-cod-symbol_field"
+;;                                :face 'breadcrumb-imenu-leaf-face)
+;;                               " " string)
+;;                     (cond ((string= string "Packages")
+;;                            (concat (nerd-icons-codicon "nf-cod-package" :face 'breadcrumb-imenu-crumbs-face) " " string))
+;;                           ((string= string "Requires")
+;;                            (concat (nerd-icons-codicon "nf-cod-file_submodule" :face 'breadcrumb-imenu-crumbs-face) " " string))
+;;                           ((or (string= string "Variable") (string= string "Variables"))
+;;                            (concat (nerd-icons-codicon "nf-cod-symbol_variable" :face 'breadcrumb-imenu-crumbs-face) " " string))
+;;                           ((string= string "Function")
+;;                            (concat (nerd-icons-mdicon "nf-md-function_variant" :face 'breadcrumb-imenu-crumbs-face) " " string))
+;;                           (t string))))))
+;;   )
 
 ;; Set up doom-modeline
 (use-package
@@ -125,7 +137,7 @@
   (doom-modeline-enable-word-count nil))
 
 (defvar my-use-dashboard t
-  "enable dashboard")
+  "Enable dashboard.")
 
 ;; Set up dashboard
 (use-package
@@ -258,6 +270,7 @@
   :hook (after-init . global-page-break-lines-mode)
   :config (dolist (mode '(dashboard-mode emacs-news-mode))
             (add-to-list 'page-break-lines-modes mode)))
+
 ;; Colorize color names in buffers
 (use-package
   colorful-mode
@@ -266,7 +279,7 @@
   :hook (after-init . global-colorful-mode)
   :init (setq colorful-use-prefix t)
   :config
-  (dolist (mode '(html-mode php-mode help-mode helpful-mode))
+  (dolist (mode '(html-mode php-mode emacs-lisp-mode help-mode helpful-mode))
     (add-to-list 'global-colorful-modes mode)))
 
 ;; Highlight brackets according to their depth
@@ -295,6 +308,7 @@
   :ensure t
   :init (dirvish-override-dired-mode)
   :custom (dirvish-side-width 30)
+  (dirvish-window-fringe 0)
   (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
    '(("h" "~/" "Home")
      ("d" "~/Downloads/" "Downloads")
@@ -370,9 +384,9 @@
    centaur-tabs-show-navigation-buttons t
    centaur-tabs-set-bar 'under
    centaur-tabs-show-count nil
-   centaur-tabs-icon-type 'nerd-icons ; or 'nerd-icons
+   centaur-tabs-icon-type 'nerd-icons ;
    ;; centaur-tabs-label-fixed-length 15
-   ;; centaur-tabs-gray-out-icons 'buffer
+   centaur-tabs-gray-out-icons 'buffer
    ;; centaur-tabs-plain-icons t
    x-underline-at-descent-line t
    centaur-tabs-left-edge-margin nil)
@@ -494,50 +508,50 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
     . turn-on-hide-mode-line-mode)))
 
 ;; Customize popwin behavior
-(use-package
-  shackle
-  :ensure t
-  :hook (after-init . shackle-mode)
-  :custom (shackle-default-size 0.4) (shackle-default-alignment 'below)
-  (shackle-rules
-   '((vc-annotate-mode :select t :inhibit-window-quit t :same t)
-     ("*quickrun*"
-      :select t
-      :size 0.4
-      :align below
-      :popup t
-      :inhibit-window-quit t)
-     (profiler-report-mode :select t)
-     (eat-mode :select t :inhibit-window-quit t :popup t)
-     (xwidget-webkit-mode :select t :same t)
-     (flycheck-error-list-mode :select t :align t :size 10)
-     (comint-mode :select t :align t :size 0.4)
-     (grep-mode :select t :align t)
-     (rg-mode :select t :align t)
-     ;; See also `help-window-select'
-     (apropos-mode :select nil :align t :size 0.4)
-     (help-mode :select nil :align t :size 0.4)
-     ("*Backtrace*" :select t :align t :size 15)
-     ("*Shell Command Output*" :select nil :align t :size 0.4)
-     ("*Async Shell Command*" :select nil :align t :size 0.4)
-     ("*Org-Babel Error Output*" :select nil :align t :size 0.3)
-     ("*Process List*" :select t :align t :size 0.3)
-     ("\\* MPDel\\ *"
-      :regexp t
-      ;; :inhibit-window-quit t
-      :select t
-      :size 0.4
-      :align blow
-      :popup t)
-     ("\\*mpdel-Current playlist\\*"
-      :regexp t
-      :select t
-      :size 0.4
-      :align blow
-      :popup t)
-     ("*Messages*" :select nil :size 0.25 :align below :popup t)
-     ("*compilation*" :select t :size 0.3 :align below :popup t)
-     ("*Occur*" :select t :align t))))
+;; (use-package
+;;   shackle
+;;   :ensure t
+;;   :hook (after-init . shackle-mode)
+;;   :custom (shackle-default-size 0.4) (shackle-default-alignment 'below)
+;;   (shackle-rules
+;;    '((vc-annotate-mode :select t :inhibit-window-quit t :same t)
+;;      ("*quickrun*"
+;;       :select t
+;;       :size 0.4
+;;       :align below
+;;       :popup t
+;;       :inhibit-window-quit t)
+;;      (profiler-report-mode :select t)
+;;      (eat-mode :select t :inhibit-window-quit t :popup t)
+;;      (xwidget-webkit-mode :select t :same t)
+;;      (flycheck-error-list-mode :select t :align t :size 10)
+;;      (comint-mode :select t :align t :size 0.4)
+;;      (grep-mode :select t :align t)
+;;      (rg-mode :select t :align t)
+;;      ;; See also `help-window-select'
+;;      (apropos-mode :select nil :align t :size 0.4)
+;;      (help-mode :select nil :align t :size 0.4)
+;;      ("*Backtrace*" :select t :align t :size 15)
+;;      ("*Shell Command Output*" :select nil :align t :size 0.4)
+;;      ("*Async Shell Command*" :select nil :align t :size 0.4)
+;;      ("*Org-Babel Error Output*" :select nil :align t :size 0.3)
+;;      ("*Process List*" :select t :align t :size 0.3)
+;;      ("\\* MPDel\\ *"
+;;       :regexp t
+;;       ;; :inhibit-window-quit t
+;;       :select t
+;;       :size 0.4
+;;       :align blow
+;;       :popup t)
+;;      ("\\*mpdel-Current playlist\\*"
+;;       :regexp t
+;;       :select t
+;;       :size 0.4
+;;       :align blow
+;;       :popup t)
+;;      ("*Messages*" :select nil :size 0.25 :align below :popup t)
+;;      ("*compilation*" :select t :size 0.3 :align below :popup t)
+;;      ("*Occur*" :select t :align t))))
 
 (provide 'init-ui)
 

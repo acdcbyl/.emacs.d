@@ -121,6 +121,8 @@
     '(vertico-repeat :wk " vertico-repeat")
     ";"
     '(avy-resume :wk " avy-resume")
+    "e"
+    'dirvish-side
     ;;helpful
     "h"
     '(:wk "󰋗 help")
@@ -370,8 +372,8 @@
     'org-capture
     "ol"
     'org-store-link
-    "ot"
-    'dirvish-side
+    "od"
+    'dirvish
     "os"
     'eat-other-window)
 

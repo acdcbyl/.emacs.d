@@ -4,6 +4,7 @@
 (use-package
   flycheck-package
   :ensure t
+  :defer t
   :config
   (eval-after-load 'flycheck
     '(flycheck-package-setup)))

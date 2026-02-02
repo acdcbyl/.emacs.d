@@ -12,6 +12,7 @@
 
 (use-package flycheck-rust
   :ensure t
+  :defer t
   :config
   (with-eval-after-load 'rust-ts-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))

@@ -137,6 +137,7 @@
 (use-package
   project
   :ensure nil
+  :after no-littering
   :bind (("C-c p" . project-switch-project)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -3,6 +3,7 @@
 ;;; Code:
 
 (use-package markdown-mode
+  :ensure t
   :defer t
   :mode ("README\.md\'" . gfm-mode)
   :hook ((markdown-mode . visual-line-mode)))
@@ -12,7 +13,8 @@
   :defer t
   :config
   (setq grip-command 'go-grip) ;; auto, grip, go-grip or mdopen
-  :hook ((markdown-mode org-mode) . grip-mode))
+  ;; :hook ((markdown-mode org-mode) . grip-mode)
+  )
 
 (provide 'init-markdown)
 ;;; init-markdown.el ends here
