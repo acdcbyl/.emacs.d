@@ -507,52 +507,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
      pdf-annot-list-mode)
     . turn-on-hide-mode-line-mode)))
 
-;; Customize popwin behavior
-;; (use-package
-;;   shackle
-;;   :ensure t
-;;   :hook (after-init . shackle-mode)
-;;   :custom (shackle-default-size 0.4) (shackle-default-alignment 'below)
-;;   (shackle-rules
-;;    '((vc-annotate-mode :select t :inhibit-window-quit t :same t)
-;;      ("*quickrun*"
-;;       :select t
-;;       :size 0.4
-;;       :align below
-;;       :popup t
-;;       :inhibit-window-quit t)
-;;      (profiler-report-mode :select t)
-;;      (eat-mode :select t :inhibit-window-quit t :popup t)
-;;      (xwidget-webkit-mode :select t :same t)
-;;      (flycheck-error-list-mode :select t :align t :size 10)
-;;      (comint-mode :select t :align t :size 0.4)
-;;      (grep-mode :select t :align t)
-;;      (rg-mode :select t :align t)
-;;      ;; See also `help-window-select'
-;;      (apropos-mode :select nil :align t :size 0.4)
-;;      (help-mode :select nil :align t :size 0.4)
-;;      ("*Backtrace*" :select t :align t :size 15)
-;;      ("*Shell Command Output*" :select nil :align t :size 0.4)
-;;      ("*Async Shell Command*" :select nil :align t :size 0.4)
-;;      ("*Org-Babel Error Output*" :select nil :align t :size 0.3)
-;;      ("*Process List*" :select t :align t :size 0.3)
-;;      ("\\* MPDel\\ *"
-;;       :regexp t
-;;       ;; :inhibit-window-quit t
-;;       :select t
-;;       :size 0.4
-;;       :align blow
-;;       :popup t)
-;;      ("\\*mpdel-Current playlist\\*"
-;;       :regexp t
-;;       :select t
-;;       :size 0.4
-;;       :align blow
-;;       :popup t)
-;;      ("*Messages*" :select nil :size 0.25 :align below :popup t)
-;;      ("*compilation*" :select t :size 0.3 :align below :popup t)
-;;      ("*Occur*" :select t :align t))))
-
 (provide 'init-ui)
 
 ;;; init-ui.el ends here

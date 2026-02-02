@@ -106,7 +106,7 @@
     my-localleader-def
     :states '(normal visual motion)
     :keymaps 'override
-    :prefix "SPC O")
+    :prefix "SPC l")
 
   ;; Global leader key binding
   (my-leader-def
@@ -123,6 +123,16 @@
     '(avy-resume :wk " avy-resume")
     "e"
     'dirvish-side
+
+    ;;unimpaired style keybinds
+    "["
+    '(:wk "left prefix")
+    "[e"
+    'previous-error
+    "]"
+    '(:wk "right prefix")
+    "]e"
+    'next-error
     ;;helpful
     "h"
     '(:wk "󰋗 help")
@@ -376,121 +386,117 @@
     'dirvish
     "os"
     'eat-other-window)
-
+  (general-def
+    :states '(operator pending visual)
+    :keymaps 'override
+    "a"  '(:ignore t :wk "arg")
+    "a"  #'evil-inner-arg
+    "A"  #'evil-outer-arg )
+  (my-leader-def
+    "z"  '(:ignore t :wk "folding/narrow")
+    "zx" #'kill-current-buffer)
   ;; Org mode localleader key binding
-  (with-eval-after-load 'org
-    (my-localleader-def
-      :keymaps
-      'org-mode-map
-      "."
-      'org-goto
-      "a"
-      'org-archive-subtree
-      "d"
-      'org-deadline
-      "e"
-      'org-set-effort
-      "f"
-      'org-footnote-action
-      "l"
-      'org-lint
-      "o"
-      'org-toggle-ordered-property
-      "p"
-      'org-set-property
-      "q"
-      'org-set-tags-command
-      "r"
-      'org-refile
-      "s"
-      'org-schedule
-      "t"
-      'org-todo
-      "T"
-      'org-todo-list
-      ;; babel
-      "bp"
-      'org-babel-previous-src-block
-      "bn"
-      'org-babel-next-src-block
-      "be"
-      'org-babel-expand-src-block
-      "bg"
-      'org-babel-goto-named-src-block
-      "bs"
-      'org-babel-execute-subtree
-      "bb"
-      'org-babel-execute-buffer
-      "bt"
-      'org-babel-tangle
-      "bf"
-      'org-babel-tangle-file
-      "bc"
-      'org-babel-check-src-block
-      "bi"
-      'org-babel-insert-header-arg
-      "bI"
-      'org-babel-view-src-block-info
-      "bk"
-      'org-babel-remove-result-one-or-many
-      ;; clock
-      "cc"
-      'org-clock-in
-      "cC"
-      'org-clock-out
-      "cd"
-      'org-clock-mark-default-task
-      "ce"
-      'org-clock-modify-effort-estimate
-      "cg"
-      'org-clock-goto
-      "cl"
-      'org-clock-in-last
-      "cr"
-      'org-clock-report
-      "cs"
-      'org-clock-display
-      "cx"
-      'org-clock-cancel
-      "c="
-      'org-clock-timestamps-up
-      "c-"
-      'org-clock-timestamps-down
-      ;; insert
-      "id"
-      'org-insert-drawer
-      "in"
-      'org-add-note
-      "it"
-      'org-time-stamp-inactive
-      "ii"
-      'org-toggle-inline-images
-      "iT"
-      'org-time-stamp))
+  (my-localleader-def
+    :major-modes: 'org
+    :keymaps
+    'org-mode-map
+    "."
+    'org-goto
+    "a"
+    'org-archive-subtree
+    "d"
+    'org-deadline
+    "e"
+    'org-set-effort
+    "f"
+    'org-footnote-action
+    "l"
+    'org-lint
+    "o"
+    'org-toggle-ordered-property
+    "p"
+    'org-set-property
+    "q"
+    'org-set-tags-command
+    "r"
+    'org-refile
+    "s"
+    'org-schedule
+    "t"
+    'org-todo
+    "T"
+    'org-todo-list
+    ;; babel
+    "bp"
+    'org-babel-previous-src-block
+    "bn"
+    'org-babel-next-src-block
+    "be"
+    'org-babel-expand-src-block
+    "bg"
+    'org-babel-goto-named-src-block
+    "bs"
+    'org-babel-execute-subtree
+    "bb"
+    'org-babel-execute-buffer
+    "bt"
+    'org-babel-tangle
+    "bf"
+    'org-babel-tangle-file
+    "bc"
+    'org-babel-check-src-block
+    "bi"
+    'org-babel-insert-header-arg
+    "bI"
+    'org-babel-view-src-block-info
+    "bk"
+    'org-babel-remove-result-one-or-many
+    ;; clock
+    "cc"
+    'org-clock-in
+    "cC"
+    'org-clock-out
+    "cd"
+    'org-clock-mark-default-task
+    "ce"
+    'org-clock-modify-effort-estimate
+    "cg"
+    'org-clock-goto
+    "cl"
+    'org-clock-in-last
+    "cr"
+    'org-clock-report
+    "cs"
+    'org-clock-display
+    "cx"
+    'org-clock-cancel
+    "c="
+    'org-clock-timestamps-up
+    "c-"
+    'org-clock-timestamps-down
+    ;; insert
+    "Id"
+    'org-insert-drawer
+    "In"
+    'org-add-note
+    "It"
+    'org-time-stamp-inactive
+    "Ii"
+    'org-toggle-inline-images
+    "IT"
+    'org-time-stamp)
 
   ;; Emacs Lisp mode localleader key binding
-  (with-eval-after-load 'emacs-lisp-mode
-    (my-localleader-def
-      :keymaps
-      '(emacs-lisp-mode-map lisp-interaction-mode-map)
-      "i"
-      'info-lookup-symbol
-      ;; eval
-      "eb"
-      'eval-buffer
-      "ed"
-      'eval-defun
-      "ee"
-      'eval-last-sexp
-      "el"
-      'load-library
-      ;; goto
-      "gf"
-      'find-function
-      "gv"
-      'find-variable
-      "gl"
-      'find-library)))
+  (my-localleader-def
+    :major-modes '(emacs-lisp-mode lisp-interaction-mode)
+    "i"   'info-lookup-symbol
+    "eb"  'eval-buffer
+    "ed"  'eval-defun
+    "ee"  'eval-last-sexp
+    "el"  'load-library
+    "gf"  'find-function
+    "gv"  'find-variable
+    "gl"  'find-library))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
