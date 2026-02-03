@@ -12,15 +12,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (use-package
+;;   doom-themes
+;;   :load-path "~/.emacs.d/themes/doom-themes-matugen/"
+;;   :config (load-theme 'doom-matugen t))
+;; (use-package
 ;;   catppuccin-theme
 ;;   :load-path "~/Workspace/Emacs-plugins/emacs/"
 ;;   :config (load-theme 'catppuccin t))
 
 (use-package
   doom-themes
-  :ensure t
+  :vc (:url "https://github.com/acdcbyl/doom-themes-matugen" :rev :newest)
   :custom (doom-themes-enable-bold t) (doom-themes-enable-italic t)
-  :config (load-theme 'doom-tokyo-night t)
+  :config (load-theme 'doom-matugen t)
   ;; (doom-themes-neotree-config)
   ;; (doom-themes-treemacs-config)
   ;; (doom-themes-visual-bell-config)
@@ -397,6 +401,9 @@
   ;; (centaur-tabs-mode t)
   (setq uniquify-separator "/")
   (setq uniquify-buffer-name-style 'forward)
+  (setq centaur-tabs-excluded-prefixes
+        (append '("PREVIEW" "*dirvish" " *Embed" " *transient")
+                centaur-tabs-excluded-prefixes))
   (defun centaur-tabs-buffer-groups ()
     "`centaur-tabs-buffer-groups' control buffers' group rules.
 

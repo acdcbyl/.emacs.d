@@ -10,7 +10,8 @@
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
  '(package-selected-packages nil)
  '(package-vc-selected-packages
-   '((qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
+   '((doom-themes :url "https://github.com/acdcbyl/doom-themes-matugen")
+     (qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
      (eglot-booster :url "https://github.com/jdtsmith/eglot-booster"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

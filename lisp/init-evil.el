@@ -168,7 +168,7 @@
     "fd"
     'make-directory
     "fr"
-    'recentf-open-files
+    'rename-file
     "fl"
     'find-file-literally
     "fj"
