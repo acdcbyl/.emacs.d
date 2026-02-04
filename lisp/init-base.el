@@ -117,10 +117,53 @@ If the new path's directories does not exist, create them."
 (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
-;; Set font
-(set-face-attribute 'default nil
-                    :family "Sarasa Term SC Nerd"
-                    :height 150)
+;; Fonts
+(defun font-available-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
+(defun setup-fonts ()
+  "Setup fonts."
+  (when (display-graphic-p)
+    ;; Set default font
+    (cl-loop for font in '("Sarasa Term SC Nerd" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
+                           "Fira Code" "Cascadia Code" "Jetbrains Mono"
+                           "SF Mono" "Menlo" "Hack" "Source Code Pro"
+                           "Monaco" "DejaVu Sans Mono" "Consolas")
+             when (font-available-p font)
+             return (set-face-attribute 'default nil
+                                        :family font
+                                        :height 150))
+    ;; Set mode-line font
+    ;; (cl-loop for font in '("SF Mono" "Menlo" "SF Pro Display" "Helvetica")
+    ;;          when (font-available-p font)
+    ;;          return (progn
+    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
+    ;;                   (when (facep 'mode-line-active)
+    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
+    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
+
+    ;; Specify font for all unicode characters
+    (cl-loop for font in '("Apple Symbols" "Segoe UI Symbol" "Symbola" "Symbol")
+             when (font-available-p font)
+             return (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+
+    ;; Emoji
+    (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
+             when (font-available-p font)
+             return (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
+
+    ;; Specify font for Chinese characters
+    ;; (cl-loop for font in '("LXGW Neo Xihei" "LXGW WenKai Mono" "WenQuanYi Micro Hei Mono"
+    ;;                        "PingFang SC" "Microsoft Yahei UI" "Simhei")
+    ;;          when (font-available-p font)
+    ;;          return (progn
+    ;;                   (setq face-font-rescale-alist `((,font . 1.3)))
+    ;;                   (set-fontset-font t 'han (font-spec :family font))))
+    ))
+
+(setup-fonts)
+(add-hook 'window-setup-hook #'setup-fonts)
+(add-hook 'server-after-make-frame-hook #'setup-fonts)
 
 ;;; Fringes
 ;; Reduce the clutter in the fringes; we'd like to reserve that space for more
