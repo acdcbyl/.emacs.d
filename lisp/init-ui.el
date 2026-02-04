@@ -1,4 +1,4 @@
-;;; init-ui.el --- modeline,dashboard and icons -*- lexical-binding: t -*-
+;;; init-ui.el --- modeline,themes and icons -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
@@ -140,140 +140,26 @@
   (doom-modeline-unicode-fallback t)
   (doom-modeline-enable-word-count nil))
 
-(defvar my-use-dashboard t
-  "Enable dashboard.")
-
-;; Set up dashboard
+;;Hide modeline
 (use-package
-  dashboard
+  hide-mode-line
   :ensure t
-  :if my-use-dashboard
-  :diminish dashboard-mode
-  :bind
-  (("<f2>" . open-dashboard)
-   :map
-   dashboard-mode-map
-   ("q" . quit-dashboard)
-   ("M-r" . restore-session))
-  :hook (dashboard-mode . (lambda () (setq-local frame-title-format nil)))
-  :init
-  (setq dashboard-navigator-buttons
-        `(((,(if (fboundp 'nerd-icons-octicon)
-                 (nerd-icons-octicon "nf-oct-mark_github")
-               )
-            "GitHub"
-            "Browse"
-            (lambda (&rest _) (browse-url homepage-url)))
-           (,(if (fboundp 'nerd-icons-octicon)
-                 (nerd-icons-octicon "nf-oct-history")
-               )
-            "Restore"
-            "Restore previous session"
-            (lambda (&rest _) (restore-session)))
-           (,(if (fboundp 'nerd-icons-octicon)
-                 (nerd-icons-octicon "nf-oct-tools"))
-            "Settings" "Open custom file"
-            (lambda (&rest _) (find-file custom-file)))
-           (,(if (fboundp 'nerd-icons-octicon)
-                 (nerd-icons-octicon "nf-oct-download")
-               )
-            "Upgrade"
-            "Upgrade packages synchronously"
-            (lambda (&rest _) (package-upgrade-all nil))
-            success))))
-  (dashboard-setup-startup-hook)
-  :config (defconst homepage-url "https://github.com/acdcbyl")
-
-  ;; restore-session
-  (defun restore-session ()
-    "Restore the previous session."
-    (interactive)
-    (message "Restoring previous session...")
-    (quit-window t)
-
-    (when (fboundp 'tabspaces-mode)
-      (unless tabspaces-mode
-        (tabspaces-mode t))
-      (tabspaces-restore-session))
-
-    (message "Restoring previous session...done"))
-
-  ;; recover layouts
-  (defvar dashboard-recover-layout-p nil
-    "Whether recovers the layout.")
-
-  ;; open dashboard
-  (defun open-dashboard ()
-    "Open the *dashboard* buffer and jump to the first widget."
-    (interactive)
-    (if (length>
-         (window-list-1)
-         (if (and (fboundp 'treemacs-current-visibility)
-                  (eq (treemacs-current-visibility) 'visible))
-             2
-           1))
-        (setq dashboard-recover-layout-p t))
-
-    (delete-other-windows)
-
-    (dashboard-refresh-buffer))
-
-  (defun quit-dashboard ()
-    "Quit dashboard window."
-    (interactive)
-    (quit-window t)
-
-    (when (fboundp 'tabspaces-mode)
-      (unless tabspaces-mode
-        (tabspaces-mode t)
-        (tabspaces-switch-or-create-workspace tabspaces-default-tab)))
-
-    (when dashboard-recover-layout-p
-      (cond
-       ((bound-and-true-p tab-bar-history-mode)
-        (tab-bar-history-back))
-       ((bound-and-true-p winner-mode)
-        (winner-undo)))
-      (setq dashboard-recover-layout-p nil)))
-  :custom-face
-  (dashboard-heading ((t (:inherit (font-lock-string-face bold)))))
-  (dashboard-items-face ((t (:weight normal))))
-  (dashboard-no-items-face ((t (:weight normal))))
-  :custom
-  (dashboard-page-separator "\f\n")
-  (dashboard-path-style 'truncate-middle)
-  (dashboard-center-content t)
-  (dashboard-vertically-center-content t)
-  (dashboard-projects-backend 'project-el)
-  (dashboard-path-style 'truncate-middle)
-  (dashboard-path-max-length 60)
-  (dashboard-startup-banner
-   "~/.emacs.d/assets/GNUEmacs.png")
-  (dashboard-image-banner-max-width 400)
-  (dashboard-set-heading-icons t)
-  ;; (dashboard-show-shortcuts nil)
-  (dashboard-set-file-icons t)
-  (dashboard-items '((recents . 10) (bookmarks . 5)(projects . 7)))
-  (dashboard-startupify-list
-   '(dashboard-insert-banner
-     dashboard-insert-newline
-     dashboard-insert-banner-title
-     dashboard-insert-newline
-     dashboard-insert-navigator
-     dashboard-insert-newline
-     dashboard-insert-init-info
-     dashboard-insert-items
-     dashboard-insert-newline
-     dashboard-insert-footer)))
-
-;; Display ugly ^L page breaks as tidy horizontal lines
-(use-package page-break-lines
-  :ensure t
-  :defer t
-  :diminish
-  :hook (after-init . global-page-break-lines-mode)
-  :config (dolist (mode '(dashboard-mode emacs-news-mode))
-            (add-to-list 'page-break-lines-modes mode)))
+  :hook
+  (((eat-mode
+     eshell-mode
+     shell-mode
+     term-mode
+     vterm-mode
+     helpful-mode
+     embark-collect-mode
+     quickrun--mode
+     mpdel-browser-mode
+     mpdel-tablist-mode
+     mpdel-playlist-mode
+     mpdel-song-mode
+     lsp-ui-imenu-mode
+     pdf-annot-list-mode)
+    . turn-on-hide-mode-line-mode)))
 
 ;; Colorize color names in buffers
 (use-package
@@ -286,6 +172,19 @@
   (dolist (mode '(html-mode php-mode emacs-lisp-mode help-mode helpful-mode))
     (add-to-list 'global-colorful-modes mode)))
 
+;; Add git diff in fringe
+(use-package diff-hl
+  :ensure t
+  :defer t
+  :init
+  (global-diff-hl-mode)
+  :hook
+  (dired-mode . (lambda () (diff-hl-dired-mode -1)))
+  :hook
+  (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh)
+  )
+
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters :ensure t :hook prog-mode)
 
@@ -295,72 +194,6 @@
   :ensure t
   :defer t
   )
-
-;;Dired beautification and enhancement
-(use-package
-  dired
-  :config
-  (setq
-   dired-listing-switches
-   "-l --almost-all --human-readable --group-directories-first --no-group")
-  ;; this command is useful when you want to close the window of `dirvish-side'
-  ;; automatically when opening a file
-  (put 'dired-find-alternate-file 'disabled nil))
-
-(use-package
-  dirvish
-  :ensure t
-  :init (dirvish-override-dired-mode)
-  :custom (dirvish-side-width 30)
-  (dirvish-window-fringe 0)
-  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
-   '(("h" "~/" "Home")
-     ("d" "~/Downloads/" "Downloads")
-     ("m" "/mnt/" "Drives")
-     ("s" "/ssh:my-remote-server")
-     "SSH server"
-     ("e" "/sudo:root@localhost:/etc")
-     "Modify program settings"
-     ("t" "~/.local/share/Trash/files/" "TrashCan")))
-  :config
-  (dirvish-peek-mode) ; Preview files in minibuffer
-  (dirvish-side-follow-mode) ; similar to `treemacs-follow-mode'
-  (setq dirvish-mode-line-format
-        '(:left (sort symlink) :right (omit yank index)))
-  (setq
-   dirvish-attributes ; The order *MATTERS* for some attributes
-   '(vc-state subtree-state
-              nerd-icons
-              collapse
-              git-msg
-              file-time
-              file-size)
-   dirvish-side-attributes '(vc-state nerd-icons collapse file-size))
-  ;; open large directory (over 20000 files) asynchronously with `fd' command
-  (setq dirvish-large-directory-threshold 20000)
-  (setq
-   dired-listing-switches
-   "-l --almost-all --human-readable --group-directories-first --no-group --time-style=iso")
-  :bind ; Bind `dirvish-fd|dirvish-side|dirvish-dwim' as you see fit
-  (("C-c f" . dirvish)
-   :map dirvish-mode-map ; Dirvish inherits `dired-mode-map'
-   ("h" . dired-up-directory) ; So you can adjust `dired' bindings here
-   ("?" . dirvish-dispatch) ; [?] a helpful cheatsheet
-   ("a" . dirvish-setup-menu) ; [a]ttributes settings:`t' toggles mtime, `f' toggles fullframe, etc.
-   ("f" . dirvish-file-info-menu) ; [f]ile info
-   ("o" . dirvish-quick-access) ; [o]pen `dirvish-quick-access-entries'
-   ("s" . dirvish-quicksort) ; [s]ort flie list
-   ("r" . dirvish-history-jump) ; [r]ecent visited
-   ("l" . dirvish-ls-switches-menu) ; [l]s command flags
-   ("v" . dirvish-vc-menu) ; [v]ersion control commands
-   ("*" . dirvish-mark-menu)
-   ("y" . dirvish-yank-menu)
-   ("N" . dirvish-narrow)
-   ("^" . dirvish-history-last)
-   ("TAB" . dirvish-subtree-toggle)
-   ("M-f" . dirvish-history-go-forward)
-   ("M-b" . dirvish-history-go-backward)
-   ("M-e" . dirvish-emerge-menu)))
 
 ;; (use-package dired-subtree :ensure t)
 
@@ -402,7 +235,7 @@
   (setq uniquify-separator "/")
   (setq uniquify-buffer-name-style 'forward)
   (setq centaur-tabs-excluded-prefixes
-        (append '("PREVIEW" "*dirvish" " *Embed" " *transient")
+        (append '("PREVIEW" "*dirvish" " *Embed" " *transient" "*xref")
                 centaur-tabs-excluded-prefixes))
   (defun centaur-tabs-buffer-groups ()
     "`centaur-tabs-buffer-groups' control buffers' group rules.
@@ -494,27 +327,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
 
   ;; Set a key binding if you need to toggle spacious padding.
   (define-key global-map (kbd "<f8>") #'spacious-padding-mode))
-
-;;Hide modeline
-(use-package
-  hide-mode-line
-  :ensure t
-  :hook
-  (((eat-mode
-     eshell-mode
-     shell-mode
-     term-mode
-     vterm-mode
-     helpful-mode
-     embark-collect-mode
-     quickrun--mode
-     mpdel-browser-mode
-     mpdel-tablist-mode
-     mpdel-playlist-mode
-     mpdel-song-mode
-     lsp-ui-imenu-mode
-     pdf-annot-list-mode)
-    . turn-on-hide-mode-line-mode)))
 
 (provide 'init-ui)
 
