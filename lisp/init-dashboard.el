@@ -104,6 +104,7 @@
   (dashboard-items-face ((t (:weight normal))))
   (dashboard-no-items-face ((t (:weight normal))))
   :custom
+  (dashboard-icon-type 'nerd-icons)
   (dashboard-page-separator "\f\n")
   (dashboard-path-style 'truncate-middle)
   (dashboard-center-content t)

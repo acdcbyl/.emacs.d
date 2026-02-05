@@ -66,6 +66,7 @@
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
 
 (require 'init-base)
+(require 'init-icons)
 (require 'init-utils)
 (require 'init-windows)
 (require 'init-dired)

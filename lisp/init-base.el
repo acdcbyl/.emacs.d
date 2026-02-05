@@ -65,7 +65,17 @@ If the new path's directories does not exist, create them."
 
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
-(use-package which-key :ensure t :defer 0.5 :config (which-key-mode))
+(use-package
+  which-key
+  :ensure t
+  :defer 0.5
+  :config
+  (setq which-key-prefix-prefix ""              ; remove +
+        which-key-separator " "
+        which-key-sort-order 'which-key-local-then-key-order
+        which-key-idle-delay 0.4
+        which-key-add-column-padding 1)
+  (which-key-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -108,7 +118,7 @@ If the new path's directories does not exist, create them."
 (pixel-scroll-precision-mode) ; Smooth scrolling
 
 ;; Use common keystrokes by default
-(cua-mode)
+;; (cua-mode)
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)
@@ -125,10 +135,7 @@ If the new path's directories does not exist, create them."
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("Sarasa Term SC Nerd" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
-                           "Fira Code" "Cascadia Code" "Jetbrains Mono"
-                           "SF Mono" "Menlo" "Hack" "Source Code Pro"
-                           "Monaco" "DejaVu Sans Mono" "Consolas")
+    (cl-loop for font in '("Iosevka SS07" "SF Mono")
              when (font-available-p font)
              return (set-face-attribute 'default nil
                                         :family font
@@ -161,7 +168,6 @@ If the new path's directories does not exist, create them."
     ;;                   (set-fontset-font t 'han (font-spec :family font))))
     ))
 
-(setup-fonts)
 (add-hook 'window-setup-hook #'setup-fonts)
 (add-hook 'server-after-make-frame-hook #'setup-fonts)
 
