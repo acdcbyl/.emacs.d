@@ -269,12 +269,12 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (helpful-mode . centaur-tabs-local-mode)
   (mpdel-playlist-mode . centaur-tabs-local-mode)
   (magit-process-mode . centaur-tabs-local-mode)
-  (magit-status-mod . centaur-tabs-local-mode)e
-  (magit-diff-mod . centaur-tabs-local-mode)e
-  (magit-log-mod . centaur-tabs-local-mode)e
-  (magit-file-mod . centaur-tabs-local-mode)e
-  (magit-blob-mod . centaur-tabs-local-mode)e
-  (magit-blame-mod . centaur-tabs-local-mode)e
+  (magit-status-mode . centaur-tabs-local-mode)e
+  (magit-diff-mode . centaur-tabs-local-mode)e
+  (magit-log-mode . centaur-tabs-local-mode)e
+  (magit-file-mode . centaur-tabs-local-mode)e
+  (magit-blob-mode . centaur-tabs-local-mode)e
+  (magit-blame-mode . centaur-tabs-local-mode)e
   (calendar-mode . centaur-tabs-local-mode)
   (org-agenda-mode . centaur-tabs-local-mode)
   (after-init . centaur-tabs-mode)
