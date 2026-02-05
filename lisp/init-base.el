@@ -131,23 +131,22 @@ If the new path's directories does not exist, create them."
 (defun font-available-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
+
 (defun setup-fonts ()
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("Iosevka SS07" "SF Mono")
-             when (font-available-p font)
-             return (set-face-attribute 'default nil
-                                        :family font
-                                        :height 150))
+    (set-face-attribute 'default nil
+                        :family "TX-02"
+                        :height 145)
     ;; Set mode-line font
     ;; (cl-loop for font in '("SF Mono" "Menlo" "SF Pro Display" "Helvetica")
     ;;          when (font-available-p font)
     ;;          return (progn
-    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
-    ;;                   (when (facep 'mode-line-active)
-    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
-    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
+    ;;                  (set-face-attribute 'mode-line nil :family font :height 120)
+    ;;                  (when (facep 'mode-line-active)
+    ;;                    (set-face-attribute 'mode-line-active nil :family font :height 120))
+    ;;                  (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
 
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Apple Symbols" "Segoe UI Symbol" "Symbola" "Symbol")
@@ -164,8 +163,8 @@ If the new path's directories does not exist, create them."
     ;;                        "PingFang SC" "Microsoft Yahei UI" "Simhei")
     ;;          when (font-available-p font)
     ;;          return (progn
-    ;;                   (setq face-font-rescale-alist `((,font . 1.3)))
-    ;;                   (set-fontset-font t 'han (font-spec :family font))))
+    ;;                  (setq face-font-rescale-alist `((,font . 1.3)))
+    ;;                  (set-fontset-font t 'han (font-spec :family font))))
     ))
 
 (add-hook 'window-setup-hook #'setup-fonts)
