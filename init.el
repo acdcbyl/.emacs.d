@@ -49,6 +49,8 @@
 
 ;; If you want to turn off the welcome screen, uncomment this
                                         ;(setopt inhibit-splash-screen t)
+;; Enable build when using vc
+(setq package-vc-allow-build-commands t)
 
 ;; Keep ~/.emacs.d/ clean.
 (use-package no-littering :ensure t :demand t)
@@ -72,6 +74,7 @@
 (require 'init-dired)
 (require 'init-dashboard)
 (require 'init-ui)
+(require 'init-pdf)
 (require 'init-dev)
 (require 'init-dap)
 (require 'init-completion)

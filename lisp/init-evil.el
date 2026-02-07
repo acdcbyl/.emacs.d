@@ -20,6 +20,7 @@
   (customize-set-variable 'evil-want-C-u-scroll t) ;; Page scroll function
   (customize-set-variable 'evil-want-C-u-delete t) ;; Allow using Ctrl-u to delete to the beginning of the line
   (customize-set-variable 'evil-want-C-g-bindings t)
+  (customize-set-variable 'evil-want-minibuffer t)
   :init (setq evil-respect-visual-line-mode t)
   ;; (setq evil-undo-system 'undo-fu)
   ;; Enable this if you want C-u to scroll up, more like pure Vim
@@ -39,6 +40,7 @@
   :config
   (setq evil-collection-mode-list
         (delq 'corfu evil-collection-mode-list))
+  (setq evil-collection-setup-minibuffer t)
   (evil-collection-init))
 ;; Add comment shortcut
 (use-package

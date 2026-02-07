@@ -159,12 +159,12 @@ If the new path's directories does not exist, create them."
              return (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
 
     ;; Specify font for Chinese characters
-    ;; (cl-loop for font in '("LXGW Neo Xihei" "LXGW WenKai Mono" "WenQuanYi Micro Hei Mono"
-    ;;                        "PingFang SC" "Microsoft Yahei UI" "Simhei")
-    ;;          when (font-available-p font)
-    ;;          return (progn
-    ;;                  (setq face-font-rescale-alist `((,font . 1.3)))
-    ;;                  (set-fontset-font t 'han (font-spec :family font))))
+    (cl-loop for font in '("Maple Mono NF CN" "LXGW Neo Xihei" "LXGW WenKai Mono" "WenQuanYi Micro Hei Mono"
+                           "PingFang SC" "Microsoft Yahei UI" "Simhei")
+             when (font-available-p font)
+             return (progn
+                      (setq face-font-rescale-alist `((,font . 1.0)))
+                      (set-fontset-font t 'han (font-spec :family font))))
     ))
 
 (add-hook 'window-setup-hook #'setup-fonts)
