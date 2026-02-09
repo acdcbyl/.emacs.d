@@ -143,14 +143,14 @@ If the new path's directories does not exist, create them."
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("MonoLisa" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
+    (cl-loop for font in '("Iosevka SS04" "MonoLisa" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
                            "Fira Code" "Cascadia Code" "Jetbrains Mono"
                            "SF Mono" "Menlo" "Hack" "Source Code Pro"
                            "Monaco" "DejaVu Sans Mono" "Consolas")
              when (font-available-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height 130))
+                                        :height 140))
     ;; Set mode-line font
     ;; (cl-loop for font in '("SF Mono" "Menlo" "SF Pro Display" "Helvetica")
     ;;          when (font-available-p font)

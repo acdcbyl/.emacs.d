@@ -90,17 +90,6 @@
   :bind
   (:map vertico-map ("M-DEL" . vertico-directory-delete-word)))
 
-;; Display vertico in the child frame
-(use-package vertico-posframe
-  :ensure t
-  :functions posframe-poshandler-frame-center-near-bottom
-  :hook (vertico-mode . vertico-posframe-mode)
-  :init (setq vertico-posframe-poshandler
-              #'posframe-poshandler-frame-center-near-bottom
-              vertico-posframe-parameters
-              '((left-fringe  . 8)
-                (right-fringe . 8))))
-
 ;; Marginalia: annotations for minibuffer
 (use-package marginalia :ensure t :config (marginalia-mode))
 ;; Popup completion-at-point

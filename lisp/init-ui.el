@@ -106,6 +106,7 @@
   :ensure t
   :hook (after-init . doom-modeline-mode)
   :custom
+  (doom-modeline-minor-modes t)
   (doom-modeline-irc nil)
   (doom-modeline-mu4e nil)
   (doom-modeline-gnus nil)
@@ -114,6 +115,10 @@
   (doom-modeline-persp-name nil)
   (doom-modeline-unicode-fallback t)
   (doom-modeline-enable-word-count nil))
+
+(use-package minions
+  :ensure t
+  :config (minions-mode 1))
 
 ;;Hide modeline
 (use-package
@@ -235,7 +240,7 @@
    ;; centaur-tabs-plain-icons t
    x-underline-at-descent-line t
    centaur-tabs-left-edge-margin nil)
-  (centaur-tabs-change-fonts (face-attribute 'default :font) 90)
+  (centaur-tabs-change-fonts (face-attribute 'default :font) 100)
   (centaur-tabs-headline-match)
   ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
   ;; (setq centaur-tabs-adjust-buffer-order t)
@@ -302,12 +307,12 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (helpful-mode . centaur-tabs-local-mode)
   (mpdel-playlist-mode . centaur-tabs-local-mode)
   (magit-process-mode . centaur-tabs-local-mode)
-  (magit-status-mode . centaur-tabs-local-mode)e
-  (magit-diff-mode . centaur-tabs-local-mode)e
-  (magit-log-mode . centaur-tabs-local-mode)e
-  (magit-file-mode . centaur-tabs-local-mode)e
-  (magit-blob-mode . centaur-tabs-local-mode)e
-  (magit-blame-mode . centaur-tabs-local-mode)e
+  (magit-status-mode . centaur-tabs-local-mode)
+  (magit-diff-mode . centaur-tabs-local-mode)
+  (magit-log-mode . centaur-tabs-local-mode)
+  (magit-file-mode . centaur-tabs-local-mode)
+  (magit-blob-mode . centaur-tabs-local-mode)
+  (magit-blame-mode . centaur-tabs-local-mode)
   (calendar-mode . centaur-tabs-local-mode)
   (org-agenda-mode . centaur-tabs-local-mode)
   (pdf-view-mode . centaur-tabs-local-mode)

@@ -11,14 +11,14 @@
 
 * 特性
 | 特性     | 支持情况 |
-|----------+---------|
-| evil     | [X]     |
-| org-roam | [X]     |
-| lsp      | [X]     |
-| mpdel    | [X]     |
-| dirvish  | [X]     |
-| magit    | [X]     |
-|          |         |
+|----------+----------|
+| evil     | [X]      |
+| org-roam | [X]      |
+| lsp      | [X]      |
+| mpdel    | [X]      |
+| dirvish  | [X]      |
+| magit    | [X]      |
+|          |          |
 
 * 截图
 
