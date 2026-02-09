@@ -190,6 +190,7 @@
 (use-package
   org-modern
   :ensure t
+  :defer t
   :hook (org-mode . org-modern-mode))
 
 (provide 'init-org)

@@ -133,6 +133,7 @@
      mpdel-playlist-mode
      mpdel-song-mode
      lsp-ui-imenu-mode
+     pdf-view-mode
      pdf-annot-list-mode)
     . turn-on-hide-mode-line-mode)))
 
@@ -150,15 +151,47 @@
 ;; Add git diff in fringe
 (use-package diff-hl
   :ensure t
-  :defer t
+  :defines diff-hl-show-hunk-posframe-internal-border-color
+  :commands (diff-hl-flydiff-mode diff-hl-margin-mode)
+  :custom-face
+  (diff-hl-change ((t (:inherit custom-changed :foreground unspecified :background unspecified))))
+  (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
+  (diff-hl-delete ((t (:inherit diff-removed :background unspecified))))
+  :hook ((after-init . global-diff-hl-mode)
+         (after-init . global-diff-hl-show-hunk-mouse-mode)
+         (magit-post-refresh . diff-hl-magit-post-refresh)
+         (after-load-theme . diff-hl-set-posframe-appearance))
+  :custom
+  (diff-hl-draw-borders nil)
+  (diff-hl-update-async t)
+  (diff-hl-global-modes '(not image-mode pdf-view-mode))
+  (diff-hl-show-hunk-function (if (childframe-workable-p)
+                                  'diff-hl-show-hunk-posframe
+                                'diff-hl-show-hunk-inline))
   :init
-  (global-diff-hl-mode)
-  :hook
-  (dired-mode . (lambda () (diff-hl-dired-mode -1)))
-  :hook
-  (magit-pre-refresh  . diff-hl-magit-pre-refresh)
-  (magit-post-refresh . diff-hl-magit-post-refresh)
-  )
+  (defun diff-hl-set-posframe-appearance ()
+    "Set appearance of diff-hl-posframe."
+    (setq diff-hl-show-hunk-posframe-internal-border-color
+          (face-background 'posframe-border nil t)))
+  (diff-hl-set-posframe-appearance)
+  :config
+  ;; Set fringe style
+  (setq-default fringes-outside-margins t)
+
+  ;; Thin indicators on fringe
+  (defun my-diff-hl-fringe-bmp-function (_type _pos)
+    "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
+    (define-fringe-bitmap 'my-diff-hl-bmp
+      (vector #b11111100)
+      1 8
+      '(center t)))
+  (setq diff-hl-fringe-bmp-function 'my-diff-hl-fringe-bmp-function)
+
+  ;; Highlight on-the-fly
+  (diff-hl-flydiff-mode 1)
+
+  ;; Fall back to the display margin since the fringe is unavailable in tty
+  (unless (display-graphic-p) (diff-hl-margin-mode 1)))
 
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters :ensure t :hook prog-mode)
@@ -202,7 +235,7 @@
    ;; centaur-tabs-plain-icons t
    x-underline-at-descent-line t
    centaur-tabs-left-edge-margin nil)
-  (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
+  (centaur-tabs-change-fonts (face-attribute 'default :font) 90)
   (centaur-tabs-headline-match)
   ;; (centaur-tabs-enable-buffer-alphabetical-reordering)
   ;; (setq centaur-tabs-adjust-buffer-order t)
@@ -277,6 +310,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (magit-blame-mode . centaur-tabs-local-mode)e
   (calendar-mode . centaur-tabs-local-mode)
   (org-agenda-mode . centaur-tabs-local-mode)
+  (pdf-view-mode . centaur-tabs-local-mode)
   (after-init . centaur-tabs-mode)
   :bind
   ("C-<prior>" . centaur-tabs-backward)

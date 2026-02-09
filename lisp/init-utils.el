@@ -50,6 +50,18 @@
 ;;   :config
 ;;   ;; 启动后自动显示报告
 ;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
+(use-package which-key-posframe
+  :ensure t
+  :diminish
+  :defines posframe-border-width
+  :custom-face
+  (which-key-posframe-border ((t (:inherit posframe-border :background unspecified))))
+  :hook which-key-mode
+  :init
+  (setq which-key-posframe-border-width posframe-border-width
+        which-key-posframe-poshandler 'posframe-poshandler-frame-center-near-bottom
+        which-key-posframe-parameters '((left-fringe . 8)
+                                        (right-fringe . 8))))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

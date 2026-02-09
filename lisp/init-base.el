@@ -59,7 +59,14 @@ If the new path's directories does not exist, create them."
 ;;;   Discovery aids
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(defun childframe-workable-p ()
+  "Whether childframe is workable."
+  (and (>= emacs-major-version 26)
+       (not noninteractive)
+       (not emacs-basic-display)
+       (or (display-graphic-p)
+           (featurep 'tty-child-frames))
+       (eq (frame-parameter (selected-frame) 'minibuffer) 't)))
 ;; Show the help buffer after startup
                                         ;(add-hook 'after-init-hook 'help-quick)
 
@@ -136,9 +143,14 @@ If the new path's directories does not exist, create them."
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (set-face-attribute 'default nil
-                        :family "TX-02"
-                        :height 145)
+    (cl-loop for font in '("MonoLisa" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
+                           "Fira Code" "Cascadia Code" "Jetbrains Mono"
+                           "SF Mono" "Menlo" "Hack" "Source Code Pro"
+                           "Monaco" "DejaVu Sans Mono" "Consolas")
+             when (font-available-p font)
+             return (set-face-attribute 'default nil
+                                        :family font
+                                        :height 130))
     ;; Set mode-line font
     ;; (cl-loop for font in '("SF Mono" "Menlo" "SF Pro Display" "Helvetica")
     ;;          when (font-available-p font)
@@ -159,7 +171,7 @@ If the new path's directories does not exist, create them."
              return (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("Maple Mono NF CN" "LXGW Neo Xihei" "LXGW WenKai Mono" "WenQuanYi Micro Hei Mono"
+    (cl-loop for font in '("Sarasa Mono SC" "LXGW WenKai Mono" "WenQuanYi Micro Hei Mono"
                            "PingFang SC" "Microsoft Yahei UI" "Simhei")
              when (font-available-p font)
              return (progn
@@ -175,7 +187,34 @@ If the new path's directories does not exist, create them."
 ;; useful information, like diff-hl and flycheck.
 (setq-default indicate-buffer-boundaries nil
               indicate-empty-lines nil)
-;; (setq-default left-fringe-width 0) ;; close left fringe
+
+;; Child frame
+(use-package posframe
+  :ensure t
+  :custom-face
+  (child-frame-border ((t (:inherit posframe-border))))
+  :hook (after-load-theme . posframe-delete-all)
+  :init
+  (defface posframe-border
+    `((t (:inherit region)))
+    "Face used by the `posframe' border."
+    :group 'posframe)
+  (defvar posframe-border-width 2
+    "Default posframe border width.")
+  :config
+  (with-no-warnings
+    (defun my-posframe--prettify-frame (&rest _)
+      (set-face-background 'fringe nil posframe--frame))
+    (advice-add #'posframe--create-posframe :after #'my-posframe--prettify-frame)
+
+    (defun posframe-poshandler-frame-center-near-bottom (info)
+      (cons (/ (- (plist-get info :parent-frame-width)
+                  (plist-get info :posframe-width))
+               2)
+            (/ (+ (plist-get info :parent-frame-height)
+                  (* 2 (plist-get info :font-height)))
+               2)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Tab-bar configuration

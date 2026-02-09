@@ -106,16 +106,20 @@
   )
 
 ;;eglot doc mouse
-(use-package
-  eldoc-mouse
+(use-package eldoc-box
   :ensure t
-  :defer t
-  ;; replace <f1> <f1> to a key you like, "C-h ." maybe. Displaying document on a popup when you press a key.
-  :bind
-  (:map
-   eldoc-mouse-mode-map
-   ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
-  :hook eldoc-mode)
+  :custom
+  (eldoc-box-lighter nil)
+  (eldoc-box-only-multi-line t)
+  (eldoc-box-clear-with-C-g t)
+  :custom-face
+  (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
+  (eldoc-box-body ((t (:inherit tooltip))))
+  :hook (eglot-managed-mode . eldoc-box-hover-mode)
+  :config
+  ;; Prettify `eldoc-box' frame
+  (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
+        (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
 
 ;;eglot booster
 (use-package

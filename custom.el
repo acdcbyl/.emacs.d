@@ -10,12 +10,12 @@
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
  '(package-selected-packages nil)
  '(package-vc-selected-packages
-   '((reader :url "https://codeberg.org/MonadicSheep/emacs-reader" :make
-             "all")
-     (qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
+   '((qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
      (eglot-booster :url "https://github.com/jdtsmith/eglot-booster")
      (doom-themes :url
-                  "https://github.com/acdcbyl/doom-themes-matugen"))))
+                  "https://github.com/acdcbyl/doom-themes-matugen")
+     (reader :url "https://codeberg.org/MonadicSheep/emacs-reader"
+             :make "all"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
