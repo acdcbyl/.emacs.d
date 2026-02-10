@@ -89,7 +89,7 @@
 
   ;; Message wrapping
   (flyover-wrap-messages t)
-  (flyover-max-line-length 80)
+  ;; (flyover-max-line-length 80)
 
   ;; Performance
   (flyover-debounce-interval 0.2)
@@ -127,6 +127,17 @@
   (indent-bars-treesit-support t)
   (indent-bars-treesit-ignore-blank-lines-types '("module")))
 
+;; Outline
+(use-package symbols-outline
+  :ensure t
+  :init
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (setq-local symbols-outline-fetch-fn #'symbols-outline-lsp-fetch)))
+  :config
+  (setq symbols-outline-window-position 'right)
+  (symbols-outline-follow-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Version Control
@@ -158,21 +169,26 @@
   (fset #'jsonrpc--log-event #'ignore) ; massive perf boost---don't log every event
   )
 
-;;eglot doc mouse
-(use-package eldoc-box
+;;eglot doc
+(use-package
+  eldoc-mouse
   :ensure t
+  :defer t
   :custom
-  (eldoc-box-lighter nil)
-  (eldoc-box-only-multi-line t)
-  (eldoc-box-clear-with-C-g t)
-  :custom-face
-  (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
-  (eldoc-box-body ((t (:inherit tooltip))))
-  :hook (eglot-managed-mode . eldoc-box-hover-mode)
-  :config
-  ;; Prettify `eldoc-box' frame
-  (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
-        (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
+  (eldoc-mouse-posframe-border-width 1)
+  (eldoc-mouse-posframe-border-color
+   (face-attribute 'posframe-border :background nil 'default))
+  (eldoc-mouse-posframe-fringe-width 8)
+  (eldoc-mouse-posframe-override-parameters
+   '((left-fringe         . 8)
+     (right-fringe        . 8)
+     (internal-border-width . 1)
+     (drag-internal-border  . t)))
+  :bind
+  (:map
+   eldoc-mouse-mode-map
+   ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
+  :hook (eglot-managed-mode emacs-lisp-mode))
 
 ;;eglot booster
 (use-package

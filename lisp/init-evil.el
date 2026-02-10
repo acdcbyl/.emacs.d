@@ -118,10 +118,10 @@
     ";"   (list 'avy-resume
                 :wk (format "%s avy-resume" (nerd-icons-codicon "nf-cod-debug_continue")))
     "e"   (list 'dirvish-side
-                :wk (format "%s dirvish-side" (nerd-icons-octicon "nf-oct-sidebar_collapse")))
+                :wk (format "%s dirvish-side" (nerd-icons-codicon "nf-cod-layout_sidebar_left_off")))
     "l"   (list :wk (format "%s localleader" (nerd-icons-mdicon "nf-md-hammer_wrench")))
 
-    ;; unimpaired 风格
+    ;; unimpaired style
     "["   (list :wk (format "%s left prefix" (nerd-icons-mdicon "nf-md-chevron_left")))
     "[e"  'previous-error
     "]"   (list :wk (format "%s right prefix" (nerd-icons-mdicon "nf-md-chevron_right")))
@@ -136,7 +136,7 @@
     "hs"  'helpful-symbol
 
     ;; file
-    "f"   (list :wk (format "%s files" (nerd-icons-mdicon "nf-md-file")))
+    "f"   (list :wk (format "%s files" (nerd-icons-codicon "nf-cod-file")))
     "ff"  'find-file
     "fF"  'find-file-other-window
     "f/"  'find-file-other-window
@@ -161,7 +161,7 @@
     "bv"  'revert-buffer-quick
     "bx"  'scratch-buffer
     "bz"  'bury-buffer
-    ;; bookmark 部分
+    ;; bookmark
     "bm"  'bookmark-set
     "bM"  'bookmark-set-no-overwrite
     "bi"  'bookmark-insert
@@ -276,9 +276,10 @@
     "ol"  'org-store-link
     "od"  'dirvish
     "os"  'eat-other-window
+    "ou"  'symbols-outline-show
 
     ;; dape
-    "d"   (list :wk "debug (dape)")
+    "d"   (list :wk (format "%s debug" (nerd-icons-codicon "nf-cod-debug")))
     "dd"  'dape
     "dq"  'dape-quit
     "dr"  'dape-restart

@@ -10,11 +10,11 @@
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
  '(package-selected-packages nil)
  '(package-vc-selected-packages
-   '((punch-line :url "https://github.com/konrad1977/punch-line")
-     (qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
+   '((qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
      (eglot-booster :url "https://github.com/jdtsmith/eglot-booster")
      (doom-themes :url
                   "https://github.com/acdcbyl/doom-themes-matugen")
+     (punch-line :url "https://github.com/konrad1977/punch-line")
      (reader :url "https://codeberg.org/MonadicSheep/emacs-reader"
              :make "all"))))
 (custom-set-faces
