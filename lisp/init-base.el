@@ -122,7 +122,7 @@ If the new path's directories does not exist, create them."
 
 ;; Misc. UI tweaks
 (blink-cursor-mode -1) ; Steady cursor
-(pixel-scroll-precision-mode) ; Smooth scrolling
+;; (pixel-scroll-precision-mode) ; Smooth scrolling
 
 ;; Use common keystrokes by default
 ;; (cua-mode)

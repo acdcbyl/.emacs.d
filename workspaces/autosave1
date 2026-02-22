@@ -1,0 +1,45 @@
+;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
+((def-persp nil nil
+            (def-wconf
+             (((min-height . 4) (min-width . 10)
+               (min-height-ignore . 3) (min-width-ignore . 4)
+               (min-height-safe . 1) (min-width-safe . 2)
+               (min-pixel-height . 108) (min-pixel-width . 110)
+               (min-pixel-height-ignore . 81)
+               (min-pixel-width-ignore . 44)
+               (min-pixel-height-safe . 27)
+               (min-pixel-width-safe . 22))
+              leaf (pixel-width . 896) (pixel-height . 945)
+              (total-width . 81) (total-height . 35)
+              (normal-height . 1.0) (normal-width . 1.0)
+              (buffer "*scratch*" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
+                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                      (dedicated) (point . 1) (start . 1))))
+            (def-params nil) t nil t)
+ (def-persp "main"
+            ((def-buffer "init-workspaces.el"
+                         "/home/aiser/.emacs.d/lisp/init-workspaces.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-base.el"
+                         "/home/aiser/.emacs.d/lisp/init-base.el"
+                         emacs-lisp-mode))
+            (def-wconf
+             (((min-height . 4) (min-width . 10)
+               (min-height-ignore . 3) (min-width-ignore . 4)
+               (min-height-safe . 1) (min-width-safe . 2)
+               (min-pixel-height . 108) (min-pixel-width . 110)
+               (min-pixel-height-ignore . 81)
+               (min-pixel-width-ignore . 44)
+               (min-pixel-height-safe . 27)
+               (min-pixel-width-safe . 22))
+              leaf (pixel-width . 896) (pixel-height . 945)
+              (total-width . 81) (total-height . 35)
+              (normal-height . 1.0) (normal-width . 1.0)
+              (buffer "init-base.el" (selected . t) (hscroll . 0)
+                      (fringes 8 8 t nil) (margins nil)
+                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                      (dedicated) (point . 3564) (start . 2906))
+              (prev-buffers ("init-workspaces.el" 789 1335)
+                            ("*dashboard*" 1 480) ("*scratch*" 1 148))))
+            (def-params nil) nil nil nil))

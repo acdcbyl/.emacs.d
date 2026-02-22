@@ -79,6 +79,7 @@
 (require 'init-dap)
 (require 'init-completion)
 (require 'init-music)
+;; (require 'init-matrix)
 (require 'init-feed)
 (require 'init-workspaces)
 (require 'init-org)

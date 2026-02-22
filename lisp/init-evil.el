@@ -192,10 +192,8 @@
     "w/"  'split-window-horizontally
 
     ;; workspace
-    "W"   (list 'evil-window-map
+    "W"   (list 'my/workspace-menu
                 :wk (format "%s workspaces" (nerd-icons-mdicon "nf-md-view_grid")))
-    "Wr"  'tabspaces-restore-session
-    "Ws"  'tabspaces-save-session
 
     ;; tab
     "t"   (list :wk (format "%s tab" (nerd-icons-mdicon "nf-md-tab")))
@@ -208,7 +206,7 @@
     "tt"  'tab-bar-switch-to-tab
     "t'"  'tab-bar-switch-to-recent-tab
     "tr"  'tab-bar-rename-tab
-    "tw"  'tabspaces-open-or-create-project-and-workspace
+
 
     ;; search
     "s"   (list :wk (format "%s search" (nerd-icons-faicon "nf-fa-search")))
@@ -220,16 +218,8 @@
     "ss"  'consult-line
 
     ;; project
-    "p"   (list :wk (format "%s project" (nerd-icons-codicon "nf-cod-project")))
-    "pf"  'project-find-file
-    "pp"  'project-switch-project
-    "pb"  'project-switch-to-buffer
-    "pg"  'project-find-regexp
-    "pd"  'project-dired
-    "pD"  'project-find-dir
-    "pk"  'project-kill-buffers
-    "ps"  'project-shell
-    "pc"  'project-compile
+    "p"   (list 'projectile-command-map
+                :wk (format "%s projectile-command-map" (nerd-icons-codicon "nf-cod-project")))
 
     ;; app
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))

@@ -316,6 +316,8 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (calendar-mode . centaur-tabs-local-mode)
   (org-agenda-mode . centaur-tabs-local-mode)
   (pdf-view-mode . centaur-tabs-local-mode)
+  (ement-room-list-mode . centaur-tabs-local-mode)
+  (ement-room-mode . centaur-tabs-local-mode)
   (after-init . centaur-tabs-mode)
   :bind
   ("C-<prior>" . centaur-tabs-backward)

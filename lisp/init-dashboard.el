@@ -33,7 +33,7 @@
                )
             "Restore"
             "Restore previous session"
-            (lambda (&rest _) (restore-session)))
+            (lambda (&rest _) (persp-load-state-from-file)))
            (,(if (fboundp 'nerd-icons-octicon)
                  (nerd-icons-octicon "nf-oct-tools"))
             "Settings" "Open custom file"
@@ -55,10 +55,7 @@
     (message "Restoring previous session...")
     (quit-window t)
 
-    (when (fboundp 'tabspaces-mode)
-      (unless tabspaces-mode
-        (tabspaces-mode t))
-      (tabspaces-restore-session))
+
 
     (message "Restoring previous session...done"))
 
@@ -87,10 +84,7 @@
     (interactive)
     (quit-window t)
 
-    (when (fboundp 'tabspaces-mode)
-      (unless tabspaces-mode
-        (tabspaces-mode t)
-        (tabspaces-switch-or-create-workspace tabspaces-default-tab)))
+
 
     (when dashboard-recover-layout-p
       (cond
@@ -109,7 +103,7 @@
   (dashboard-path-style 'truncate-middle)
   (dashboard-center-content t)
   (dashboard-vertically-center-content t)
-  (dashboard-projects-backend 'project-el)
+  (dashboard-projects-backend 'projectile)
   (dashboard-path-style 'truncate-middle)
   (dashboard-path-max-length 60)
   (dashboard-startup-banner
