@@ -11,6 +11,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package eat :ensure t :defer t)
 
+(use-package ghostel  :ensure t)
+
 (use-package quickrun :ensure t :defer t)
 
 (use-package

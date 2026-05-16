@@ -1,5 +1,4 @@
 ;;; init-matrix.el --- Config matrix client(Emacs) -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 

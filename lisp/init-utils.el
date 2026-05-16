@@ -38,11 +38,10 @@
 (use-package undo-fu :ensure t)
 
 ;; undo session
-(use-package
-  undo-fu-session
+(use-package undo-fu-session
   :ensure t
-  :defer t
-  :config (undo-fu-session-global-mode))
+  :after undo-fu
+  :config (undo-fu-session-global-mode 1))
 
 ;; test speed
 ;; (use-package benchmark-init

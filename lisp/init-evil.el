@@ -186,6 +186,10 @@
     ;; window
     "w"   (list 'evil-window-map
                 :wk (format "%s window-map" (nerd-icons-faicon "nf-fa-window_maximize")))
+    "ww"  (list 'ace-window
+                :wk (format "%s ace-window" (nerd-icons-mdicon "nf-md-window_restore")))
+    "wd"  (list 'ace-delete-window
+                :wk (format "%s ace-delete-window" (nerd-icons-mdicon "nf-md-window_close")))
     "wx"  'kill-buffer-and-window
     "wu"  '+transient-tab-bar-history
     "w-"  'split-window-vertically

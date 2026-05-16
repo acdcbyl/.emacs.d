@@ -27,6 +27,9 @@
 ;; Save cursor place
 (save-place-mode)
 
+;; Disable project.el from remembering projects, as projectile is used
+(setq project-remember-projects-on-exit nil)
+
 ;; Move through windows with Ctrl-<arrow keys>
 (windmove-default-keybindings 'control) ; You can use other modifiers here
 

@@ -115,6 +115,12 @@
           (delete-window window)))))
   (advice-add #'keyboard-quit :before #'popper-close-window-hack))
 
+;; ace-window
+(use-package ace-window
+  :ensure t
+  :init
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
 (provide 'init-windows)
 
 ;;; init-windows.el ends here
