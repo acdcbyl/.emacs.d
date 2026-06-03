@@ -15,6 +15,9 @@
      (eglot-booster :url "https://github.com/jdtsmith/eglot-booster")
      (doom-themes :url
                   "https://github.com/acdcbyl/doom-themes-matugen")
+     (tramp-rpc :url
+                "https://github.com/ArthurHeymans/emacs-tramp-rpc"
+                :lisp-dir "lisp")
      (emacs-tramp-rpc :url
                       "https://github.com/ArthurHeymans/emacs-tramp-rpc")
      (punch-line :url "https://github.com/konrad1977/punch-line")

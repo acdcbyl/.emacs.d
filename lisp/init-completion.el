@@ -125,6 +125,16 @@
   (corfu-popupinfo-hide nil)
   :config (corfu-popupinfo-mode))
 
+;; Kind-Icon for corfu
+(use-package kind-icon
+  :ensure t
+  :after corfu
+                                        ;:custom
+                                        ; (kind-icon-blend-background t)
+                                        ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
 ;; Make corfu popup come up in terminal overlay
 ;; (use-package corfu-terminal
 ;;   :if (not (display-graphic-p))

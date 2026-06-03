@@ -1,28 +1,5 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
-((def-persp nil
-            ((def-compilation-buffer
-              "*vc-git : /home/aiser/.emacs.d/elpa/qml-ts-mode/*"
-              ((major-mode . compilation-mode)
-               (default-directory . "~/.emacs.d/elpa/qml-ts-mode/")
-               (compilation-directory . "~/.emacs.d/elpa/qml-ts-mode/")
-               (compilation-arguments "git pull --stat" nil
-                                      #[257 "\300\207"
-                                            ["*vc-git : /home/aiser/.emacs.d/elpa/qml-ts-mode/*"]
-                                            2 "\n\n(fn NAME-OF-MODE)"]
-                                      nil)))
-             (def-buffer "qml-ts-mode*" nil fundamental-mode)
-             (def-buffer "eglot-booster*" nil fundamental-mode)
-             (def-buffer "doom-themes*" nil fundamental-mode)
-             (def-compilation-buffer
-              "*vc-git : /home/aiser/.emacs.d/elpa/doom-themes/*"
-              ((major-mode . compilation-mode)
-               (default-directory . "~/.emacs.d/elpa/doom-themes/")
-               (compilation-directory . "~/.emacs.d/elpa/doom-themes/")
-               (compilation-arguments "git pull --stat" nil
-                                      #[257 "\300\207"
-                                            ["*vc-git : /home/aiser/.emacs.d/elpa/doom-themes/*"]
-                                            2 "\n\n(fn NAME-OF-MODE)"]
-                                      nil))))
+((def-persp nil nil
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -40,18 +17,7 @@
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
- (def-persp "main"
-            ((def-compilation-buffer
-              "*vc-git : /home/aiser/.emacs.d/elpa/eglot-booster/*"
-              ((major-mode . compilation-mode)
-               (default-directory . "~/.emacs.d/elpa/eglot-booster/")
-               (compilation-directory
-                . "~/.emacs.d/elpa/eglot-booster/")
-               (compilation-arguments "git pull --stat" nil
-                                      #[257 "\300\207"
-                                            ["*vc-git : /home/aiser/.emacs.d/elpa/eglot-booster/*"]
-                                            2 "\n\n(fn NAME-OF-MODE)"]
-                                      nil))))
+ (def-persp "main" nil
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 2) (min-width-ignore . 4)
@@ -67,6 +33,6 @@
               (buffer "*dashboard*" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 385) (start . 1))
+                      (dedicated) (point . 1) (start . 1))
               (prev-buffers ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))
