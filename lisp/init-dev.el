@@ -9,7 +9,7 @@
 ;;;   Built-in config for developers
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package eat :ensure t :defer t)
+;; (use-package eat :ensure t :defer t)
 
 (use-package ghostel  :ensure t :defer t)
 

@@ -269,7 +269,8 @@
     "oc"  'org-capture
     "ol"  'org-store-link
     "od"  'dirvish
-    "os"  'eat-other-window
+    ;; "os"  'eat-other-window
+    "og"  'ghostel
     "ou"  'symbols-outline-show
 
     ;; dape

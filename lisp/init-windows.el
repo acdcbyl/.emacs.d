@@ -53,6 +53,7 @@
           comint-mode
           compilation-mode
           help-mode helpful-mode
+          ghostel-mode
           tabulated-list-mode
           Buffer-menu-mode
           flymake-diagnostics-buffer-mode

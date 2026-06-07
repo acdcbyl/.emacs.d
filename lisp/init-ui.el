@@ -133,6 +133,7 @@
      helpful-mode
      embark-collect-mode
      quickrun--mode
+     ghostel-mode
      mpdel-browser-mode
      mpdel-tablist-mode
      mpdel-playlist-mode
@@ -318,6 +319,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (pdf-view-mode . centaur-tabs-local-mode)
   (ement-room-list-mode . centaur-tabs-local-mode)
   (ement-room-mode . centaur-tabs-local-mode)
+  (ghostel-mode . centaur-tabs-local-mode)
   (after-init . centaur-tabs-mode)
   :bind
   ("C-<prior>" . centaur-tabs-backward)

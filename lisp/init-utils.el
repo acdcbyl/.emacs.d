@@ -9,7 +9,7 @@
 (use-package
   elcord
   :ensure t
-  :defer t
+  :defer 6
   :init (setq elcord-quiet t)
   :config (elcord-mode))
 
