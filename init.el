@@ -66,7 +66,7 @@
 (let ((dir (locate-user-emacs-file "lisp")))
   (add-to-list 'load-path (file-name-as-directory dir))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
-; (add-to-list 'load-path "/home/aiser/.emacs.d/lisp")
+                                        ; (add-to-list 'load-path "/home/aiser/.emacs.d/lisp")
 
 (require 'init-base)
 (require 'init-icons)
@@ -84,6 +84,7 @@
 (require 'init-feed)
 ;; (require 'init-tramp-rpc)
 ;; (require 'tramp-rpc)
+(require 'init-rimel)
 (require 'init-workspaces)
 (require 'init-org)
 (require 'init-evil)

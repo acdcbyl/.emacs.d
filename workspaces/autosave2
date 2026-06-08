@@ -17,7 +17,12 @@
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
- (def-persp "main" nil
+ (def-persp "main"
+            ((def-buffer "one.md" "/home/aiser/Workspace/小说/one.md"
+                         markdown-mode)
+             (def-buffer "bookmark-default.el"
+                         "/home/aiser/.emacs.d/var/bookmark-default.el"
+                         emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -30,10 +35,9 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "*ghostel: ~*" (selected . t) (hscroll . 0)
+              (buffer "one.md" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
-                      (scroll-bars nil 0 t nil 0 t nil)
-                      (vscroll . 0.2916666666666667) (dedicated)
-                      (point . 1) (start . 1))
-              (prev-buffers ("*dashboard*" 1 1) ("*scratch*" 1 148))))
+                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
+                      (dedicated) (point . 492) (start . 1))
+              (prev-buffers ("*dashboard*" 1 517) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))
