@@ -2,27 +2,27 @@
 ((def-persp nil nil
             (def-wconf
              (((min-height . 4) (min-width . 10)
-               (min-height-ignore . 3) (min-width-ignore . 4)
+               (min-height-ignore . 2) (min-width-ignore . 4)
                (min-height-safe . 1) (min-width-safe . 2)
                (min-pixel-height . 96) (min-pixel-width . 110)
-               (min-pixel-height-ignore . 72)
+               (min-pixel-height-ignore . 48)
                (min-pixel-width-ignore . 44)
                (min-pixel-height-safe . 24)
                (min-pixel-width-safe . 22))
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "*scratch*" (selected . t) (hscroll . 0)
-                      (fringes 8 8 nil nil) (margins nil)
+              (buffer " *corfu*" (selected) (hscroll . 0)
+                      (fringes 6 6 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 1) (start . 1))))
+                      (dedicated . t) (point . 1) (start . 1))
+              (prev-buffers ("*dashboard*" 1 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "README.org"
-                         "/home/aiser/.emacs.d/README.org" org-mode)
-             (def-buffer "bookmark-default.el"
-                         "/home/aiser/.emacs.d/var/bookmark-default.el"
-                         emacs-lisp-mode))
+            ((def-buffer "window-rule.kdl"
+                         "/home/aiser/.config/niri/window-rule.kdl"
+                         fundamental-mode)
+             (def-buffer "niri" "~/.config/niri/" dired-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -35,9 +35,10 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "README.org" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins nil)
+              (buffer "window-rule.kdl" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 217) (start . 1))
-              (prev-buffers ("*dashboard*" 1 920) ("*scratch*" 1 148))))
+                      (dedicated) (point . 1247) (start . 1))
+              (prev-buffers ("niri" 1 828) ("*dashboard*" 1 1)
+                            ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

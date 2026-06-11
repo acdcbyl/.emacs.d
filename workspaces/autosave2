@@ -18,26 +18,58 @@
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "one.md" "/home/aiser/Workspace/小说/one.md"
-                         markdown-mode)
-             (def-buffer "bookmark-default.el"
-                         "/home/aiser/.emacs.d/var/bookmark-default.el"
+            ((def-buffer "init-elisp.el"
+                         "/home/aiser/.emacs.d/lisp/lang/init-elisp.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-js.el"
+                         "/home/aiser/.emacs.d/lisp/lang/init-js.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-json.el"
+                         "/home/aiser/.emacs.d/lisp/lang/init-json.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-dev.el"
+                         "/home/aiser/.emacs.d/lisp/init-dev.el"
                          emacs-lisp-mode))
             (def-wconf
-             (((min-height . 4) (min-width . 10)
-               (min-height-ignore . 3) (min-width-ignore . 4)
-               (min-height-safe . 1) (min-width-safe . 2)
-               (min-pixel-height . 96) (min-pixel-width . 110)
-               (min-pixel-height-ignore . 72)
-               (min-pixel-width-ignore . 44)
+             (((min-height . 4) (min-width . 45)
+               (min-height-ignore . 4) (min-width-ignore . 10)
+               (min-height-safe . 1) (min-width-safe . 4)
+               (min-pixel-height . 96) (min-pixel-width . 495)
+               (min-pixel-height-ignore . 96)
+               (min-pixel-width-ignore . 110)
                (min-pixel-height-safe . 24)
-               (min-pixel-width-safe . 22))
-              leaf (pixel-width . 896) (pixel-height . 840)
+               (min-pixel-width-safe . 44))
+              hc (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "one.md" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins nil)
-                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 492) (start . 1))
-              (prev-buffers ("*dashboard*" 1 517) ("*scratch*" 1 148))))
+              (combination-limit)
+              (leaf (pixel-width . 385) (pixel-height . 840)
+                    (total-width . 35) (total-height . 35)
+                    (normal-height . 1.0) (normal-width . 0.4296875)
+                    (parameters (window-side . left)
+                                (window-slot . -1))
+                    (buffer " *SIDE :: .emacs :: 06/11/26|21:59:00"
+                            (selected) (hscroll . 0)
+                            (fringes 3 1 nil nil) (margins nil)
+                            (scroll-bars nil 0 t nil 0 t nil)
+                            (vscroll . 0) (dedicated . t)
+                            (point . 465) (start . 1))
+                    (prev-buffers ("init-elisp.el" 1 138)
+                                  ("init-js.el" 1 286)
+                                  ("init-json.el" 1 1)))
+              (leaf (last . t) (pixel-width . 511)
+                    (pixel-height . 840) (total-width . 46)
+                    (total-height . 35) (normal-height . 1.0)
+                    (normal-width . 0.5703125)
+                    (buffer "init-elisp.el" (selected . t)
+                            (hscroll . 0) (fringes 8 8 t nil)
+                            (margins nil)
+                            (scroll-bars nil 0 t nil 0 t nil)
+                            (vscroll . 0) (dedicated) (point . 119)
+                            (start . 1))
+                    (prev-buffers ("init-js.el" 1 286)
+                                  ("init-json.el" 1 1)
+                                  ("init-dev.el" 1 14)
+                                  ("*dashboard*" 325 920)
+                                  ("*scratch*" 1 148)))))
             (def-params nil) nil nil nil))

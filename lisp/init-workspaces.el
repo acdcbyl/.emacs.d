@@ -3,6 +3,11 @@
 ;; Adapted from Doom Emacs' workspaces module for vanilla Emacs configurations.
 ;;; Code:
 
+(eval-when-compile
+  (require 'cl-lib)
+  (require 'subr-x)
+  (require 'transient))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Variables

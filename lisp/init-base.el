@@ -4,6 +4,10 @@
 ;;
 
 ;;; Code:
+
+(eval-when-compile
+  (require 'cl-lib))
+
 (setopt initial-major-mode 'fundamental-mode) ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
 ;; Don't delete files diretly

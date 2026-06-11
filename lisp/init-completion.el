@@ -125,22 +125,20 @@
   (corfu-popupinfo-hide nil)
   :config (corfu-popupinfo-mode))
 
-;; Kind-Icon for corfu
+;; Pretty icons for corfu
 (use-package kind-icon
+  :if (display-graphic-p)
   :ensure t
   :after corfu
-                                        ;:custom
-                                        ; (kind-icon-blend-background t)
-                                        ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;; Make corfu popup come up in terminal overlay
-;; (use-package corfu-terminal
-;;   :if (not (display-graphic-p))
-;;   :ensure t
-;;   :config
-;;   (corfu-terminal-mode))
+(use-package corfu-terminal
+  :if (not (display-graphic-p))
+  :ensure t
+  :config
+  (corfu-terminal-mode))
 
 ;; Fancy completion-at-point functions; there's too much in the cape package to
 ;; configure here; dive in when you're comfortable!

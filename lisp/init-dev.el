@@ -28,6 +28,11 @@
           (c-mode . c-ts-mode)
           (c++-mode . c++-ts-mode)
           (css-mode . css-ts-mode)))
+  (setq treesit-language-source-alist
+        '((c . ("https://github.com/tree-sitter/tree-sitter-c"))
+          (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+          (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+          (kdl . ("https://github.com/tree-sitter-grammars/tree-sitter-kdl"))))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -261,6 +266,7 @@
 (require 'init-yaml)
 (require 'init-json)
 (require 'init-qml)
+(require 'init-kdl)
 (require 'init-elisp)
 
 (provide 'init-dev)
