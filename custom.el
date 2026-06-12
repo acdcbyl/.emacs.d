@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;;; -*- lexical-binding: t no-byte-compile: t-*-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -9,7 +9,7 @@
    '("a2d20d9c83d3e505faf577c9067d219473ca75511b53f4bc65b1ca99876eea83"
      default))
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
- '(package-selected-packages nil)
+ '(package-selected-packages '(doom-themes eglot-booster kdl-ts-mode qml-ts-mode))
  '(package-vc-selected-packages
    '((kdl-ts-mode :url "https://github.com/merrickluo/kdl-ts-mode")
      (qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")

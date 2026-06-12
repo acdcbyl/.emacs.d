@@ -1,4 +1,4 @@
-;;; init.el --- The main entry for emacs -*- lexical-binding: t -*-
+;;; init.el --- The main entry for emacs -*- lexical-binding: t no-byte-compile: t-*-
 ;;; Commentary:
 ;;; Code:
 
@@ -83,6 +83,7 @@
 (require 'init-dap)
 (require 'init-completion)
 (require 'init-music)
+(require 'init-email)
 ;; (require 'init-matrix)
 (require 'init-feed)
 ;; (require 'init-tramp-rpc)

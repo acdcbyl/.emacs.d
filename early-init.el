@@ -1,4 +1,4 @@
-;;; early-init.el --- The before init entry for emacs -*- lexical-binding: t -*-
+;;; early-init.el --- The before init entry for emacs -*- lexical-binding: t no-byte-compile: t-*-
 ;;; Commentary:
 ;;; /        |                                              /       \               /  |                          /  |
 ;;; $$$$$$$$/ _____  ____   ______   _______  _______       $$$$$$$  | ______   ____$$ | ______   ______   _______$$ |   __
