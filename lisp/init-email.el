@@ -4,6 +4,10 @@
 ;;  Configured for mu4e with Gmail and mbsync.
 
 ;;; Code:
+(use-package auth-source-pass
+  :ensure nil
+  :config
+  (auth-source-pass-enable))
 
 (use-package mu4e
   :ensure nil
@@ -26,9 +30,9 @@
   ;;;; Folders
   ;; Note: Gmail folders are case-sensitive and often prefixed with [Gmail]/
   (setq mu4e-inbox-folder  "/INBOX"
-        mu4e-sent-folder   "/[Gmail]/Sent Mail"
-        mu4e-drafts-folder "/[Gmail]/Drafts"
-        mu4e-trash-folder  "/[Gmail]/Bin") ; Or "/[Gmail]/Trash" depending on locale
+        mu4e-sent-folder   "/[Gmail]/已发邮件"
+        mu4e-drafts-folder "/[Gmail]/草稿"
+        mu4e-trash-folder  "/[Gmail]/垃圾邮件")
 
   ;; Fix duplicate UID errors when using mbsync and mu4e
   (setq mu4e-change-filenames-when-moving t)
@@ -40,10 +44,12 @@
   ;; Align these with actual folder names for quick navigation
   (setq mu4e-maildir-shortcuts
         '((:maildir "/INBOX"              :key ?i)
-          (:maildir "/[Gmail]/Sent Mail"  :key ?s)
-          (:maildir "/[Gmail]/Drafts"     :key ?d)
-          (:maildir "/[Gmail]/Bin"        :key ?t)
-          (:maildir "/lists"              :key ?l)))
+          (:maildir "/[Gmail]/已发邮件"  :key ?s)
+          (:maildir "/[Gmail]/草稿"     :key ?d)
+          (:maildir "/[Gmail]/垃圾邮件"        :key ?t)
+          ;; (:maildir "/lists"              :key ?l)
+          )
+        )
 
   ;;;; Visuals
   (setq mu4e-use-fancy-chars t
@@ -56,15 +62,23 @@
   (with-eval-after-load "nerd-icons"
     (setq mu4e-file-name-to-icon-function #'nerd-icons-icon-for-file))
 
-  ;;;; Sending mail
-  ;; Configured for Gmail SMTP
-  (setq send-mail-function 'smtpmail-send-it
-        message-send-mail-function 'smtpmail-send-it
+;;;; Sending mail
+  (setq send-mail-function #'smtpmail-send-it
+        message-send-mail-function #'smtpmail-send-it
+
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 465
-        smtpmail-stream-type 'tls
-        ;; Let Emacs prompt for SMTP password via auth-source-pass
-        smtpmail-auth-credentials '(("smtp.gmail.com" 465 "wtchel088@gmail.com" nil)))
+        smtpmail-stream-type 'ssl
+
+        ;; SMTP login user
+        smtpmail-smtp-user "wtchel088@gmail.com"
+
+        ;; Debug
+        ;; smtpmail-debug-info t
+        ;; smtpmail-debug-verb t
+
+        ;; Don't ask repeatedly
+        auth-source-cache-expiry nil)
 
   ;;;; Extras
   (setq mu4e-attachment-dir "~/Downloads")

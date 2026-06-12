@@ -1,0 +1,347 @@
+#+TITLE: Gmail + isync(mbsync) + mu4e 配置指南
+#+AUTHOR: Aiser
+#+OPTIONS: toc:3 num:t
+
+* 安装依赖
+
+Arch Linux:
+
+#+begin_src bash
+sudo pacman -S isync mu pass gnupg
+#+end_src
+
+确认安装成功：
+
+#+begin_src bash
+mbsync --version
+mu --version
+#+end_src
+
+* 创建 Gmail App Password
+
+Gmail 已不支持直接使用账户密码进行 IMAP/SMTP 登录。
+
+** 开启两步验证
+
+访问：
+
+https://myaccount.google.com/security
+
+开启：
+
+#+begin_example
+2-Step Verification
+#+end_example
+
+** 创建 App Password
+
+进入：
+
+#+begin_example
+Security
+└── App passwords
+#+end_example
+
+创建：
+
+#+begin_example
+Mail
+#+end_example
+
+获得类似：
+
+#+begin_example
+abcd efgh ijkl mnop
+#+end_example
+
+的 16 位应用专用密码。
+
+* 配置 pass
+
+** 初始化密码仓库
+
+#+begin_src bash
+pass init <YOUR_GPG_KEY_ID>
+#+end_src
+
+例如：
+
+#+begin_src bash
+pass init ABCDEF1234567890
+#+end_src
+
+** 创建 Gmail 密码条目
+
+#+begin_src bash
+pass insert mail/gmail
+#+end_src
+
+输入 Gmail App Password：
+
+#+begin_example
+abcd efgh ijkl mnop
+#+end_example
+
+验证：
+
+#+begin_src bash
+pass show mail/gmail
+#+end_src
+
+应能正常显示密码。
+
+* 创建 Maildir
+
+#+begin_src bash
+mkdir -p ~/Mail
+#+end_src
+
+最终目录结构：
+
+#+begin_example
+~/Mail
+├── INBOX
+└── [Gmail]
+├── All Mail
+├── Drafts
+├── Sent Mail
+├── Spam
+├── Starred
+└── Trash
+#+end_example
+
+* 配置 mbsync
+
+编辑：
+
+#+begin_src bash
+nano ~/.mbsyncrc
+#+end_src
+
+内容：
+
+#+begin_src conf
+IMAPAccount gmail
+Host imap.gmail.com
+Port 993
+User [your@gmail.com](mailto:your@gmail.com)
+PassCmd "pass mail/gmail"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/Mail/
+Inbox ~/Mail/INBOX/
+SubFolders Verbatim
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+
+Patterns *
+
+Create Both
+Sync All
+Expunge None
+CopyArrivalDate yes
+SyncState *
+#+end_src
+
+将：
+
+#+begin_src conf
+User [your@gmail.com](mailto:your@gmail.com)
+#+end_src
+
+修改为自己的 Gmail 地址。
+
+* 设置权限
+
+mbsync 要求配置文件权限安全：
+
+#+begin_src bash
+chmod 600 ~/.mbsyncrc
+#+end_src
+
+* 查看 Gmail 文件夹
+
+测试连接：
+
+#+begin_src bash
+mbsync -l gmail
+#+end_src
+
+正常应看到：
+
+#+begin_example
+INBOX
+[Gmail]/All Mail
+[Gmail]/Drafts
+[Gmail]/Sent Mail
+[Gmail]/Spam
+[Gmail]/Starred
+[Gmail]/Trash
+#+end_example
+
+如果报：
+
+#+begin_example
+Authentication failed
+#+end_example
+
+说明：
+
+* App Password 不正确
+* pass 配置错误
+* GPG 解密失败
+
+- 首次同步
+
+执行：
+
+#+begin_src bash
+mbsync -a
+#+end_src
+
+检查目录：
+
+#+begin_src bash
+find ~/Mail -maxdepth 2 -type d | sort
+#+end_src
+
+应看到：
+
+#+begin_example
+~/Mail/INBOX
+~/Mail/[Gmail]
+~/Mail/[Gmail]/All Mail
+~/Mail/[Gmail]/Drafts
+~/Mail/[Gmail]/Sent Mail
+~/Mail/[Gmail]/Spam
+~/Mail/[Gmail]/Starred
+~/Mail/[Gmail]/Trash
+#+end_example
+
+* 日常同步
+
+同步全部账户：
+
+#+begin_src bash
+mbsync -a
+#+end_src
+
+同步 Gmail：
+
+#+begin_src bash
+mbsync gmail
+#+end_src
+
+* 与 mu4e 配合
+
+推荐配置：
+
+#+begin_src emacs-lisp
+(setq mu4e-inbox-folder  "/INBOX"
+mu4e-sent-folder   "/[Gmail]/Sent Mail"
+mu4e-drafts-folder "/[Gmail]/Drafts"
+mu4e-trash-folder  "/[Gmail]/Trash")
+#+end_src
+
+快捷目录：
+
+#+begin_src emacs-lisp
+(setq mu4e-maildir-shortcuts
+'((:maildir "/INBOX"              :key ?i)
+(:maildir "/[Gmail]/Sent Mail" :key ?s)
+(:maildir "/[Gmail]/Drafts"    :key ?d)
+(:maildir "/[Gmail]/Trash"     :key ?t)))
+#+end_src
+
+发送邮件后：
+
+#+begin_src emacs-lisp
+(setq mu4e-sent-messages-behavior 'delete)
+#+end_src
+
+Gmail 会自动保存已发送邮件。
+
+* 常见问题
+
+** far side box Inbox cannot be opened anymore
+
+通常是：
+
+#+begin_example
+Inbox
+#+end_example
+
+与：
+
+#+begin_example
+INBOX
+#+end_example
+
+大小写不一致导致。
+
+检查：
+
+#+begin_src bash
+mbsync -l gmail
+#+end_src
+
+以实际返回结果为准。
+
+** Authentication failed
+
+确认：
+
+1. Gmail 已开启两步验证
+2. 使用 App Password
+3. pass 能正常解密
+
+测试：
+
+#+begin_src bash
+pass show mail/gmail
+#+end_src
+
+** Sent Mail 看不到已发送邮件
+
+同步：
+
+#+begin_src bash
+mbsync -a
+#+end_src
+
+重新索引：
+
+#+begin_src bash
+mu index --rebuild
+#+end_src
+
+** 修改配置后同步异常
+
+删除状态文件：
+
+#+begin_src bash
+find ~/Mail -name ".mbsyncstate*" -delete
+#+end_src
+
+重新同步：
+
+#+begin_src bash
+mbsync -a
+#+end_src
+
+如果 Maildir 已混乱：
+
+#+begin_src bash
+mv ~/Mail ~/Mail.backup
+mkdir ~/Mail
+mbsync -a
+#+end_src
+
+重新初始化即可。

@@ -267,6 +267,7 @@
     ;; open
     "o"   (list :wk (format "%s open" (nerd-icons-codicon "nf-cod-link_external")))
     "oc"  'org-capture
+    "oe"  'mu4e-transient-menu
     "ol"  'org-store-link
     "od"  'dirvish
     ;; "os"  'eat-other-window
