@@ -334,11 +334,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward)
   ("C-S-<prior>" . centaur-tabs-move-current-tab-to-left)
-  ("C-S-<next>" . centaur-tabs-move-current-tab-to-right)
-  (:map
-   evil-normal-state-map
-   ("] t" . centaur-tabs-forward)
-   ("[ t" . centaur-tabs-backward)))
+  ("C-S-<next>" . centaur-tabs-move-current-tab-to-right))
 
 (use-package
   spacious-padding

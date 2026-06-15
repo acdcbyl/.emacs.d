@@ -1,5 +1,8 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
-((def-persp nil nil
+((def-persp nil
+            ((def-buffer "magit-process: .emacs.d" nil
+                         magit-process-mode)
+             (def-buffer "magit-diff: .emacs.d" nil magit-diff-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -18,11 +21,19 @@
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "print.go" "/usr/lib/go/src/fmt/print.go"
-                         go-ts-mode)
-             (def-buffer "main.go"
-                         "/home/aiser/Workspace/go/Learn/main.go"
-                         go-ts-mode))
+            ((def-magit-status-buffer "magit: .emacs.d"
+                                      ((major-mode . magit-status-mode)
+                                       (default-directory
+                                        . "/home/aiser/.emacs.d/")))
+             (def-buffer "languages.toml"
+                         "/home/aiser/.emacs.d/lsp-proxy/languages.toml"
+                         tags-table-mode)
+             (def-buffer "init-completion.el"
+                         "/home/aiser/.emacs.d/lisp/init-completion.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-dev.el"
+                         "/home/aiser/.emacs.d/lisp/init-dev.el"
+                         emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -35,10 +46,14 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "print.go" (selected . t) (hscroll . 0)
+              (buffer "init-dev.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
-                      (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 9499) (start . 8743))
-              (prev-buffers ("main.go" 1 132) ("*dashboard*" 1 517)
-                            ("*scratch*" 1 148))))
+                      (scroll-bars nil 0 t nil 0 t nil)
+                      (vscroll . 0.9583333333333334) (dedicated)
+                      (point . 4617) (start . 3550))
+              (prev-buffers ("magit-diff: .emacs.d" 1 1)
+                            ("init-dev.el" 5909 6023)
+                            ("languages.toml" 1 141)
+                            ("init-completion.el" 2810 3748)
+                            ("*dashboard*" 1 668) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))
