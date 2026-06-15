@@ -1,0 +1,55 @@
+# Pyhton lsp
+[language-server.ty]
+command = "ty"
+args = ["server"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[[language]]
+name = "python"
+language-id = "python"
+file-types = ["py"]
+roots = ["pyproject.toml", ".git"]
+language-servers = ["ty", "ruff"]
+
+# Go lsp
+[language-server.gopls]
+command = "gopls"
+
+[language-server.gopls.config]
+gofumpt = true
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+parameterNames = true
+
+[[language]]
+name = "go"
+language-id = "go"
+file-types = ["go"]
+roots = ["go.mod", "go.work"]
+language-servers = ["gopls"]
+
+#Rust lsp
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[[language]]
+name = "rust"
+language-id = "rust"
+file-types = ["rs"]
+roots = ["Cargo.toml", ".git"]
+language-servers = ["rust-analyzer"]
+
+ #Qml lsp
+[language-server.qmlls]
+command = "qmlls6"
+
+[[language]]
+name = "qml"
+language-id = "qml"
+file-types = ["qml"]
+roots = [".git"]
+language-servers = ["qmlls"]

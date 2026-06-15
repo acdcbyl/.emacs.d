@@ -8,9 +8,10 @@
   :mode "\.qml\'"
   :defer t)
 
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '(qml-ts-mode . ("qmlls6")))
-  (add-hook 'qml-ts-mode-hook 'eglot-ensure))
-
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs '(qml-ts-mode . ("qmlls6")))
+;;   (add-hook 'qml-ts-mode-hook 'eglot-ensure))
+(with-eval-after-load 'lsp-proxy
+  (add-hook 'qml-ts-mode-hook #'lsp-proxy-mode))
 (provide 'init-qml)
 ;;; init-qml.el ends here

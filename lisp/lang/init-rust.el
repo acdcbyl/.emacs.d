@@ -19,9 +19,11 @@
 
 (add-to-list 'major-mode-remap-alist '(rust-mode . rust-ts-mode))
 
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
-  (add-hook 'rust-ts-mode-hook 'eglot-ensure))
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
+;;   (add-hook 'rust-ts-mode-hook 'eglot-ensure))
 
+(with-eval-after-load 'lsp-proxy
+  (add-hook 'rust-ts-mode-hook #'lsp-proxy-mode))
 (provide 'init-rust)
 ;;; init-rust.el ends here

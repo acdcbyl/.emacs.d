@@ -49,11 +49,11 @@
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-indication-mode 'right-fringe))
 
-(use-package
-  flycheck-eglot
-  :ensure t
-  :after (flycheck eglot)
-  :config (global-flycheck-eglot-mode 1))
+;; (use-package
+;;   flycheck-eglot
+;;   :ensure t
+;;   :after (flycheck eglot)
+;;   :config (global-flycheck-eglot-mode 1))
 
 ;; A beautiful inline overlay for Flycheck
 (use-package flyover
@@ -197,17 +197,22 @@
    ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
   :hook (eglot-managed-mode emacs-lisp-mode))
 
-;;eglot booster
-(use-package
-  eglot-booster
-  :ensure t
-  :vc (:url "https://github.com/jdtsmith/eglot-booster"
-            :rev :newest)
-  :after eglot
-  :init
-  (setq eglot-booster-io-only t)
-  :config (eglot-booster-mode))
+;; ;;eglot booster
+;; (use-package
+;;   eglot-booster
+;;   :ensure t
+;;   :vc (:url "https://github.com/jdtsmith/eglot-booster"
+;;             :rev :newest)
+;;   :after eglot
+;;   :init
+;;   (setq eglot-booster-io-only t)
+;;   :config (eglot-booster-mode))
 
+(use-package lsp-proxy
+  :ensure t
+  :vc (:url "https://github.com/jadestrong/lsp-proxy"
+            :rev :newest)
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Project Config
