@@ -33,6 +33,6 @@
               (buffer "*dashboard*" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 1) (start . 1))
+                      (dedicated) (point . 480) (start . 1))
               (prev-buffers ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

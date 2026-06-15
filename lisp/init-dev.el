@@ -32,6 +32,7 @@
         '((c . ("https://github.com/tree-sitter/tree-sitter-c"))
           (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
           (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+          (lua . ("https://github.com/tree-sitter-grammars/tree-sitter-lua"))
           (kdl . ("https://github.com/tree-sitter-grammars/tree-sitter-kdl"))))
   :hook
   ;; Auto parenthesis matching
@@ -303,6 +304,7 @@
 (require 'init-json)
 (require 'init-qml)
 (require 'init-kdl)
+(require 'init-lua)
 (require 'init-elisp)
 
 (provide 'init-dev)
