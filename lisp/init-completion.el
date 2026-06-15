@@ -97,9 +97,9 @@
   corfu
   :ensure t
   :init (global-corfu-mode)
-  :custom (corfu-auto t) (corfu-auto-delay 0.2) (corfu-cycle t)
+  :custom (corfu-auto t) (corfu-auto-delay 0) (corfu-cycle t)
   ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
-  (corfu-auto-prefix 2)
+  (corfu-auto-prefix 0)
   (corfu-preselect 'prompt)
   (corfu-auto-trigger ".") ;; Custom trigger characters
   (corfu-quit-no-match 'separator) ;; or t
@@ -121,7 +121,7 @@
   :after corfu
   :hook (corfu-mode . corfu-popupinfo-mode)
   :custom
-  (corfu-popupinfo-delay '(0.25 . 0.1))
+  (corfu-popupinfo-delay '(0.1 . 0.1))
   (corfu-popupinfo-hide nil)
   :config (corfu-popupinfo-mode))
 

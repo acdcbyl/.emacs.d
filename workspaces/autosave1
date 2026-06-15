@@ -1,8 +1,5 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
-((def-persp nil
-            ((def-buffer "magit-process: .emacs.d" nil
-                         magit-process-mode)
-             (def-buffer "magit-diff: .emacs.d" nil magit-diff-mode))
+((def-persp nil nil
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -21,12 +18,9 @@
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-magit-status-buffer "magit: .emacs.d"
-                                      ((major-mode . magit-status-mode)
-                                       (default-directory
-                                        . "/home/aiser/.emacs.d/")))
-             (def-buffer "init.el" "/home/aiser/.emacs.d/init.el"
-                         emacs-lisp-mode))
+            ((def-buffer "main.go"
+                         "/home/aiser/Workspace/go/Learn/main.go"
+                         go-ts-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -39,11 +33,9 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "init.el" (selected . t) (hscroll . 0)
+              (buffer "main.go" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 23) (start . 1))
-              (prev-buffers ("magit-diff: .emacs.d" 1 1)
-                            ("init.el" 2007 2543)
-                            ("*dashboard*" 1 979) ("*scratch*" 1 148))))
+                      (dedicated) (point . 54) (start . 1))
+              (prev-buffers ("*dashboard*" 1 652) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

@@ -36,6 +36,14 @@ language-servers = ["gopls"]
 [language-server.rust-analyzer]
 command = "rust-analyzer"
 
+[language-server.rust-analyzer.config]
+inlayHints.bindingModeHints.enable = false
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+
 [[language]]
 name = "rust"
 language-id = "rust"
@@ -53,3 +61,21 @@ language-id = "qml"
 file-types = ["qml"]
 roots = [".git"]
 language-servers = ["qmlls"]
+
+#Lua lsp
+[language-server.lua-language-server]
+command = "lua-language-server"
+
+[language-server.lua-language-server.config.Lua.hint]
+enable = true
+arrayIndex = "Enable"
+setType = true
+paramName = "All"
+paramType = true
+await = true
+
+[[language]]
+name = "lua"
+file-types = ["lua", "rockspec"]
+roots = [".luarc.json", ".luacheckrc", ".stylua.toml", "selene.toml", ".git"]
+language-servers = ["lua-language-server"]

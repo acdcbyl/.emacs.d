@@ -10,6 +10,9 @@
 ;; For a more ergonomic Emacs and `dape' experience
 (use-package repeat :custom (repeat-mode +1))
 
+(require 'transient)
+(require 'init-icons)
+(require 'init-evil)
 (use-package
   dape
   :ensure t
