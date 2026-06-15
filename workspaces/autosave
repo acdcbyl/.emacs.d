@@ -37,5 +37,5 @@
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
                       (dedicated) (point . 1) (start . 1))
-              (prev-buffers ("*dashboard*" 1 915) ("*scratch*" 1 148))))
+              (prev-buffers ("*dashboard*" 1 517) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

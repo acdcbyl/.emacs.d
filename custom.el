@@ -9,13 +9,14 @@
    '("a2d20d9c83d3e505faf577c9067d219473ca75511b53f4bc65b1ca99876eea83"
      default))
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
- '(package-selected-packages '(doom-themes eglot-booster kdl-ts-mode qml-ts-mode))
+ '(package-selected-packages nil)
  '(package-vc-selected-packages
    '((kdl-ts-mode :url "https://github.com/merrickluo/kdl-ts-mode")
      (qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
-     (eglot-booster :url "https://github.com/jdtsmith/eglot-booster")
+     (lsp-proxy :url "https://github.com/jadestrong/lsp-proxy")
      (doom-themes :url
                   "https://github.com/acdcbyl/doom-themes-matugen")
+     (eglot-booster :url "https://github.com/jdtsmith/eglot-booster")
      (tramp-rpc :url
                 "https://github.com/ArthurHeymans/emacs-tramp-rpc"
                 :lisp-dir "lisp")
