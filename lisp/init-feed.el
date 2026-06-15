@@ -15,5 +15,11 @@
  (elfeed-org)
 (setq rmh-elfeed-org-files (list "~/.emacs.d/feeds.org")))
 
+(with-eval-after-load 'general
+  (my-leader-def
+    "r"   (list :wk (format "%s feed" (nerd-icons-faicon "nf-fa-rss")))
+    "re"  'elfeed
+    "ru"  'elfeed-update))
+
 (provide 'init-feed)
 ;;; init-feed.el ends here

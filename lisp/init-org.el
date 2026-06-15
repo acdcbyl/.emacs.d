@@ -193,5 +193,60 @@
   :defer t
   :hook (org-mode . org-modern-mode))
 
+(with-eval-after-load 'general
+  (my-leader-def
+    "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
+    "aa"  'org-agenda
+    "oc"  'org-capture
+    "ol"  'org-store-link)
+
+  (my-localleader-def
+    :major-modes '(org-mode)
+    :keymaps 'org-mode-map
+    "." 'org-goto
+    "a" 'org-archive-subtree
+    "d" 'org-deadline
+    "e" 'org-set-effort
+    "f" 'org-footnote-action
+    "l" 'org-lint
+    "o" 'org-toggle-ordered-property
+    "p" 'org-set-property
+    "q" 'org-set-tags-command
+    "r" 'org-refile
+    "s" 'org-schedule
+    "t" 'org-todo
+    "T" 'org-todo-list
+    ;; babel
+    "bp" 'org-babel-previous-src-block
+    "bn" 'org-babel-next-src-block
+    "be" 'org-babel-expand-src-block
+    "bg" 'org-babel-goto-named-src-block
+    "bs" 'org-babel-execute-subtree
+    "bb" 'org-babel-execute-buffer
+    "bt" 'org-babel-tangle
+    "bf" 'org-babel-tangle-file
+    "bc" 'org-babel-check-src-block
+    "bi" 'org-babel-insert-header-arg
+    "bI" 'org-babel-view-src-block-info
+    "bk" 'org-babel-remove-result-one-or-many
+    ;; clock
+    "cc" 'org-clock-in
+    "cC" 'org-clock-out
+    "cd" 'org-clock-mark-default-task
+    "ce" 'org-clock-modify-effort-estimate
+    "cg" 'org-clock-goto
+    "cl" 'org-clock-in-last
+    "cr" 'org-clock-report
+    "cs" 'org-clock-display
+    "cx" 'org-clock-cancel
+    "c=" 'org-clock-timestamps-up
+    "c-" 'org-clock-timestamps-down
+    ;; insert
+    "Id" 'org-insert-drawer
+    "In" 'org-add-note
+    "It" 'org-time-stamp-inactive
+    "Ii" 'org-toggle-inline-images
+    "IT" 'org-time-stamp))
+
 (provide 'init-org)
 ;;; init-org.el ends here

@@ -39,5 +39,23 @@
     ["Others"
      ("i" "Info"              dape-info)]))
 
+(with-eval-after-load 'general
+  (my-leader-def
+    "d"   (list :wk (format "%s debug" (nerd-icons-codicon "nf-cod-debug")))
+    "dd"  'dape
+    "dq"  'dape-quit
+    "dr"  'dape-restart
+    "db"  'dape-breakpoint-toggle
+    "dB"  'dape-breakpoint-remove-all
+    "dn"  'dape-next
+    "di"  'dape-step-in
+    "do"  'dape-step-out
+    "dc"  'dape-continue
+    "dp"  'dape-pause
+    "de"  'dape-evaluate-expression
+    "ds"  'dape-select-stack
+    "dw"  'dape-watch-dwim
+    "dh"  'dape-transient))
+
 (provide 'init-dap)
 ;;; init-dap.el ends here

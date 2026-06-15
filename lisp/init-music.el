@@ -24,5 +24,21 @@
  (progn
    (mpdel-embark-setup)))
 
+(with-eval-after-load 'general
+  (my-leader-def
+    "m"   (list :wk (format "%s music" (nerd-icons-mdicon "nf-md-music_note")))
+    "mb"  'mpdel-browser-open
+    "ml"  'mpdel-playlist-open
+    "ms"  'mpdel-song-open
+    "mp"  'libmpdel-playback-play-pause
+    "m]"  'libmpdel-playback-next
+    "m["  'libmpdel-playback-previous
+    "mS"  'libmpdel-stop
+    "m+"  'libmpdel-volume-increase
+    "m-"  'libmpdel-volume-decrease
+    "mr"  'libmpdel-playback-set-random
+    "mR"  'libmpdel-playback-set-repeat
+    "mc"  'libmpdel-playlist-clear))
+
 (provide 'init-music)
 ;;; init-music.el ends here

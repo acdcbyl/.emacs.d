@@ -227,30 +227,9 @@
 
     ;; app
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
-    "aa"  'org-agenda
     "ac"  'calendar
     "ag"  'gnus
     "ai"  'rcirc
-
-    ;; music
-    "m"   (list :wk (format "%s music" (nerd-icons-mdicon "nf-md-music_note")))
-    "mb"  'mpdel-browser-open
-    "ml"  'mpdel-playlist-open
-    "ms"  'mpdel-song-open
-    "mp"  'libmpdel-playback-play-pause
-    "m]"  'libmpdel-playback-next
-    "m["  'libmpdel-playback-previous
-    "mS"  'libmpdel-stop
-    "m+"  'libmpdel-volume-increase
-    "m-"  'libmpdel-volume-decrease
-    "mr"  'libmpdel-playback-set-random
-    "mR"  'libmpdel-playback-set-repeat
-    "mc"  'libmpdel-playlist-clear
-
-    ;; feed (rss)
-    "r"   (list :wk (format "%s feed" (nerd-icons-faicon "nf-fa-rss")))
-    "re"  'elfeed
-    "ru"  'elfeed-update
 
     ;; git
     "g"   (list :wk (format "%s magit" (nerd-icons-devicon "nf-dev-git")))
@@ -267,77 +246,11 @@
     ;; open
     "o"   (list :wk (format "%s open" (nerd-icons-codicon "nf-cod-link_external")))
     "oc"  'org-capture
-    "oe"  'mu4e-transient-menu
     "ol"  'org-store-link
     "od"  'dirvish
     ;; "os"  'eat-other-window
     "og"  'ghostel
-    "ou"  'symbols-outline-show
-
-    ;; dape
-    "d"   (list :wk (format "%s debug" (nerd-icons-codicon "nf-cod-debug")))
-    "dd"  'dape
-    "dq"  'dape-quit
-    "dr"  'dape-restart
-    "db"  'dape-breakpoint-toggle
-    "dB"  'dape-breakpoint-remove-all
-    "dn"  'dape-next
-    "di"  'dape-step-in
-    "do"  'dape-step-out
-    "dc"  'dape-continue
-    "dp"  'dape-pause
-    "de"  'dape-evaluate-expression
-    "ds"  'dape-select-stack
-    "dw"  'dape-watch-dwim
-    "dh"  'dape-transient)
-
-  (my-localleader-def
-    :major-modes '(org-mode)
-    :keymaps 'org-mode-map
-    "." 'org-goto
-    "a" 'org-archive-subtree
-    "d" 'org-deadline
-    "e" 'org-set-effort
-    "f" 'org-footnote-action
-    "l" 'org-lint
-    "o" 'org-toggle-ordered-property
-    "p" 'org-set-property
-    "q" 'org-set-tags-command
-    "r" 'org-refile
-    "s" 'org-schedule
-    "t" 'org-todo
-    "T" 'org-todo-list
-    ;; babel
-    "bp" 'org-babel-previous-src-block
-    "bn" 'org-babel-next-src-block
-    "be" 'org-babel-expand-src-block
-    "bg" 'org-babel-goto-named-src-block
-    "bs" 'org-babel-execute-subtree
-    "bb" 'org-babel-execute-buffer
-    "bt" 'org-babel-tangle
-    "bf" 'org-babel-tangle-file
-    "bc" 'org-babel-check-src-block
-    "bi" 'org-babel-insert-header-arg
-    "bI" 'org-babel-view-src-block-info
-    "bk" 'org-babel-remove-result-one-or-many
-    ;; clock
-    "cc" 'org-clock-in
-    "cC" 'org-clock-out
-    "cd" 'org-clock-mark-default-task
-    "ce" 'org-clock-modify-effort-estimate
-    "cg" 'org-clock-goto
-    "cl" 'org-clock-in-last
-    "cr" 'org-clock-report
-    "cs" 'org-clock-display
-    "cx" 'org-clock-cancel
-    "c=" 'org-clock-timestamps-up
-    "c-" 'org-clock-timestamps-down
-    ;; insert
-    "Id" 'org-insert-drawer
-    "In" 'org-add-note
-    "It" 'org-time-stamp-inactive
-    "Ii" 'org-toggle-inline-images
-    "IT" 'org-time-stamp)
+    "ou"  'symbols-outline-show)
 
   (my-localleader-def
     :major-modes '(emacs-lisp-mode lisp-interaction-mode)

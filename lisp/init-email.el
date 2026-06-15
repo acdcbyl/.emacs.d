@@ -100,9 +100,11 @@
   (add-hook 'mu4e-compose-mode-hook #'aiser/mu4e-compose-setup)
 
   ;; Enable gnus-dired-mode for attaching files from dired
-  (add-hook 'dired-mode-hook #'gnus-dired-mode)
+  (add-hook 'dired-mode-hook #'gnus-dired-mode))
 
-  )
+(with-eval-after-load 'general
+  (my-leader-def
+    "oe"  'mu4e-transient-menu))
 
 (provide 'init-email)
 
