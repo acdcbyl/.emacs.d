@@ -81,14 +81,15 @@
 (require 'init-completion)
 (require 'init-workspaces)
 (require 'init-evil)
+(require 'init-project)
 
 (add-hook 'after-init-hook
           (lambda ()
             (require 'init-pdf)
-            (require 'init-dev)
             (require 'init-dap)
             (require 'init-music)
             (require 'init-email)
+            (require 'init-dev)
             ;; (require 'init-matrix)
             (require 'init-feed)
             ;; (require 'init-tramp-rpc)

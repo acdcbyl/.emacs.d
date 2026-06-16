@@ -18,9 +18,9 @@
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "main.go"
-                         "/home/aiser/Workspace/go/Learn/main.go"
-                         go-ts-mode))
+            ((def-buffer "check_aur_compromise.py"
+                         "/home/aiser/Workspace/Python/archlinux-aur-compromise-2026-06/check_aur_compromise.py"
+                         python-ts-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -33,9 +33,9 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "main.go" (selected . t) (hscroll . 0)
-                      (fringes 8 8 t nil) (margins nil)
+              (buffer "check_aur_compromise.py" (selected . t)
+                      (hscroll . 0) (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 334) (start . 1))
-              (prev-buffers ("*dashboard*" 1 863) ("*scratch*" 1 148))))
+                      (dedicated) (point . 3219) (start . 2039))
+              (prev-buffers ("*dashboard*" 1 663) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))
