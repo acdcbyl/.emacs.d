@@ -178,73 +178,26 @@
   )
 
 ;;eglot doc
-;; (use-package
-;;   eldoc-mouse
-;;   :ensure t
-;;   :defer t
-;;   :custom
-;;   (eldoc-mouse-posframe-border-width 1)
-;;   (eldoc-mouse-posframe-border-color
-;;    (face-attribute 'posframe-border :background nil 'default))
-;;   (eldoc-mouse-posframe-fringe-width 8)
-;;   (eldoc-mouse-posframe-override-parameters
-;;    '((left-fringe         . 8)
-;;      (right-fringe        . 8)
-;;      (internal-border-width . 1)
-;;      (drag-internal-border  . t)))
-;;   :bind
-;;   (:map
-;;    eldoc-mouse-mode-map
-;;    ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
-;;   :hook (eglot-managed-mode emacs-lisp-mode))
-
-
-(use-package lsp-proxy
+(use-package
+  eldoc-mouse
   :ensure t
-  :vc (:url "https://github.com/jadestrong/lsp-proxy"
-            :rev :newest)
-  :after (general evil)
-  :config
-  ;; Define keybindings for lsp-proxy
-  (general-def
-    :states 'normal
-    :keymaps 'lsp-proxy-mode-map
-    "gd" 'lsp-proxy-find-definition
-    "gD" 'lsp-proxy-find-declaration
-    "gr" 'lsp-proxy-find-references
-    "gi" 'lsp-proxy-find-implementations
-    "gt" 'lsp-proxy-find-type-definition
-    "K"  'lsp-proxy-describe-thing-at-point)
+  :defer t
+  :custom
+  (eldoc-mouse-posframe-border-width 1)
+  (eldoc-mouse-posframe-border-color
+   (face-attribute 'posframe-border :background nil 'default))
+  (eldoc-mouse-posframe-fringe-width 8)
+  (eldoc-mouse-posframe-override-parameters
+   '((left-fringe         . 8)
+     (right-fringe        . 8)
+     (internal-border-width . 1)
+     (drag-internal-border  . t)))
+  :bind
+  (:map
+   eldoc-mouse-mode-map
+   ("<f1> <f1>" . eldoc-mouse-pop-doc-at-cursor)) ;; optional
+  :hook (eglot-managed-mode emacs-lisp-mode))
 
-  (my-leader-def
-    :keymaps 'lsp-proxy-mode-map
-    "ca" 'lsp-proxy-execute-code-action
-    "cr" 'lsp-proxy-rename
-    "cf" 'lsp-proxy-format-buffer
-    "ch" 'lsp-proxy-inlay-hints-mode
-    "cl" 'lsp-proxy-show-project-diagnostics
-    "cR" 'lsp-proxy-restart)
-
-  ;; Enable LSP Proxy support in org-mode
-  (add-hook 'org-mode-hook #'lsp-proxy-mode)
-
-  ;; Enable LSP support in org-babel code blocks
-  (setq lsp-proxy-enable-org-babel t)
-
-  ;; Enable LSP support in org-edit-special buffers (default: t)
-  (setq lsp-proxy-org-edit-special-enable-lsp t)
-
-  ;; Specify which languages to enable LSP support for in org-babel blocks
-  (setq lsp-proxy-org-babel-enabled-languages
-        '("python" "typescript" "javascript" "tsx" "bash" "rust" "go"))
-
-  ;; Map org-babel language names to LSP language IDs
-  (setq lsp-proxy-org-babel-language-map
-        '(("shell" . "bash")
-          ("sh" . "bash")
-          ("tsx-ts" . "tsx")
-          ("typescript-ts" . "typescript")))
-  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

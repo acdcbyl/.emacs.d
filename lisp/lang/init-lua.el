@@ -11,8 +11,9 @@
 (add-to-list 'major-mode-remap-alist '(lua-mode . lua-ts-mode))
 
 
-(with-eval-after-load 'lsp-proxy
-  (add-hook 'lua-ts-mode-hook #'lsp-proxy-mode))
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(lua-ts-mode . ("lua-language-server")))
+  (add-hook 'lua-ts-mode-hook 'eglot-ensure))
 
 (provide 'init-lua)
 ;;; init-lua.el ends here

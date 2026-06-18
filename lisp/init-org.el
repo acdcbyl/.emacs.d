@@ -18,6 +18,9 @@
 ;;; what you're looking for.
 
 ;;; Phase 1 variables
+;; Make load Org files quickly
+(setq org-element-use-cache t)
+(setq org-element-cache-persistent t)
 
 ;;; Phase 2 variables
 ;; Tell Emacs to use Hunspell, and specify the dictionary directory (if it can't be found by default)

@@ -13,9 +13,9 @@
  '(package-vc-selected-packages
    '((kdl-ts-mode :url "https://github.com/merrickluo/kdl-ts-mode")
      (qml-ts-mode :url "https://github.com/xhcoding/qml-ts-mode")
-     (lsp-proxy :url "https://github.com/jadestrong/lsp-proxy")
      (doom-themes :url
                   "https://github.com/acdcbyl/doom-themes-matugen")
+     (lsp-proxy :url "https://github.com/jadestrong/lsp-proxy")
      (eglot-booster :url "https://github.com/jdtsmith/eglot-booster")
      (tramp-rpc :url
                 "https://github.com/ArthurHeymans/emacs-tramp-rpc"
