@@ -20,20 +20,28 @@
   :config
   ;; Treesitter config
 
-  ;; Tell Emacs to prefer the treesitter mode
-  ;; You'll want to run the command `M-x treesit-install-language-grammar' before editing.
-  (setq major-mode-remap-alist
-        '((bash-mode . bash-ts-mode)
-          (conf-toml-mode . toml-ts-mode)
-          (c-mode . c-ts-mode)
-          (c++-mode . c++-ts-mode)
-          (css-mode . css-ts-mode)))
-  (setq treesit-language-source-alist
-        '((c . ("https://github.com/tree-sitter/tree-sitter-c"))
-          (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
-          (json . ("https://github.com/tree-sitter/tree-sitter-json"))
-          (lua . ("https://github.com/tree-sitter-grammars/tree-sitter-lua"))
-          (kdl . ("https://github.com/tree-sitter-grammars/tree-sitter-kdl"))))
+  ;; Emacs 31 can remap built-in modes to tree-sitter modes directly.
+  (setopt treesit-enabled-modes t)
+  (setopt treesit-auto-install-grammar 'ask)
+  (setopt treesit-extra-load-path
+          (list (locate-user-emacs-file "tree-sitter")))
+  (setopt treesit-language-source-alist
+          '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
+            (c . ("https://github.com/tree-sitter/tree-sitter-c"))
+            (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+            (css . ("https://github.com/tree-sitter/tree-sitter-css"))
+            (go . ("https://github.com/tree-sitter/tree-sitter-go"))
+            (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod"))
+            (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+            (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+            (kdl . ("https://github.com/tree-sitter-grammars/tree-sitter-kdl"))
+            (lua . ("https://github.com/tree-sitter-grammars/tree-sitter-lua"))
+            (python . ("https://github.com/tree-sitter/tree-sitter-python"))
+            (rust . ("https://github.com/tree-sitter/tree-sitter-rust"))
+            (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
+            (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+            (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+            (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -50,11 +58,11 @@
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-indication-mode 'right-fringe))
 
-;; (use-package
-;;   flycheck-eglot
-;;   :ensure t
-;;   :after (flycheck eglot)
-;;   :config (global-flycheck-eglot-mode 1))
+(use-package
+  flycheck-eglot
+  :ensure t
+  :after (flycheck eglot)
+  :config (global-flycheck-eglot-mode 1))
 
 ;; A beautiful inline overlay for Flycheck
 (use-package flyover

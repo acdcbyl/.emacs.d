@@ -5,7 +5,7 @@
 (use-package qml-ts-mode
   :vc (:url "https://github.com/xhcoding/qml-ts-mode"
             :rev :newest)
-  :mode "\.qml\'"
+  :mode "\\.qml\\'"
   :defer t)
 
 (with-eval-after-load 'eglot

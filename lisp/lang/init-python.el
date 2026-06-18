@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
-
 (with-eval-after-load 'apheleia
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
         '(ruff-isort ruff)))

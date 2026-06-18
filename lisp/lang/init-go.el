@@ -4,8 +4,6 @@
 
 (use-package go-mode :ensure t :defer t)
 
-(add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
-
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                '(go-ts-mode . ("gopls" :initializationOptions

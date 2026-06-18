@@ -17,8 +17,6 @@
   (with-eval-after-load 'rust-ts-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
-(add-to-list 'major-mode-remap-alist '(rust-mode . rust-ts-mode))
-
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
   (add-hook 'rust-ts-mode-hook 'eglot-ensure))

@@ -2,8 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package yaml-mode :ensure t :defer t :mode "\.ya?ml\'")
-(add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+(use-package yaml-mode :ensure t :defer t :mode "\\.ya?ml\\'")
 
 (provide 'init-yaml)
 ;;; init-yaml.el ends here

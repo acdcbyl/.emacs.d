@@ -5,10 +5,10 @@
 (eval-when-compile
   (require 'package))
 
-(when (< emacs-major-version 29)
+(when (< emacs-major-version 31)
   (error
    (format
-    "Only works with Emacs 29 and newer; you have version ~a"
+    "Only works with Emacs 31 and newer; you have version ~a"
     emacs-major-version)))
 
 ;; Set custom file

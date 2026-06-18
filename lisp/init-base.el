@@ -68,8 +68,7 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun childframe-workable-p ()
   "Whether childframe is workable."
-  (and (>= emacs-major-version 26)
-       (not noninteractive)
+  (and (not noninteractive)
        (not emacs-basic-display)
        (or (display-graphic-p)
            (featurep 'tty-child-frames))
@@ -81,7 +80,7 @@ If the new path's directories does not exist, create them."
 ;; sequence (e.g. C-x ...)
 (use-package
   which-key
-  :ensure t
+  :ensure nil
   :defer 0.5
   :config
   (setq which-key-prefix-prefix ""              ; remove +
@@ -90,6 +89,12 @@ If the new path's directories does not exist, create them."
         which-key-idle-delay 0.4
         which-key-add-column-padding 1)
   (which-key-mode))
+
+;; Emacs 30 includes EditorConfig support.
+(use-package
+  editorconfig
+  :ensure nil
+  :hook (after-init . editorconfig-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

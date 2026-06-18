@@ -5,7 +5,7 @@
 (use-package markdown-mode
   :ensure t
   :defer t
-  :mode ("README\.md\'" . gfm-mode)
+  :mode ("README\\.md\\'" . gfm-mode)
   :hook ((markdown-mode . visual-line-mode)))
 
 (use-package grip-mode

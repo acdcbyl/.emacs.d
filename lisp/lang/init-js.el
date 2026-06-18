@@ -4,8 +4,18 @@
 
 (use-package js2-mode :ensure t)
 
-(add-to-list 'major-mode-remap-alist '(js2-mode . js-ts-mode))
-(add-to-list 'major-mode-remap-alist '(typescript-mode . typescript-ts-mode))
+(with-eval-after-load 'apheleia
+  (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
+    (setf (alist-get mode apheleia-mode-alist)
+          'prettier)))
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '((js-ts-mode typescript-ts-mode tsx-ts-mode)
+                 .
+                 ("typescript-language-server" "--stdio")))
+  (dolist (hook '(js-ts-mode-hook typescript-ts-mode-hook tsx-ts-mode-hook))
+    (add-hook hook #'eglot-ensure)))
 
 (provide 'init-js)
 ;;; init-js.el ends here
