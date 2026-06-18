@@ -175,6 +175,7 @@
 
 (use-package
   eglot
+  :ensure nil
   ;; no :ensure t here because it's built-in
 
   :custom

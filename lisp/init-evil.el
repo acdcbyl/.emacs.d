@@ -27,6 +27,8 @@
                                         ;(setq evil-want-C-u-scroll t)
   :config (evil-mode)
   ;; Configuring initial major mode for some modes
+  (evil-set-initial-state 'minibuffer-mode 'insert)
+  (evil-set-initial-state 'minibuffer-inactive-mode 'insert)
   ;; (evil-set-initial-state 'vterm-mode 'emacs)
   ;; (evil-set-initial-state 'emms-browser-mode 'normal)
   ;; (evil-set-initial-state 'emms-playlist-mode 'normal)

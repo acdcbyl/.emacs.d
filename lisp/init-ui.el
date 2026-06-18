@@ -28,9 +28,17 @@
   ;; (doom-themes-neotree-config)
   ;; (doom-themes-treemacs-config)
   ;; (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+
+  ;; Fix face inheritance cycle in Gnus (happens in Emacs 29/30+)
+  ;; This prevents persp-mode autosave from failing.
+  (with-eval-after-load 'gnus-group
+    (when (fboundp 'set-face-attribute)
+      (set-face-attribute 'gnus-group-news-low nil :inherit nil)
+      (set-face-attribute 'gnus-group-mail-low nil :inherit nil))))
 
 ;; Add solaire-mode for better ui.
+
 (use-package
   solaire-mode
   :ensure t
