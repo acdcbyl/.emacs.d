@@ -90,11 +90,12 @@
             (require 'init-music)
             (require 'init-email)
             (require 'init-dev)
+            (require 'init-treemacs)
             ;; (require 'init-matrix)
             (require 'init-feed)
             ;; (require 'init-tramp-rpc)
             ;; (require 'tramp-rpc)
-            (require 'init-rimel)
+            ;; (require 'init-rimel) ;;It's have issues in 31+
             (require 'init-org)))
 ;; if you don't want to use `use-package :vc'
 ;; (require 'init-package)

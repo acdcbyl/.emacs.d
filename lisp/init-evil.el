@@ -21,7 +21,9 @@
   (customize-set-variable 'evil-want-C-u-delete t) ;; Allow using Ctrl-u to delete to the beginning of the line
   (customize-set-variable 'evil-want-C-g-bindings t)
   (customize-set-variable 'evil-want-minibuffer t)
-  :init (setq evil-respect-visual-line-mode t)
+  :init
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-echo-state nil)
   ;; (setq evil-undo-system 'undo-fu)
   ;; Enable this if you want C-u to scroll up, more like pure Vim
                                         ;(setq evil-want-C-u-scroll t)
@@ -119,8 +121,8 @@
                 :wk (format "%s vertico-repeat" (nerd-icons-mdicon "nf-md-replay")))
     ";"   (list 'avy-resume
                 :wk (format "%s avy-resume" (nerd-icons-codicon "nf-cod-debug_continue")))
-    "e"   (list 'dirvish-side
-                :wk (format "%s dirvish-side" (nerd-icons-codicon "nf-cod-layout_sidebar_left_off")))
+    "e"   (list 'treemacs
+                :wk (format "%s treemacs" (nerd-icons-codicon "nf-cod-layout_sidebar_left_off")))
     "l"   (list :wk (format "%s localleader" (nerd-icons-mdicon "nf-md-hammer_wrench")))
 
     ;; unimpaired style
@@ -256,7 +258,7 @@
     "o"   (list :wk (format "%s open" (nerd-icons-codicon "nf-cod-link_external")))
     "oc"  'org-capture
     "ol"  'org-store-link
-    "od"  'dirvish
+    "od"  'dired
     ;; "os"  'eat-other-window
     "og"  'ghostel
     "ou"  'symbols-outline-show)
