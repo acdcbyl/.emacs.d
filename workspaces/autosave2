@@ -18,10 +18,7 @@
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "emacs.el"
-                         "/home/aiser/.config/matugen/templates/emacs.el"
-                         emacs-lisp-mode)
-             (def-buffer "init-ui.el"
+            ((def-buffer "init-ui.el"
                          "/home/aiser/.emacs.d/lisp/init-ui.el"
                          emacs-lisp-mode))
             (def-wconf
@@ -36,10 +33,9 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "emacs.el" (selected . t) (hscroll . 0)
+              (buffer "init-ui.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 8065) (start . 7295))
-              (prev-buffers ("init-ui.el" 74 1088)
-                            ("*dashboard*" 1 560) ("*scratch*" 1 148))))
+                      (dedicated) (point . 296) (start . 1))
+              (prev-buffers ("*dashboard*" 1 517) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

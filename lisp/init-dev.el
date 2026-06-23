@@ -94,7 +94,7 @@
   ;; (flyover-error-icon " ")
 
   ;; Border styles: none, pill, arrow, slant, slant-inv, flames, pixels
-  (flyover-border-style 'flames)
+  (flyover-border-style 'none)
   (flyover-border-match-icon t)
 
   ;; Display settings

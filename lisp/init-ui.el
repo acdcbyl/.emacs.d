@@ -11,13 +11,6 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;; (load-theme 'noctalia t)
-;; (use-package
-;;   catppuccin-theme
-;;   :ensure t
-;;   :config (load-theme 'catppuccin t))
-
 (use-package
   doom-themes
   :vc (:url "https://github.com/acdcbyl/doom-themes-matugen" :rev :newest)
@@ -54,17 +47,17 @@
   (lambda-line-prefix nil)
   (lambda-line-prefix-padding nil)
   (lambda-line-status-invert nil)
-  (lambda-line-gui-ro-symbol  " ⨂")
-  (lambda-line-gui-mod-symbol " ⬤")
-  (lambda-line-gui-rw-symbol  " ◉")
   (lambda-line-vc-symbol "⎇ ")  ;; Git branch symbol
-  (lambda-line-space-top +.20)
-  (lambda-line-space-bottom -.20)
+  (lambda-line-space-top +.23)
+  (lambda-line-space-bottom -.23)
   (lambda-line-symbol-position 0.1)
   (lambda-line-word-count-enabled t)
+  :custom-face
+  (lambda-line-visual-bell
+   ((t (:background ,(doom-color 'red)))))
   :config
   ;; activate lambda-line
-  (lambda-line-mode) 
+  (lambda-line-mode)
   (lambda-line-visual-bell-config)
   ;; set divider line in footer
   (when (eq lambda-line-position 'top)
@@ -72,7 +65,7 @@
     (setq mode-line-format (list "%_")))
 
   (defgroup aiser-modeline nil
-    "Lambda-emacs modeline extensions."
+    "Matugen modeline extensions."
     :group 'lambda-line)
 
   (with-eval-after-load 'evil

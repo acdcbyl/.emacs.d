@@ -227,14 +227,6 @@ If the new path's directories does not exist, create them."
                   (* 2 (plist-get info :font-height)))
                2)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Tab-bar configuration
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Tab functionality is handled by `centaur-tabs` in `init-ui.el`.
-
 (provide 'init-base)
 
 ;;; init-base.el ends here
