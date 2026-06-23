@@ -165,19 +165,19 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package
-  org-roam
-  :ensure t
-  :defer t
-  :config (org-roam-db-autosync-mode)
-  ;; Dedicated side window for backlinks
-  (add-to-list
-   'display-buffer-alist
-   '("\\*org-roam\\*"
-     (display-buffer-in-side-window)
-     (side . right)
-     (window-width . 0.4)
-     (window-height . fit-window-to-buffer))))
+;; (use-package
+;;   org-roam
+;;   :ensure t
+;;   :defer t
+;;   :config (org-roam-db-autosync-mode)
+;;   ;; Dedicated side window for backlinks
+;;   (add-to-list
+;;    'display-buffer-alist
+;;    '("\\*org-roam\\*"
+;;      (display-buffer-in-side-window)
+;;      (side . right)
+;;      (window-width . 0.4)
+;;      (window-height . fit-window-to-buffer))))
 
 ;; Pretty web interface for org-roam
                                         ;(use-package org-roam-ui

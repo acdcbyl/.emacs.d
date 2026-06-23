@@ -90,7 +90,7 @@
             (require 'init-music)
             (require 'init-email)
             (require 'init-dev)
-            (require 'init-treemacs)
+            ;; (require 'init-treemacs)
             ;; (require 'init-matrix)
             (require 'init-feed)
             ;; (require 'init-tramp-rpc)

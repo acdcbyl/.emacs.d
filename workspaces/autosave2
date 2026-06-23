@@ -2,36 +2,28 @@
 ((def-persp nil nil
             (def-wconf
              (((min-height . 4) (min-width . 10)
-               (min-height-ignore . 2) (min-width-ignore . 4)
+               (min-height-ignore . 3) (min-width-ignore . 4)
                (min-height-safe . 1) (min-width-safe . 2)
                (min-pixel-height . 96) (min-pixel-width . 110)
-               (min-pixel-height-ignore . 48)
+               (min-pixel-height-ignore . 72)
                (min-pixel-width-ignore . 44)
                (min-pixel-height-safe . 24)
                (min-pixel-width-safe . 22))
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer " *corfu-popupinfo*" (selected) (hscroll . 0)
-                      (fringes 0 0 t nil) (margins 1 . 1)
+              (buffer "*scratch*" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated . t) (point . 1) (start . 1))
-              (prev-buffers ("init-treemacs.el" 1 140))))
+                      (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "init.el" "/home/aiser/.emacs.d/init.el"
+            ((def-buffer "emacs.el"
+                         "/home/aiser/.config/matugen/templates/emacs.el"
                          emacs-lisp-mode)
-             (def-buffer "init-treemacs.el"
-                         "/home/aiser/.emacs.d/lisp/init-treemacs.el"
-                         emacs-lisp-mode)
-             (def-buffer "init-dev.el"
-                         "/home/aiser/.emacs.d/lisp/init-dev.el"
-                         emacs-lisp-mode)
-             (def-buffer "init-dired.el"
-                         "/home/aiser/.emacs.d/lisp/init-dired.el"
-                         emacs-lisp-mode)
-             (def-buffer "lisp" "~/.emacs.d/lisp/" dired-mode)
-             (def-buffer ".emacs.d" "~/.emacs.d/" dired-mode))
+             (def-buffer "init-ui.el"
+                         "/home/aiser/.emacs.d/lisp/init-ui.el"
+                         emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
                (min-height-ignore . 3) (min-width-ignore . 4)
@@ -44,13 +36,10 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "init-dev.el" (selected . t) (hscroll . 0)
+              (buffer "emacs.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 6868) (start . 6695))
-              (prev-buffers ("init-treemacs.el" 1 650)
-                            ("init.el" 2544 2791)
-                            ("init-dired.el" 1 487) ("lisp" 1 594)
-                            (".emacs.d" 1 506) ("*dashboard*" 1 1)
-                            ("*scratch*" 1 148))))
+                      (dedicated) (point . 8065) (start . 7295))
+              (prev-buffers ("init-ui.el" 74 1088)
+                            ("*dashboard*" 1 560) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

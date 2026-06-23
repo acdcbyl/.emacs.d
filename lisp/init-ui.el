@@ -15,7 +15,7 @@
 ;; (load-theme 'noctalia t)
 ;; (use-package
 ;;   catppuccin-theme
-;;   :load-path "~/Workspace/Emacs-plugins/emacs/"
+;;   :ensure t
 ;;   :config (load-theme 'catppuccin t))
 
 (use-package
@@ -41,23 +41,118 @@
   solaire-mode
   :ensure t
   :hook ((after-init . solaire-global-mode)
-         (dashboard-mode . turn-off-solaire-mode)))
+         (dashboard-mode . turn-off-solaire-mode)
+         ))
 
-;; Set up doom-modeline
-(use-package
-  doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
+;; Add better modeline
+(use-package lambda-line
+  :vc (:url "https://codeberg.org/Lambda-Emacs/lambda-line" :rev :newest)
   :custom
-  (doom-modeline-minor-modes t)
-  (doom-modeline-irc nil)
-  (doom-modeline-mu4e nil)
-  (doom-modeline-gnus nil)
-  (doom-modeline-lsp t)
-  (doom-modeline-github nil)
-  (doom-modeline-persp-name nil)
-  (doom-modeline-unicode-fallback t)
-  (doom-modeline-enable-word-count nil))
+  (lambda-line-abbrev t)
+  (lambda-line-position 'bottom)
+  (lambda-line-hspace "  ")
+  (lambda-line-prefix nil)
+  (lambda-line-prefix-padding nil)
+  (lambda-line-status-invert nil)
+  (lambda-line-gui-ro-symbol  " ⨂")
+  (lambda-line-gui-mod-symbol " ⬤")
+  (lambda-line-gui-rw-symbol  " ◉")
+  (lambda-line-vc-symbol "⎇ ")  ;; Git branch symbol
+  (lambda-line-space-top +.20)
+  (lambda-line-space-bottom -.20)
+  (lambda-line-symbol-position 0.1)
+  (lambda-line-word-count-enabled t)
+  :config
+  ;; activate lambda-line
+  (lambda-line-mode) 
+  (lambda-line-visual-bell-config)
+  ;; set divider line in footer
+  (when (eq lambda-line-position 'top)
+    (setq-default mode-line-format (list "%_"))
+    (setq mode-line-format (list "%_")))
+
+  (defgroup aiser-modeline nil
+    "Lambda-emacs modeline extensions."
+    :group 'lambda-line)
+
+  (with-eval-after-load 'evil
+    (defface modeline-evil-normal
+      `((t (:background ,(doom-color 'blue) :foreground ,(doom-color 'blue-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'blue) :style nil))))
+      "Face for the evil normal-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-insert
+      `((t (:background ,(doom-color 'green) :foreground ,(doom-color 'green-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'green) :style nil))))
+      "Face for the evil insert-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-visual
+      `((t (:background ,(doom-color 'pink) :foreground ,(doom-color 'pink-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'pink) :style nil))))
+      "Face for the evil visual-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-visual-line
+      `((t (:background ,(doom-color 'pink) :foreground ,(doom-color 'pink-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'pink) :style nil))))
+      "Face for the evil visual-line-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-visual-block
+      `((t (:background ,(doom-color 'pink) :foreground ,(doom-color 'pink-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'pink) :style nil))))
+      "Face for the evil visual-block-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-replace
+      `((t (:background ,(doom-color 'red) :foreground ,(doom-color 'red-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'red) :style nil))))
+      "Face for the evil replace-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-emacs
+      `((t (:background ,(doom-color 'blue) :foreground ,(doom-color 'blue-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'blue) :style nil))))
+      "Face for the evil emacs-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-motion
+      `((t (:background ,(doom-color 'yellow) :foreground ,(doom-color 'yellow-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'yellow) :style nil))))
+      "Face for the evil motion-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (defface modeline-evil-operator
+      `((t (:background ,(doom-color 'yellow) :foreground ,(doom-color 'yellow-fg) :weight bold
+                        :box (:line-width 1 :color ,(doom-color 'yellow) :style nil))))
+      "Face for the evil operator-state tag in lambda-line."
+      :group 'aiser-modeline)
+
+    (with-eval-after-load 'lambda-line
+      (dolist (pair '((lambda-line-evil-normal       . modeline-evil-normal)
+                      (lambda-line-evil-insert       . modeline-evil-insert)
+                      (lambda-line-evil-visual       . modeline-evil-visual)
+                      (lambda-line-evil-visual-line  . modeline-evil-visual-line)
+                      (lambda-line-evil-visual-block . modeline-evil-visual-block)
+                      (lambda-line-evil-replace      . modeline-evil-replace)
+                      (lambda-line-evil-emacs        . modeline-evil-emacs)
+                      (lambda-line-evil-motion       . modeline-evil-motion)
+                      (lambda-line-evil-operator     . modeline-evil-operator)))
+        (set-face-attribute (car pair) nil
+                            :foreground 'unspecified
+                            :background 'unspecified
+                            :inherit (cdr pair))))
+
+    (setq evil-normal-state-cursor   'box
+          evil-insert-state-cursor   '(bar . 2)
+          evil-visual-state-cursor   'box
+          evil-replace-state-cursor  'hbar
+          evil-emacs-state-cursor    'box
+          evil-motion-state-cursor   'box
+          evil-operator-state-cursor 'hollow))
+  )
 
 (use-package minions
   :ensure t
@@ -295,7 +390,7 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
           :right-divider-width 30
           :scroll-bar-width 0
           :fringe-width nil))
-  (spacious-padding-mode 1)
+  (spacious-padding-mode -1)
 
   ;; Set a key binding if you need to toggle spacious padding.
   (define-key global-map (kbd "<f8>") #'spacious-padding-mode))

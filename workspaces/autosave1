@@ -18,8 +18,8 @@
                       (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "init-dev.el"
-                         "/home/aiser/.emacs.d/lisp/init-dev.el"
+            ((def-buffer "init-ui.el"
+                         "/home/aiser/.emacs.d/lisp/init-ui.el"
                          emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
@@ -33,9 +33,9 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "init-dev.el" (selected . t) (hscroll . 0)
+              (buffer "init-ui.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 6868) (start . 6398))
-              (prev-buffers ("*dashboard*" 1 517) ("*scratch*" 1 148))))
+                      (dedicated) (point . 1388) (start . 287))
+              (prev-buffers ("*dashboard*" 1 560) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

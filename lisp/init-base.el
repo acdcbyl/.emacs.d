@@ -155,7 +155,7 @@ If the new path's directories does not exist, create them."
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("PragmataPro" "Iosevka SS04" "MonoLisa" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
+    (cl-loop for font in '("PragmataPro" "Iosevka SS04" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
                            "Fira Code" "Cascadia Code" "Jetbrains Mono"
                            "SF Mono" "Menlo" "Hack" "Source Code Pro"
                            "Monaco" "DejaVu Sans Mono" "Consolas")
