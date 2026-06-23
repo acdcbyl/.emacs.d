@@ -2,24 +2,31 @@
 ((def-persp nil nil
             (def-wconf
              (((min-height . 4) (min-width . 10)
-               (min-height-ignore . 2) (min-width-ignore . 3)
+               (min-height-ignore . 1) (min-width-ignore . 4)
                (min-height-safe . 1) (min-width-safe . 2)
                (min-pixel-height . 96) (min-pixel-width . 110)
-               (min-pixel-height-ignore . 48)
-               (min-pixel-width-ignore . 33)
+               (min-pixel-height-ignore . 24)
+               (min-pixel-width-ignore . 44)
                (min-pixel-height-safe . 24)
                (min-pixel-width-safe . 22))
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer " *eldoc-box*" (selected) (hscroll . 0)
-                      (fringes 3 3 t nil) (margins nil)
+              (buffer " *corfu-popupinfo*" (selected) (hscroll . 0)
+                      (fringes 0 0 t nil) (margins 1 . 1)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated . t) (point . 1) (start . 1))))
+                      (dedicated . t) (point . 1) (start . 1))
+              (prev-buffers ("init-ui.el" 1131 1655))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "init-ui.el"
+            ((def-buffer "init-dev.el"
+                         "/home/aiser/.emacs.d/lisp/init-dev.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-ui.el"
                          "/home/aiser/.emacs.d/lisp/init-ui.el"
+                         emacs-lisp-mode)
+             (def-buffer "init-base.el"
+                         "/home/aiser/.emacs.d/lisp/init-base.el"
                          emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
@@ -33,9 +40,11 @@
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer "init-ui.el" (selected . t) (hscroll . 0)
+              (buffer "init-dev.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 612) (start . 1))
-              (prev-buffers ("*dashboard*" 1 517) ("*scratch*" 1 148))))
+                      (dedicated) (point . 5738) (start . 5738))
+              (prev-buffers ("init-ui.el" 1131 1727)
+                            ("init-base.el" 1 72)
+                            ("*dashboard*" 1 628) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

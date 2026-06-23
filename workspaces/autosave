@@ -1,32 +1,32 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
-((def-persp nil nil
+((def-persp nil
+            ((def-buffer "magit-process: .emacs.d" nil
+                         magit-process-mode)
+             (def-buffer "magit-diff: .emacs.d" nil magit-diff-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
-               (min-height-ignore . 1) (min-width-ignore . 4)
+               (min-height-ignore . 3) (min-width-ignore . 4)
                (min-height-safe . 1) (min-width-safe . 2)
                (min-pixel-height . 96) (min-pixel-width . 110)
-               (min-pixel-height-ignore . 24)
+               (min-pixel-height-ignore . 72)
                (min-pixel-width-ignore . 44)
                (min-pixel-height-safe . 24)
                (min-pixel-width-safe . 22))
               leaf (pixel-width . 896) (pixel-height . 840)
               (total-width . 81) (total-height . 35)
               (normal-height . 1.0) (normal-width . 1.0)
-              (buffer " *corfu-popupinfo*" (selected) (hscroll . 0)
-                      (fringes 0 0 t nil) (margins 1 . 1)
+              (buffer "*scratch*" (selected . t) (hscroll . 0)
+                      (fringes 8 8 nil nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated . t) (point . 1) (start . 1))
-              (prev-buffers ("init-ui.el" 1131 1655))))
+                      (dedicated) (point . 1) (start . 1))))
             (def-params nil) t nil t)
  (def-persp "main"
-            ((def-buffer "init-dev.el"
+            ((def-magit-status-buffer "magit: .emacs.d"
+                                      ((major-mode . magit-status-mode)
+                                       (default-directory
+                                        . "/home/aiser/.emacs.d/")))
+             (def-buffer "init-dev.el"
                          "/home/aiser/.emacs.d/lisp/init-dev.el"
-                         emacs-lisp-mode)
-             (def-buffer "init-ui.el"
-                         "/home/aiser/.emacs.d/lisp/init-ui.el"
-                         emacs-lisp-mode)
-             (def-buffer "init-base.el"
-                         "/home/aiser/.emacs.d/lisp/init-base.el"
                          emacs-lisp-mode))
             (def-wconf
              (((min-height . 4) (min-width . 10)
@@ -43,8 +43,7 @@
               (buffer "init-dev.el" (selected . t) (hscroll . 0)
                       (fringes 8 8 t nil) (margins nil)
                       (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0)
-                      (dedicated) (point . 5738) (start . 5738))
-              (prev-buffers ("init-ui.el" 1131 1727)
-                            ("init-base.el" 1 72)
-                            ("*dashboard*" 1 628) ("*scratch*" 1 148))))
+                      (dedicated) (point . 1) (start . 1))
+              (prev-buffers ("magit-diff: .emacs.d" 1 1)
+                            ("*dashboard*" 1 517) ("*scratch*" 1 148))))
             (def-params nil) nil nil nil))

@@ -133,13 +133,6 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-;; Make corfu popup come up in terminal overlay
-(use-package corfu-terminal
-  :if (not (display-graphic-p))
-  :ensure t
-  :config
-  (corfu-terminal-mode))
-
 ;; Fancy completion-at-point functions; there's too much in the cape package to
 ;; configure here; dive in when you're comfortable!
 (use-package
