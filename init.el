@@ -77,11 +77,11 @@
 (require 'init-windows)
 (require 'init-dired)
 (require 'init-dashboard)
-(require 'init-ui)
 (require 'init-completion)
 (require 'init-workspaces)
 (require 'init-evil)
 (require 'init-project)
+(require 'init-ui)
 
 (add-hook 'after-init-hook
           (lambda ()

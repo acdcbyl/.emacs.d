@@ -45,11 +45,12 @@
   (lambda-line-position 'bottom)
   (lambda-line-hspace "  ")
   (lambda-line-prefix nil)
+  (lambda-line-icon-time t)
   (lambda-line-prefix-padding nil)
   (lambda-line-status-invert nil)
   (lambda-line-vc-symbol "⎇ ")  ;; Git branch symbol
-  (lambda-line-space-top +.23)
-  (lambda-line-space-bottom -.23)
+  (lambda-line-space-top +.25)
+  (lambda-line-space-bottom -.25)
   (lambda-line-symbol-position 0.1)
   (lambda-line-word-count-enabled t)
   :custom-face
@@ -59,6 +60,25 @@
   ;; activate lambda-line
   (lambda-line-mode)
   (lambda-line-visual-bell-config)
+
+  (defun my/lambda-line-clockface-setup ()
+    "Setup ClockFace font on frame fontset with higher priority than nerd-icons."
+    (let ((font "ClockFaceRect")
+          (range (cons (decode-char 'ucs #xF0000)
+                       (decode-char 'ucs #xF008F))))
+      (set-fontset-font "fontset-default" range (font-spec :family font) nil 'prepend)
+      (when (display-graphic-p)
+        (dolist (frame (frame-list))
+          (set-fontset-font (frame-parameter frame 'font) range
+                            (font-spec :family font) frame 'prepend)))))
+  (my/lambda-line-clockface-setup)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (when (display-graphic-p frame)
+                (let ((range (cons (decode-char 'ucs #xF0000)
+                                   (decode-char 'ucs #xF008F))))
+                  (set-fontset-font (frame-parameter frame 'font) range
+                                    (font-spec :family "ClockFaceRect") frame 'prepend)))))
   ;; set divider line in footer
   (when (eq lambda-line-position 'top)
     (setq-default mode-line-format (list "%_"))
@@ -138,13 +158,7 @@
                             :background 'unspecified
                             :inherit (cdr pair))))
 
-    (setq evil-normal-state-cursor   'box
-          evil-insert-state-cursor   '(bar . 2)
-          evil-visual-state-cursor   'box
-          evil-replace-state-cursor  'hbar
-          evil-emacs-state-cursor    'box
-          evil-motion-state-cursor   'box
-          evil-operator-state-cursor 'hollow))
+    )
   )
 
 (use-package minions
@@ -263,7 +277,7 @@
    centaur-tabs-set-icons t
    centaur-tabs-show-new-tab-button t
    centaur-tabs-set-modified-marker t
-   centaur-tabs-show-navigation-buttons t
+   centaur-tabs-show-navigation-buttons nil
    centaur-tabs-set-bar 'under
    centaur-tabs-show-count nil
    centaur-tabs-icon-type 'nerd-icons ;

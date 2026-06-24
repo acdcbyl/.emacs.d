@@ -10,6 +10,8 @@
 
 (setopt initial-major-mode 'fundamental-mode) ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
+;; Show time
+(display-time)
 ;; Don't delete files diretly
 (setq delete-by-moving-to-trash t)
 ;; Automatically reread from disk if the underlying file changes
