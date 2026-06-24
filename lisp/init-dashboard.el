@@ -21,6 +21,7 @@
    ("M-r" . restore-session))
   :hook (dashboard-mode . (lambda () (setq-local frame-title-format nil)))
   :init
+  (defconst homepage-url "https://github.com/acdcbyl")
   (setq dashboard-navigator-buttons
         `(((,(if (fboundp 'nerd-icons-octicon)
                  (nerd-icons-octicon "nf-oct-mark_github")
@@ -33,7 +34,7 @@
                )
             "Restore"
             "Restore previous session"
-            (lambda (&rest _) (persp-load-state-from-file)))
+             (lambda (&rest _) (tabspaces-restore-session)))
            (,(if (fboundp 'nerd-icons-octicon)
                  (nerd-icons-octicon "nf-oct-tools"))
             "Settings" "Open custom file"
@@ -46,18 +47,14 @@
             (lambda (&rest _) (package-upgrade-all nil))
             success))))
   (dashboard-setup-startup-hook)
-  :config (defconst homepage-url "https://github.com/acdcbyl")
+  :config
 
   ;; restore-session
   (defun restore-session ()
     "Restore the previous session."
     (interactive)
-    (message "Restoring previous session...")
-    (quit-window t)
-
-
-
-    (message "Restoring previous session...done"))
+    (tabspaces-restore-session)
+    (quit-window t))
 
   ;; recover layouts
   (defvar dashboard-recover-layout-p nil
@@ -67,13 +64,8 @@
   (defun open-dashboard ()
     "Open the *dashboard* buffer and jump to the first widget."
     (interactive)
-    (if (length>
-         (window-list-1)
-         (if (and (fboundp 'treemacs-current-visibility)
-                  (eq (treemacs-current-visibility) 'visible))
-             2
-           1))
-        (setq dashboard-recover-layout-p t))
+    (when (> (length (window-list-1)) 1)
+      (setq dashboard-recover-layout-p t))
 
     (delete-other-windows)
 
@@ -84,14 +76,9 @@
     (interactive)
     (quit-window t)
 
-
-
     (when dashboard-recover-layout-p
-      (cond
-       ((bound-and-true-p tab-bar-history-mode)
-        (tab-bar-history-back))
-       ((bound-and-true-p winner-mode)
-        (winner-undo)))
+      (when (bound-and-true-p winner-mode)
+        (winner-undo))
       (setq dashboard-recover-layout-p nil)))
   :custom-face
   (dashboard-heading ((t (:inherit (font-lock-string-face bold)))))
@@ -104,7 +91,6 @@
   (dashboard-center-content t)
   (dashboard-vertically-center-content t)
   (dashboard-projects-backend 'projectile)
-  (dashboard-path-style 'truncate-middle)
   (dashboard-path-max-length 60)
   (dashboard-startup-banner
    "~/.emacs.d/assets/GNUEmacs.png")
@@ -123,7 +109,16 @@
      dashboard-insert-init-info
      dashboard-insert-items
      dashboard-insert-newline
-     dashboard-insert-footer)))
+     dashboard-insert-footer))
+  :config
+  (add-hook 'dashboard-mode-hook #'dashboard-hide-modeline))
+
+;; Hide modeline
+(defun dashboard-hide-modeline ()
+  "Hide modeline in the dashboard buffer."
+  (setq-local hl-line-mode -1)
+  (setq-local mode-line-format nil)
+  (setq-local header-line-format nil))
 
 ;; Display ugly ^L page breaks as tidy horizontal lines
 (use-package page-break-lines

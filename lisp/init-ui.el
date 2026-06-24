@@ -22,7 +22,7 @@
   (doom-themes-org-config)
 
   ;; Fix face inheritance cycle in Gnus (happens in Emacs 29/30+)
-  ;; This prevents persp-mode autosave from failing.
+  ;; This prevents tabspaces session autosave from failing.
   (with-eval-after-load 'gnus-group
     (when (fboundp 'set-face-attribute)
       (set-face-attribute 'gnus-group-news-low nil :inherit nil)

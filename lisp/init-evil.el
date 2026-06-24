@@ -259,6 +259,7 @@
     "oc"  'org-capture
     "ol"  'org-store-link
     "od"  'dired
+    "ow"  'workspace-menu
     ;; "os"  'eat-other-window
     "og"  'ghostel
     "ou"  'symbols-outline-show)
