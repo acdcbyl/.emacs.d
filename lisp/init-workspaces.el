@@ -431,7 +431,7 @@
     (add-hook 'after-init-hook
               (lambda ()
                 (persp-mode-projectile-bridge-mode 1))
-              t))
+              t)))
 
-  (provide 'init-workspaces)
+(provide 'init-workspaces)
 ;;; init-workspaces.el ends here
