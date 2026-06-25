@@ -257,7 +257,7 @@
   ["Manage"
    ("n" "New"    my/workspace-transient-new)
    ("r" "Rename" my/workspace-transient-rename)
-   ("k" "Delete" my/workspace-transient-kill)]
+   ("d" "Delete" my/workspace-transient-kill)]
   ["Session"
    ("w" "Save" my/workspace-transient-save)
    ("l" "Load" my/workspace-transient-load)])

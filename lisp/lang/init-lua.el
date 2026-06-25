@@ -3,10 +3,10 @@
 ;;; Code:
 
 (use-package
- lua-mode
- :ensure t
- :mode "\\.lua\\'"
- :defer t)
+  lua-mode
+  :ensure nil
+  :mode "\\.lua\\'"
+  :defer t)
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(lua-ts-mode . ("lua-language-server")))

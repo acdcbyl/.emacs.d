@@ -75,7 +75,7 @@
 (require 'init-icons)
 (require 'init-utils)
 (require 'init-windows)
-(require 'init-dired)
+(require 'init-dirvish)
 (require 'init-dashboard)
 (require 'init-completion)
 (require 'init-workspaces)
