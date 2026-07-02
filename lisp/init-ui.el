@@ -211,7 +211,8 @@
   :hook ((after-init . global-diff-hl-mode)
          (after-init . global-diff-hl-show-hunk-mouse-mode)
          (magit-post-refresh . diff-hl-magit-post-refresh)
-         (after-load-theme . diff-hl-set-posframe-appearance))
+         (after-load-theme . diff-hl-set-posframe-appearance)
+         (dired-mode . diff-hl-dired-mode))
   :custom
   (diff-hl-draw-borders nil)
   (diff-hl-update-async t)
