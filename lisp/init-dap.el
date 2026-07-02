@@ -1,4 +1,4 @@
-;;; init-dap.el --- modeline,dashboard and icons -*- lexical-binding: t -*-
+;;; init-dap.el --- debug  -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;

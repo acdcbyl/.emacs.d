@@ -27,6 +27,9 @@
 ;; Defer package loading until after init
 (setq package-enable-at-startup nil)
 
+;; For the git version
+;; (setq native-comp-deferred-compilation t)
+
 ;; Speed up startup by disabling file-name-handler-alist temporarily
 (defvar my--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
@@ -43,6 +46,7 @@
 (add-hook 'after-init-hook #'my/setup-gc)
 
 (setq byte-compile-warnings '(not obsolete))
+(setq warning-minimum-level :error)
 (setq warning-suppress-log-types '((comp) (bytecomp)))
 
 ;; Silence stupid startup message
