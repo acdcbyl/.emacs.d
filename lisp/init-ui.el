@@ -276,7 +276,7 @@
    centaur-tabs-style "bar"
    centaur-tabs-height 38
    centaur-tabs-set-icons t
-   centaur-tabs-show-new-tab-button t
+   centaur-tabs-show-new-tab-button nil
    centaur-tabs-set-modified-marker t
    centaur-tabs-show-navigation-buttons nil
    centaur-tabs-set-bar 'under
@@ -389,15 +389,24 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ;; These are the default values, but I keep them here for visibility.
   ;; Also check `spacious-padding-subtle-frame-lines'.
   (setq spacious-padding-widths
-        '(:internal-border-width
-          15
-          :header-line-width 2
-          ;; :mode-line-width 6
-          :custom-button-width 3
-          :tab-width 2
-          :right-divider-width 30
-          :scroll-bar-width 0
-          :fringe-width nil))
+        '( :internal-border-width 15
+           :header-line-width 4
+           :mode-line-width 6
+           :custom-button-width 3
+           :tab-width 4
+           :right-divider-width 30
+           :scroll-bar-width 8
+           :fringe-width 8))
+  ;; (setq spacious-padding-widths
+  ;;       '(:internal-border-width
+  ;;         15
+  ;;         :header-line-width 2
+  ;;         ;; :mode-line-width 6
+  ;;         :custom-button-width 3
+  ;;         :tab-width 2
+  ;;         :right-divider-width 30
+  ;;         :scroll-bar-width 0
+  ;;         :fringe-width nil))
   (spacious-padding-mode -1)
 
   ;; Set a key binding if you need to toggle spacious padding.
