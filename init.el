@@ -72,6 +72,8 @@
                                         ; (add-to-list 'load-path "/home/aiser/.emacs.d/lisp")
 
 (require 'init-base)
+(require 'init-theme)
+(require 'init-modeline)
 (require 'init-icons)
 (require 'init-utils)
 (require 'init-windows)
@@ -87,6 +89,7 @@
           (lambda ()
             (require 'init-pdf)
             (require 'init-dap)
+            (require 'init-diff)
             (require 'init-music)
             (require 'init-email)
             (require 'init-dev)
