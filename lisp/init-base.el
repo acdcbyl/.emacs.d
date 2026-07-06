@@ -46,10 +46,13 @@
 (when (display-graphic-p)
   (context-menu-mode))
 
+;; y/n instead of yes/no
+(setq use-short-answers t)
+
 ;; Don't litter file system with *~ backup files; put them all inside
 ;; ~/.emacs.d/backup or wherever
-(defun bedrock--backup-file-name (fpath)
-  "Return a new file path of a given file path.
+(defun backup-file-name (fpath)
+  "Return a new file path of a given file FPATH.
 If the new path's directories does not exist, create them."
   (let*
       ((backupRootDir "~/.emacs.d/emacs-backup/")
@@ -61,7 +64,7 @@ If the new path's directories does not exist, create them."
     (make-directory (file-name-directory backupFilePath)
                     (file-name-directory backupFilePath))
     backupFilePath))
-(setopt make-backup-file-name-function 'bedrock--backup-file-name)
+(setopt make-backup-file-name-function 'backup-file-name)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
