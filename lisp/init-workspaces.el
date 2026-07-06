@@ -28,13 +28,10 @@
   (tab-bar-close-tab-select 'recent)
   (tab-bar-new-tab-to 'rightmost)
   (tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
-  (tab-bar-new-button nil)
-  (tab-bar-close-button nil)
-  (tab-bar-close-button-show nil)
   (tab-bar-auto-width nil)
   (tab-bar-format '(tab-bar-format-history
-                    tab-bar-format-tabs
-                    tab-bar-format-add-tab))
+                    tab-bar-format-tabs))
+  (tab-bar-tab-close-button-show nil)
   :config
   (defun my-tab-bar-select-dwim ()
     "Select a tab. If only one tab exists, create one first."
@@ -59,7 +56,7 @@
   (tabspaces-remove-to-default t)
   (tabspaces-include-buffers '("*scratch*"))
   (tabspaces-session t)
-  (tabspaces-session-auto-restore t)
+  (tabspaces-session-auto-restore nil)
   :config
   (defun my-tabspaces-open-project ()
     "Open or create a workspace for a projectile project."

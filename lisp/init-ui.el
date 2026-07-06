@@ -11,6 +11,13 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq window-divider-default-right-width 30)
+(set-face-attribute 'header-line nil :box '(:line-width 2 :color nil))
+(set-face-attribute 'tab-bar-tab nil :box '(:line-width 2 :color nil))
+(set-face-attribute 'custom-button nil :box '(:line-width 3 :color nil))
+(set-frame-parameter nil 'internal-border-width 15)
+(window-divider-mode 1)
+
 (use-package
   doom-themes
   :vc (:url "https://github.com/acdcbyl/doom-themes-matugen" :rev :newest)
@@ -262,10 +269,8 @@
   tab-bar
   :ensure nil
   :config
-  (setq
-   tab-bar-close-button-show nil
-   tab-bar-new-button-show nil)
-  (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator)))
+  (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+  (setq tab-bar-tab-close-button-show nil))
 
 (use-package
   centaur-tabs
@@ -381,36 +386,6 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   ("C-<next>" . centaur-tabs-forward)
   ("C-S-<prior>" . centaur-tabs-move-current-tab-to-left)
   ("C-S-<next>" . centaur-tabs-move-current-tab-to-right))
-
-(use-package
-  spacious-padding
-  :ensure t
-  :config
-  ;; These are the default values, but I keep them here for visibility.
-  ;; Also check `spacious-padding-subtle-frame-lines'.
-  (setq spacious-padding-widths
-        '( :internal-border-width 15
-           :header-line-width 4
-           :mode-line-width 6
-           :custom-button-width 3
-           :tab-width 4
-           :right-divider-width 30
-           :scroll-bar-width 8
-           :fringe-width 8))
-  ;; (setq spacious-padding-widths
-  ;;       '(:internal-border-width
-  ;;         15
-  ;;         :header-line-width 2
-  ;;         ;; :mode-line-width 6
-  ;;         :custom-button-width 3
-  ;;         :tab-width 2
-  ;;         :right-divider-width 30
-  ;;         :scroll-bar-width 0
-  ;;         :fringe-width nil))
-  (spacious-padding-mode -1)
-
-  ;; Set a key binding if you need to toggle spacious padding.
-  (define-key global-map (kbd "<f8>") #'spacious-padding-mode))
 
 (provide 'init-ui)
 
