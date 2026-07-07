@@ -45,7 +45,7 @@
    centaur-tabs-show-new-tab-button nil
    centaur-tabs-set-modified-marker t
    centaur-tabs-show-navigation-buttons nil
-   centaur-tabs-set-bar 'left
+   ;; centaur-tabs-set-bar 'left
    centaur-tabs-set-close-button nil
    centaur-tabs-show-count nil
    centaur-tabs-icon-type 'nerd-icons

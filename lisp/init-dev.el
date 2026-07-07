@@ -163,6 +163,11 @@
 ;; Magit: best Git client to ever exist
 (use-package magit :ensure t :bind (("C-x g" . magit-status)))
 
+;; A Magit extension that primes the magit cache in parallel before refresh, reducing refresh times
+(use-package magit-prime
+  :ensure t
+  :config
+  (magit-prime-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Eglot, the built-in LSP client for Emacs
