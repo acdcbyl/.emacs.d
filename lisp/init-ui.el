@@ -50,7 +50,7 @@
    centaur-tabs-show-count nil
    centaur-tabs-icon-type 'nerd-icons
    centaur-tabs-gray-out-icons 'buffer
-   ;; x-underline-at-descent-line t
+   x-underline-at-descent-line t
    centaur-tabs-left-edge-margin nil)
   (centaur-tabs-change-fonts (face-attribute 'default :font) 100)
   (centaur-tabs-headline-match)
@@ -99,6 +99,34 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
        "OrgMode")
       (t
        (centaur-tabs-get-group-name (current-buffer))))))
+  ;; Line position percentage badge in the left side of the tab bar
+  (defface my/centaur-tabs-line-position-face
+    '((t (:inherit centaur-tabs-default)))
+    "Face for the line position percentage badge in centaur-tabs."
+    :group 'centaur-tabs)
+  (defun my/centaur-tabs-line-position ()
+    "Return a propertized badge showing the current line position percentage."
+    (condition-case nil
+        (let* ((total (max 1 (line-number-at-pos (point-max))))
+               (current (line-number-at-pos))
+               (percent (min 100 (/ (* current 100.0) total)))
+               (bg (face-background 'centaur-tabs-active-bar-face nil 'default))
+               (fg (face-background 'centaur-tabs-default nil 'default)))
+          (propertize (format " %d%%%% " (round percent))
+                      'face (list :background bg
+                                  :foreground fg
+                                  :height 0.7
+                                  :weight 'bold
+                                  :box (list :line-width 0 :color bg))
+                      'help-echo "Current line position"))
+      (error "")))
+  (defun my/centaur-tabs-line-advice (orig-fn)
+    "Prepend line position percentage to centaur-tabs tab bar."
+    (let ((result (funcall orig-fn)))
+      (if (and result (listp result))
+          (cons (my/centaur-tabs-line-position) result)
+        result)))
+  (advice-add 'centaur-tabs-line :around #'my/centaur-tabs-line-advice)
   :hook
   (dashboard-mode . centaur-tabs-local-mode)
   (navigel-tablist-mode . centaur-tabs-local-mode)
