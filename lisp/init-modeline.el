@@ -37,14 +37,6 @@
         (dolist (frame (frame-list))
           (set-fontset-font (frame-parameter frame 'font) range
                             (font-spec :family font) frame 'prepend)))))
-  (my/lambda-line-clockface-setup)
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-              (when (display-graphic-p frame)
-                (let ((range (cons (decode-char 'ucs #xF0000)
-                                   (decode-char 'ucs #xF008F))))
-                  (set-fontset-font (frame-parameter frame 'font) range
-                                    (font-spec :family "ClockFaceRect") frame 'prepend)))))
 
   (when (eq lambda-line-position 'top)
     (setq-default mode-line-format (list "%_"))

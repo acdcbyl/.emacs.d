@@ -160,10 +160,7 @@ If the new path's directories does not exist, create them."
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("PragmataPro" "Iosevka SS04" "FiraCode Nerd Font" "CaskaydiaCove Nerd Font"
-                           "Fira Code" "Cascadia Code" "Jetbrains Mono"
-                           "SF Mono" "Menlo" "Hack" "Source Code Pro"
-                           "Monaco" "DejaVu Sans Mono" "Consolas")
+    (cl-loop for font in '("PragmataPro")
              when (font-available-p font)
              return (set-face-attribute 'default nil
                                         :family font
@@ -194,6 +191,14 @@ If the new path's directories does not exist, create them."
              return (progn
                       (setq face-font-rescale-alist `((,font . 1.0)))
                       (set-fontset-font t 'han (font-spec :family font))))
+
+    ;; Register nerd-icons PUA codepoints so icons render in all contexts (which-key, etc.)
+    (when (fboundp 'nerd-icons-set-font)
+      (nerd-icons-set-font))
+
+    ;; Re-register ClockFace after nerd-icons so it takes priority for #xF0000..#xF008F
+    (when (fboundp 'my/lambda-line-clockface-setup)
+      (my/lambda-line-clockface-setup))
     ))
 
 (add-hook 'window-setup-hook #'setup-fonts)

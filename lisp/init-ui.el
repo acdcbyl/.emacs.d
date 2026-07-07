@@ -42,7 +42,7 @@
    centaur-tabs-style "bar"
    centaur-tabs-height 35
    centaur-tabs-set-icons t
-   centaur-tabs-show-new-tab-button nil
+   centaur-tabs-show-new-tab-button t
    centaur-tabs-set-modified-marker t
    centaur-tabs-show-navigation-buttons nil
    ;; centaur-tabs-set-bar 'left

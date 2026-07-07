@@ -89,7 +89,7 @@
 ;; Use general.el to define leader keys
 (use-package general
   :ensure t
-  :after evil
+  :after (evil nerd-icons)
   :config
   (require 'nerd-icons)
   (general-evil-setup)
@@ -120,9 +120,9 @@
     "'"   (list 'vertico-repeat
                 :wk (format "%s vertico-repeat" (nerd-icons-mdicon "nf-md-replay")))
     ";"   (list 'avy-resume
-                :wk (format "%s avy-resume" (nerd-icons-codicon "nf-cod-debug_continue")))
+                :wk (format "%s avy-resume" (nerd-icons-mdicon "nf-md-play")))
     "e"   (list 'treemacs
-                :wk (format "%s treemacs" (nerd-icons-codicon "nf-cod-layout_sidebar_left_off")))
+                :wk (format "%s treemacs" (nerd-icons-mdicon "nf-md-file_tree")))
     "l"   (list :wk (format "%s localleader" (nerd-icons-mdicon "nf-md-hammer_wrench")))
 
     ;; unimpaired style
@@ -140,7 +140,7 @@
     "hs"  'helpful-symbol
 
     ;; file
-    "f"   (list :wk (format "%s files" (nerd-icons-codicon "nf-cod-file")))
+    "f"   (list :wk (format "%s files" (nerd-icons-mdicon "nf-md-file_document_outline")))
     "ff"  'find-file
     "fF"  'find-file-other-window
     "f/"  'find-file-other-window
@@ -189,7 +189,7 @@
 
     ;; window
     "w"   (list 'evil-window-map
-                :wk (format "%s window-map" (nerd-icons-faicon "nf-fa-window_maximize")))
+                :wk (format "%s window-map" (nerd-icons-mdicon "nf-md-window_maximize")))
     "ww"  (list 'ace-window
                 :wk (format "%s ace-window" (nerd-icons-mdicon "nf-md-window_restore")))
     "wd"  (list 'ace-delete-window
@@ -224,7 +224,7 @@
 
 
     ;; search
-    "s"   (list :wk (format "%s search" (nerd-icons-faicon "nf-fa-search")))
+    "s"   (list :wk (format "%s search" (nerd-icons-mdicon "nf-md-magnify")))
     "sj"  'evil-show-jumps
     "sm"  'evil-show-marks
     "sr"  'evil-show-registers
@@ -234,7 +234,7 @@
 
     ;; project
     "p"   (list 'projectile-command-map
-                :wk (format "%s projectile-command-map" (nerd-icons-codicon "nf-cod-project")))
+                :wk (format "%s projectile-command-map" (nerd-icons-mdicon "nf-md-folder_open_outline")))
 
     ;; app
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
@@ -243,7 +243,7 @@
     "ai"  'rcirc
 
     ;; git
-    "g"   (list :wk (format "%s magit" (nerd-icons-devicon "nf-dev-git")))
+    "g"   (list :wk (format "%s magit" (nerd-icons-mdicon "nf-md-git")))
     "gm"  'magit
     "gp"  'magit-push
     "gP"  'magit-pull
@@ -255,7 +255,7 @@
     "gD"  'magit-diff
 
     ;; open
-    "o"   (list :wk (format "%s open" (nerd-icons-codicon "nf-cod-link_external")))
+    "o"   (list :wk (format "%s open" (nerd-icons-mdicon "nf-md-open_in_new")))
     "oc"  'org-capture
     "ol"  'org-store-link
     "od"  'dired

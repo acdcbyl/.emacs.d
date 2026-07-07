@@ -44,7 +44,7 @@
 
 (with-eval-after-load 'general
   (my-leader-def
-    "d"   (list :wk (format "%s debug" (nerd-icons-codicon "nf-cod-debug")))
+    "d"   (list :wk (format "%s debug" (nerd-icons-mdicon "nf-md-bug")))
     "dd"  'dape
     "dq"  'dape-quit
     "dr"  'dape-restart

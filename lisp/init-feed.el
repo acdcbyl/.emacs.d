@@ -17,7 +17,7 @@
 
 (with-eval-after-load 'general
   (my-leader-def
-    "r"   (list :wk (format "%s feed" (nerd-icons-faicon "nf-fa-rss")))
+    "r"   (list :wk (format "%s feed" (nerd-icons-mdicon "nf-md-rss")))
     "re"  'elfeed
     "ru"  'elfeed-update))
 

@@ -100,7 +100,5 @@
             ;; (require 'tramp-rpc)
             ;; (require 'init-rimel) ;;It's have issues in 31+
             (require 'init-org)))
-;; if you don't want to use `use-package :vc'
-;; (require 'init-package)
 
 ;;; init.el ends here

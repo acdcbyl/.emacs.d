@@ -166,6 +166,8 @@
 ;; A Magit extension that primes the magit cache in parallel before refresh, reducing refresh times
 (use-package magit-prime
   :ensure t
+  :defer t
+  :after magit
   :config
   (magit-prime-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
