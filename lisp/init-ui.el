@@ -40,16 +40,17 @@
   :config
   (setq
    centaur-tabs-style "bar"
-   centaur-tabs-height 38
+   centaur-tabs-height 35
    centaur-tabs-set-icons t
    centaur-tabs-show-new-tab-button nil
    centaur-tabs-set-modified-marker t
    centaur-tabs-show-navigation-buttons nil
-   centaur-tabs-set-bar 'under
+   centaur-tabs-set-bar 'left
+   centaur-tabs-set-close-button nil
    centaur-tabs-show-count nil
    centaur-tabs-icon-type 'nerd-icons
    centaur-tabs-gray-out-icons 'buffer
-   x-underline-at-descent-line t
+   ;; x-underline-at-descent-line t
    centaur-tabs-left-edge-margin nil)
   (centaur-tabs-change-fonts (face-attribute 'default :font) 100)
   (centaur-tabs-headline-match)
