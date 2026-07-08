@@ -8,8 +8,11 @@
 (use-package nerd-icons
   :ensure t
   :demand t
+  :config
+  (setq nerd-icons-scale-factor 0.8)
   :custom
-  (nerd-icons-font-family "Symbols Nerd Font Mono"))
+  (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
 
 ;; Adapt icons for other windows
 (use-package

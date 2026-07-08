@@ -99,7 +99,7 @@
   :init (global-corfu-mode)
   :custom (corfu-auto t) (corfu-auto-delay 0) (corfu-cycle t)
   ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
-  (corfu-auto-prefix 0)
+  (corfu-auto-prefix 2)
   (corfu-preselect 'prompt)
   (corfu-auto-trigger ".") ;; Custom trigger characters
   (corfu-quit-no-match 'separator) ;; or t
@@ -126,12 +126,11 @@
   :config (corfu-popupinfo-mode))
 
 ;; Pretty icons for corfu
-(use-package kind-icon
-  :if (display-graphic-p)
+(use-package
+  nerd-icons-corfu
   :ensure t
-  :after corfu
   :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 ;; Fancy completion-at-point functions; there's too much in the cape package to
 ;; configure here; dive in when you're comfortable!
@@ -143,13 +142,6 @@
   (add-to-list
    'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file))
-
-;; Pretty icons for corfu
-(use-package
-  nerd-icons-corfu
-  :ensure t
-  :config
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package
   eshell
