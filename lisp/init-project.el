@@ -14,24 +14,34 @@
 (use-package projectile
   :ensure t
   :hook (after-init . projectile-mode)
-  :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map))
-  :config
-  (dolist (dir '("bazel-bin"
-                 "bazel-out"
-                 "bazel-testlogs"))
-    (add-to-list 'projectile-globally-ignored-directories dir))
+  :bind-keymap ("C-c p" . projectile-command-map)
   :custom
-  (projectile-use-git-grep t)
   (projectile-indexing-method 'alien)
+  (projectile-enable-caching t)
+  (projectile-sort-order 'recently-active)
   (projectile-kill-buffers-filter 'kill-only-files)
-  ;; Ignore uninteresting files. It has no effect when using alien mode.
-  (projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store"))
-  (projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o" ".swp" ".so" ".a"))
-  (projectile-ignored-projects `("~/"
-                                 "/tmp/"
-                                 "/private/tmp/"
-                                 ,package-user-dir)))
+  (projectile-project-search-path '("~/Code" "~/Projects"))
+  (projectile-globally-ignored-directories
+   '("node_modules"
+     ".cache"
+     ".direnv"
+     ".venv"
+     ".ruff_cache"
+     ".pytest_cache"
+     "dist"
+     "build"
+     "target"
+     "bazel-bin"
+     "bazel-out"
+     "bazel-testlogs"))
+  (projectile-globally-ignored-file-suffixes
+   '(".eln" ".elc" ".pyc" ".o" ".so" ".a" ".swp"))
+  (projectile-ignored-projects
+   `("~/"
+     "/tmp/"
+     "/private/tmp/"
+     ,package-user-dir)))
+
 (provide 'init-project)
 
 ;;; init-project.el ends here
