@@ -121,8 +121,8 @@
                 :wk (format "%s vertico-repeat" (nerd-icons-mdicon "nf-md-replay")))
     ";"   (list 'avy-resume
                 :wk (format "%s avy-resume" (nerd-icons-mdicon "nf-md-play")))
-    "e"   (list 'treemacs
-                :wk (format "%s treemacs" (nerd-icons-mdicon "nf-md-file_tree")))
+    ;; "e"   (list 'treemacs
+    ;;             :wk (format "%s treemacs" (nerd-icons-mdicon "nf-md-file_tree")))
     "l"   (list :wk (format "%s localleader" (nerd-icons-mdicon "nf-md-hammer_wrench")))
 
     ;; unimpaired style
@@ -232,9 +232,9 @@
     "sp"  'consult-ripgrep
     "ss"  'consult-line
 
-    ;; project
-    "p"   (list 'projectile-command-map
-                :wk (format "%s projectile-command-map" (nerd-icons-mdicon "nf-md-folder_open_outline")))
+    ;; ;; project
+    ;; "p"   (list 'my-project-prefix-map
+    ;;             :wk (format "%s project" (nerd-icons-mdicon "nf-md-folder_open_outline")))
 
     ;; app
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))

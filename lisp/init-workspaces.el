@@ -1,12 +1,12 @@
 ;;; init-workspaces.el --- Workspace management via tabspaces -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; Uses tab-bar-mode + tabspaces for buffer-isolated workspace tabs.
-;; Integrates with projectile for project-based workspaces.
+;; Integrates with project.el for project-based workspaces.
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl-lib)
-  (require 'transient))
+  (require 'cl-lib))
+(require 'transient)
 
 ;;;; Variables
 
@@ -48,7 +48,7 @@
 (use-package tabspaces
   :ensure t
   :hook (emacs-startup . tabspaces-mode)
-  :bind (:map projectile-command-map
+  :bind (:map my-project-prefix-map
               ("T" . my-tabspaces-open-project))
   :custom
   (tabspaces-use-filtered-buffers-as-default t)
@@ -59,10 +59,10 @@
   (tabspaces-session-auto-restore nil)
   :config
   (defun my-tabspaces-open-project ()
-    "Open or create a workspace for a projectile project."
+    "Open or create a workspace for a project."
     (interactive)
-    (let* ((project (projectile-completing-read "Project: "
-                                                (projectile-relevant-known-projects))))
+    (let* ((project (completing-read "Project: "
+                                     (project-known-project-roots))))
       (when project
         (tabspaces-open-or-create-project-and-workspace project))))
 

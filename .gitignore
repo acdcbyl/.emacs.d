@@ -51,5 +51,4 @@ var/
 .tree-sitter/
 tree-sitter/
 .dap-breakpoints
-.projectile-cache
 lisp/private.el

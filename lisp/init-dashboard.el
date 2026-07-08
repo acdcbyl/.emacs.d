@@ -90,7 +90,7 @@
   (dashboard-path-style 'truncate-middle)
   (dashboard-center-content t)
   (dashboard-vertically-center-content t)
-  (dashboard-projects-backend 'projectile)
+  (dashboard-projects-backend 'project-el)
   (dashboard-path-max-length 60)
   (dashboard-startup-banner
    "~/.emacs.d/assets/GNUEmacs.png")

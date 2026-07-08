@@ -82,9 +82,9 @@
 (require 'init-dashboard)
 (require 'init-ui)
 (require 'init-completion)
+(require 'init-project)
 (require 'init-workspaces)
 (require 'init-evil)
-(require 'init-project)
 
 (add-hook 'after-init-hook
           (lambda ()
