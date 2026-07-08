@@ -39,7 +39,7 @@
   :init (setq centaur-tabs-enable-key-bindings t)
   :config
   (setq
-   centaur-tabs-style "bar"
+   centaur-tabs-style "box"
    centaur-tabs-height 35
    centaur-tabs-set-icons t
    centaur-tabs-show-new-tab-button t

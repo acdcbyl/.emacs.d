@@ -5,7 +5,11 @@
 ;;; Code:
 
 ;; Use nerd-icons as the icon package
-(use-package nerd-icons :ensure t :when (display-graphic-p) :demand t)
+(use-package nerd-icons
+  :ensure t
+  :demand t
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 ;; Adapt icons for other windows
 (use-package
@@ -15,12 +19,6 @@
   :config (nerd-icons-completion-mode 1)
   (add-hook
    'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
-
-;; Set icons for dired
-;; (use-package
-;;  nerd-icons-dired
-;;  :ensure t
-;;  :hook (dired-mode . nerd-icons-dired-mode))
 
 ;; Set icons for ibuffer
 (use-package
