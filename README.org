@@ -2,37 +2,51 @@
 #+AUTHOR: aiser
 #+EMAIL: wtchel088@gmail.com
 #+DATE: <2026-01-03 周六>
-#+LANGUAGE: zh/en
-#+OPTIONS: ^:{}
+#+LANGUAGE: zh-CN
+#+OPTIONS: ^:{} toc:nil num:nil
 
 * 简介
 
-基于[[https://codeberg.org/ashton314/emacs-bedrock][emacs-bedrock]]创建的emacs设置，目前基本可用，支持evil
+基于 [[https://codeberg.org/ashton314/emacs-bedrock][emacs-bedrock]] 构建的 Emacs 配置，使用 Emacs 31 (git master)，集成 evil 键绑定。
+
+* 要求
+
+- Emacs 31 或更高版本 (git master)
+- 推荐：[[https://www.nerdfonts.com/][Nerd Font]]（用于图标显示）
 
 * 特性
-| 特性     | 支持情况 |
-|----------+----------|
-| evil     | [X]      |
-| org-roam | [X]      |
-| lsp      | [X]      |
-| mpdel    | [X]      |
-| dirvish  | [X]      |
-| magit    | [X]      |
-|          |          |
 
-* 截图
-
-[[file:./assets/main.png]]
-
-file:./assets/lsp.png
+| 特性                   | 支持情况 |
+|------------------------+----------|
+| Evil 键绑定            | checked  |
+| Org-mode               | checked  |
+| Eglot (LSP)            | checked  |
+| Corfu + Vertico (补全) | checked  |
+| Magit                  | checked  |
+| Tree-sitter            | checked  |
+| Dashboard              | checked  |
+| Tabspaces (工作区)     | checked  |
+| MPDel (音乐)           | checked  |
 
 * 快速开始
 
 ** 安装
 
-手动克隆：
-
 #+begin_src bash
 git clone https://github.com/acdcbyl/.emacs.d.git ~/.emacs.d/
 #+end_src
+
+首次启动时会自动安装依赖包。建议使用 Emacs 31 git master 版本以获得最佳体验。
+
+* 启动顺序
+
+- ~early-init.el~ — 早期初始化（GC、native-comp、UI 元素禁用）
+- ~init.el~ — 主入口，加载各模块
+- ~lisp/init-*.el~ — 按功能拆分的模块配置
+
+* 截图
+
+[[file:./assets/main.png]]
+
+[[file:./assets/lsp.png]]
 
