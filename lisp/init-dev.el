@@ -190,7 +190,7 @@
   (eglot-extend-to-xref t) ; activate Eglot in referenced non-project files
 
   :config
-  (fset #'jsonrpc--log-event #'ignore) ; massive perf boost---don't log every event
+  (advice-add #'jsonrpc--log-event :override #'ignore) ; massive perf boost---don't log every event
   )
 
 ;;eglot doc

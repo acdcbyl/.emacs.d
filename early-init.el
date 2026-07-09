@@ -17,6 +17,7 @@
 
 ;; Defer package loading until after init
 (setq package-enable-at-startup nil)
+(setq package-quickstart t)
 
 ;; For the git version
 ;; (setq native-comp-deferred-compilation t)
@@ -27,7 +28,7 @@
 
 (defun aiser/setup-gc ()
   (setq
-   gc-cons-threshold (* 100 1024 1024)
+   gc-cons-threshold (* 64 1024 1024)
    gc-cons-percentage 0.3
    read-process-output-max (* 10 1024 1024)
    ;; Restore file-name-handler-alist
