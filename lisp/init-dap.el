@@ -43,7 +43,7 @@
      ("i" "Info"              dape-info)]))
 
 (with-eval-after-load 'general
-  (my-leader-def
+  (aiser/leader-def
     "d"   (list :wk (format "%s debug" (nerd-icons-mdicon "nf-md-bug")))
     "dd"  'dape
     "dq"  'dape-quit

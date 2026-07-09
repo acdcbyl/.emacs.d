@@ -195,8 +195,8 @@ If the new path's directories does not exist, create them."
       (nerd-icons-set-font))
 
     ;; Re-register ClockFace after nerd-icons so it takes priority for #xF0000..#xF008F
-    (when (fboundp 'my/lambda-line-clockface-setup)
-      (my/lambda-line-clockface-setup))
+    (when (fboundp 'aiser/lambda-line-clockface-setup)
+      (aiser/lambda-line-clockface-setup))
 
     ;; Update centaur-tabs font if loaded
     (when (fboundp 'centaur-tabs-change-fonts)
@@ -227,9 +227,9 @@ If the new path's directories does not exist, create them."
     "Default posframe border width.")
   :config
   (with-no-warnings
-    (defun my-posframe--prettify-frame (&rest _)
+    (defun aiser/posframe--prettify-frame (&rest _)
       (set-face-background 'fringe nil posframe--frame))
-    (advice-add #'posframe--create-posframe :after #'my-posframe--prettify-frame)
+    (advice-add #'posframe--create-posframe :after #'aiser/posframe--prettify-frame)
 
     (defun posframe-poshandler-frame-center-near-bottom (info)
       (cons (/ (- (plist-get info :parent-frame-width)

@@ -22,19 +22,19 @@
 ;; (setq native-comp-deferred-compilation t)
 
 ;; Speed up startup by disabling file-name-handler-alist temporarily
-(defvar my--file-name-handler-alist file-name-handler-alist)
+(defvar aiser--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
-(defun my/setup-gc ()
+(defun aiser/setup-gc ()
   (setq
    gc-cons-threshold (* 100 1024 1024)
    gc-cons-percentage 0.3
    read-process-output-max (* 10 1024 1024)
    ;; Restore file-name-handler-alist
-   file-name-handler-alist (append file-name-handler-alist my--file-name-handler-alist)
+   file-name-handler-alist (append file-name-handler-alist aiser--file-name-handler-alist)
    ;; Don’t compact font caches during GC.
    inhibit-compacting-font-caches t))
-(add-hook 'after-init-hook #'my/setup-gc)
+(add-hook 'after-init-hook #'aiser/setup-gc)
 
 (setq byte-compile-warnings '(not obsolete))
 (setq warning-minimum-level :error)

@@ -10,7 +10,7 @@
 
 ;;;; Variables
 
-(defvar my-main-workspace "Home"
+(defvar aiser-main-workspace "Home"
   "Name of the primary workspace, which cannot be deleted.")
 
 ;;;; tab-bar configuration
@@ -33,7 +33,7 @@
                     tab-bar-format-tabs))
   (tab-bar-tab-close-button-show nil)
   :config
-  (defun my-tab-bar-select-dwim ()
+  (defun aiser/tab-bar-select-dwim ()
     "Select a tab. If only one tab exists, create one first."
     (interactive)
     (let ((tabs (mapcar (lambda (tab) (alist-get 'name tab))
@@ -48,17 +48,17 @@
 (use-package tabspaces
   :ensure t
   :hook (emacs-startup . tabspaces-mode)
-  :bind (:map my-project-prefix-map
-              ("T" . my-tabspaces-open-project))
+  :bind (:map aiser-project-prefix-map
+              ("T" . aiser/tabspaces-open-project))
   :custom
   (tabspaces-use-filtered-buffers-as-default t)
-  (tabspaces-default-tab my-main-workspace)
+  (tabspaces-default-tab aiser-main-workspace)
   (tabspaces-remove-to-default t)
   (tabspaces-include-buffers '("*scratch*"))
   (tabspaces-session t)
   (tabspaces-session-auto-restore nil)
   :config
-  (defun my-tabspaces-open-project ()
+  (defun aiser/tabspaces-open-project ()
     "Open or create a workspace for a project."
     (interactive)
     (let* ((project (completing-read "Project: "
@@ -66,7 +66,7 @@
       (when project
         (tabspaces-open-or-create-project-and-workspace project))))
 
-  (defun my-consult-tabspaces ()
+  (defun aiser/consult-tabspaces ()
     (require 'consult)
     (cond (tabspaces-mode
            (plist-put consult-source-buffer :hidden t)
@@ -77,7 +77,7 @@
            (plist-put consult-source-buffer :default t)
            (setq consult-buffer-sources
                  (remove 'consult--source-workspace consult-buffer-sources)))))
-  (add-hook 'tabspaces-mode-hook #'my-consult-tabspaces))
+  (add-hook 'tabspaces-mode-hook #'aiser/consult-tabspaces))
 
 ;;;; Consult workspace source
 
@@ -99,13 +99,13 @@
 
 ;;;; Workspace commands
 
-(defun my/workspace-current-name ()
+(defun aiser/workspace-current-name ()
   "Return the current workspace tab name."
   (tabspaces--current-tab-name))
 
-(defun my/workspace-list-names ()
+(defun aiser/workspace-list-names ()
   "Return a formatted string of all workspace names, highlighting the current one."
-  (let ((current (my/workspace-current-name)))
+  (let ((current (aiser/workspace-current-name)))
     (mapconcat
      (lambda (name)
        (if (string= name current)
@@ -114,37 +114,37 @@
      (tabspaces--list-tabspaces)
      "  ")))
 
-(defun my/workspace-new (name)
+(defun aiser/workspace-new (name)
   "Create a new workspace with NAME."
   (interactive "sWorkspace name: ")
   (tab-new)
   (tab-bar-rename-tab name)
   (message "Created workspace: %s" name))
 
-(defun my/workspace-switch ()
+(defun aiser/workspace-switch ()
   "Switch to a workspace with completion."
   (interactive)
   (let* ((names (tabspaces--list-tabspaces))
          (name (completing-read "Switch to: " names nil t)))
     (tab-bar-switch-to-tab name)))
 
-(defun my/workspace-kill ()
+(defun aiser/workspace-kill ()
   "Delete the current workspace. The main workspace cannot be deleted."
   (interactive)
-  (let ((name (my/workspace-current-name)))
-    (if (string= name my-main-workspace)
-        (message "Cannot delete the main workspace \"%s\"" my-main-workspace)
+  (let ((name (aiser/workspace-current-name)))
+    (if (string= name aiser-main-workspace)
+        (message "Cannot delete the main workspace \"%s\"" aiser-main-workspace)
       (tab-close)
       (message "Deleted workspace: %s" name))))
 
-(defun my/workspace-rename (name)
+(defun aiser/workspace-rename (name)
   "Rename the current workspace to NAME."
   (interactive "sNew name: ")
-  (let ((old (my/workspace-current-name)))
+  (let ((old (aiser/workspace-current-name)))
     (tab-bar-rename-tab name)
     (message "Renamed workspace: %s \u2192 %s" old name)))
 
-(defun my/workspace-switch-by-number (n)
+(defun aiser/workspace-switch-by-number (n)
   "Switch to the Nth workspace (1-indexed)."
   (let ((names (tabspaces--list-tabspaces)))
     (if (nth (1- n) names)
@@ -153,79 +153,79 @@
 
 ;;;; Transient suffix commands
 
-(transient-define-suffix my/workspace-transient-new ()
+(transient-define-suffix aiser/workspace-transient-new ()
   "Create a new workspace."
   :description "New workspace"
   (interactive)
   (let ((name (read-string "Workspace name: ")))
-    (my/workspace-new name)))
+    (aiser/workspace-new name)))
 
-(transient-define-suffix my/workspace-transient-switch ()
+(transient-define-suffix aiser/workspace-transient-switch ()
   "Switch to another workspace."
   :description "Switch workspace"
   (interactive)
-  (my/workspace-switch))
+  (aiser/workspace-switch))
 
-(transient-define-suffix my/workspace-transient-kill ()
+(transient-define-suffix aiser/workspace-transient-kill ()
   "Delete the current workspace."
   :description "Delete workspace"
   (interactive)
-  (let ((name (my/workspace-current-name)))
-    (if (string= name my-main-workspace)
-        (message "Cannot delete the main workspace \"%s\"" my-main-workspace)
+  (let ((name (aiser/workspace-current-name)))
+    (if (string= name aiser-main-workspace)
+        (message "Cannot delete the main workspace \"%s\"" aiser-main-workspace)
       (when (yes-or-no-p (format "Delete workspace \"%s\"? " name))
-        (my/workspace-kill)))))
+        (aiser/workspace-kill)))))
 
-(transient-define-suffix my/workspace-transient-rename ()
+(transient-define-suffix aiser/workspace-transient-rename ()
   "Rename the current workspace."
   :description "Rename workspace"
   (interactive)
-  (let* ((old (my/workspace-current-name))
+  (let* ((old (aiser/workspace-current-name))
          (new (read-string (format "Rename \"%s\" to: " old))))
-    (my/workspace-rename new)))
+    (aiser/workspace-rename new)))
 
-(transient-define-suffix my/workspace-transient-next ()
+(transient-define-suffix aiser/workspace-transient-next ()
   "Switch to the next workspace."
   :description "Next workspace"
   (interactive)
   (tab-bar-switch-to-next-tab))
 
-(transient-define-suffix my/workspace-transient-prev ()
+(transient-define-suffix aiser/workspace-transient-prev ()
   "Switch to the previous workspace."
   :description "Prev workspace"
   (interactive)
   (tab-bar-switch-to-prev-tab))
 
-(transient-define-suffix my/workspace-transient-save ()
+(transient-define-suffix aiser/workspace-transient-save ()
   "Save the current session."
   :description "Save session"
   (interactive)
   (tabspaces-save-session)
   (message "Session saved"))
 
-(transient-define-suffix my/workspace-transient-load ()
+(transient-define-suffix aiser/workspace-transient-load ()
   "Load a session."
   :description "Load session"
   (interactive)
   (tabspaces-restore-session)
   (message "Session loaded"))
 
-(defmacro my/workspace-transient-define-switch-n (n)
-  `(transient-define-suffix ,(intern (format "my/workspace-transient-switch-%d" n)) ()
+(defmacro aiser/workspace-transient-define-switch-n (n)
+  `(transient-define-suffix ,(intern (format "aiser/workspace-transient-switch-%d" n)) ()
      ,(format "Switch to workspace #%d" n)
      :description ,(format "#%d" n)
      (interactive)
-     (my/workspace-switch-by-number ,n)))
+     (aiser/workspace-switch-by-number ,n)))
 
-(my/workspace-transient-define-switch-n 1)
-(my/workspace-transient-define-switch-n 2)
-(my/workspace-transient-define-switch-n 3)
-(my/workspace-transient-define-switch-n 4)
-(my/workspace-transient-define-switch-n 5)
-(my/workspace-transient-define-switch-n 6)
-(my/workspace-transient-define-switch-n 7)
-(my/workspace-transient-define-switch-n 8)
-(my/workspace-transient-define-switch-n 9)
+(aiser/workspace-transient-define-switch-n 1)
+(aiser/workspace-transient-define-switch-n 2)
+(aiser/workspace-transient-define-switch-n 3)
+(aiser/workspace-transient-define-switch-n 4)
+(aiser/workspace-transient-define-switch-n 5)
+(aiser/workspace-transient-define-switch-n 6)
+(aiser/workspace-transient-define-switch-n 7)
+(aiser/workspace-transient-define-switch-n 8)
+(aiser/workspace-transient-define-switch-n 9)
 
 ;;;; Transient menu definition
 
@@ -233,31 +233,31 @@
   "Workspace management menu (tabspaces)."
   [:description
    (lambda ()
-     (format "Workspaces: %s" (my/workspace-list-names)))
+     (format "Workspaces: %s" (aiser/workspace-list-names)))
    ""]
   ["Navigate"
    :class transient-row
-   ("<left>"  "\u2190 Prev"   my/workspace-transient-prev)
-   ("<right>" "\u2192 Next"   my/workspace-transient-next)
-   ("s"       "Switch"        my/workspace-transient-switch)]
+   ("<left>"  "\u2190 Prev"   aiser/workspace-transient-prev)
+   ("<right>" "\u2192 Next"   aiser/workspace-transient-next)
+   ("s"       "Switch"        aiser/workspace-transient-switch)]
   ["Switch by number"
    :class transient-row
-   ("1" "#1" my/workspace-transient-switch-1)
-   ("2" "#2" my/workspace-transient-switch-2)
-   ("3" "#3" my/workspace-transient-switch-3)
-   ("4" "#4" my/workspace-transient-switch-4)
-   ("5" "#5" my/workspace-transient-switch-5)
-   ("6" "#6" my/workspace-transient-switch-6)
-   ("7" "#7" my/workspace-transient-switch-7)
-   ("8" "#8" my/workspace-transient-switch-8)
-   ("9" "#9" my/workspace-transient-switch-9)]
+   ("1" "#1" aiser/workspace-transient-switch-1)
+   ("2" "#2" aiser/workspace-transient-switch-2)
+   ("3" "#3" aiser/workspace-transient-switch-3)
+   ("4" "#4" aiser/workspace-transient-switch-4)
+   ("5" "#5" aiser/workspace-transient-switch-5)
+   ("6" "#6" aiser/workspace-transient-switch-6)
+   ("7" "#7" aiser/workspace-transient-switch-7)
+   ("8" "#8" aiser/workspace-transient-switch-8)
+   ("9" "#9" aiser/workspace-transient-switch-9)]
   ["Manage"
-   ("n" "New"    my/workspace-transient-new)
-   ("r" "Rename" my/workspace-transient-rename)
-   ("d" "Delete" my/workspace-transient-kill)]
+   ("n" "New"    aiser/workspace-transient-new)
+   ("r" "Rename" aiser/workspace-transient-rename)
+   ("d" "Delete" aiser/workspace-transient-kill)]
   ["Session"
-   ("w" "Save" my/workspace-transient-save)
-   ("l" "Load" my/workspace-transient-load)])
+   ("w" "Save" aiser/workspace-transient-save)
+   ("l" "Load" aiser/workspace-transient-load)])
 
 (provide 'init-workspaces)
 ;;; init-workspaces.el ends here

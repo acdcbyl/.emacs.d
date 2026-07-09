@@ -23,6 +23,7 @@
 * 截图
 
 [[file:./assets/main.png]]
+
 file:./assets/lsp.png
 
 * 快速开始

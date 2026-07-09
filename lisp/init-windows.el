@@ -95,11 +95,11 @@
 
   :config
   (with-no-warnings
-    (defun my-popper-fit-window-height (win)
+    (defun aiser/popper-fit-window-height (win)
       "Adjust the height of popup window WIN to fit the buffer's content."
       (let ((desired-height (floor (/ (frame-height) 3))))
         (fit-window-to-buffer win desired-height desired-height)))
-    (setq popper-window-height #'my-popper-fit-window-height))
+    (setq popper-window-height #'aiser/popper-fit-window-height))
 
   (defun popper-close-window-hack (&rest _args)
     (when (and (not (region-active-p))

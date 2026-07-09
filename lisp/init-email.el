@@ -103,7 +103,7 @@
   (add-hook 'dired-mode-hook #'gnus-dired-mode))
 
 (with-eval-after-load 'general
-  (my-leader-def
+  (aiser/leader-def
     "oe"  'mu4e-transient-menu))
 
 (provide 'init-email)

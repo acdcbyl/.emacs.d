@@ -27,7 +27,7 @@
   (lambda-line-mode)
   (lambda-line-visual-bell-config)
 
-  (defun my/lambda-line-clockface-setup ()
+  (defun aiser/lambda-line-clockface-setup ()
     "Setup ClockFace font on frame fontset with higher priority than nerd-icons."
     (let ((font "ClockFaceRect")
           (range (cons (decode-char 'ucs #xF0000)

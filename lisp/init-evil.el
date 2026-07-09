@@ -101,18 +101,18 @@
       :timeout 0.20
       "k" 'evil-normal-state))
 
-  (general-create-definer my-leader-def
+  (general-create-definer aiser/leader-def
     :states '(normal visual motion)
     :keymaps 'override
     :prefix "SPC"
     :non-normal-prefix "M-SPC")
 
-  (general-create-definer my-localleader-def
+  (general-create-definer aiser/localleader-def
     :states '(normal visual motion)
     :keymaps 'override
     :prefix "SPC l")
 
-  (my-leader-def
+  (aiser/leader-def
     "SPC" (list 'keyboard-escape-quit
                 :wk (format "%s escape" (nerd-icons-mdicon "nf-md-keyboard_esc")))
     "S-SPC" (list 'lazy-highlight-cleanup
@@ -233,7 +233,7 @@
     "ss"  'consult-line
 
     ;; ;; project
-    ;; "p"   (list 'my-project-prefix-map
+    ;; "p"   (list 'aiser-project-prefix-map
     ;;             :wk (format "%s project" (nerd-icons-mdicon "nf-md-folder_open_outline")))
 
     ;; app
@@ -264,7 +264,7 @@
     "og"  'ghostel
     "ou"  'symbols-outline-show)
 
-  (my-localleader-def
+  (aiser/localleader-def
     :major-modes '(emacs-lisp-mode lisp-interaction-mode)
     "i"  'info-lookup-symbol
     "eb" 'eval-buffer
@@ -294,7 +294,7 @@
     "]T"  'centaur-tabs-move-current-tab-to-right
     "[T"  'centaur-tabs-move-current-tab-to-left)
 
-  (my-leader-def
+  (aiser/leader-def
     "z" (list :ignore t :wk (format "%s folding/narrow" (nerd-icons-mdicon "nf-md-unfold_less_horizontal")))
     "zx" #'kill-current-buffer))
 

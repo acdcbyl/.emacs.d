@@ -13,7 +13,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar my-project-prefix-map
+(defvar aiser-project-prefix-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "f") #'project-find-file)
     (define-key map (kbd "F") #'project-or-external-find-file)
@@ -37,7 +37,7 @@
     map)
   "Project keymap mirroring project.el commands.")
 
-(global-set-key (kbd "C-c p") my-project-prefix-map)
+(global-set-key (kbd "C-c p") aiser-project-prefix-map)
 
 (use-package project
   :ensure nil
@@ -65,7 +65,7 @@
      "*.swp"))
   :config
   ;; Automatic project root detection for LSP/project markers
-  (defun my-project-try-lsp (dir)
+  (defun aiser/project-try-lsp (dir)
     "Find project root by looking for project marker files."
     (when-let* ((root (locate-dominating-file
                        dir
@@ -82,9 +82,9 @@
       (unless (string= (expand-file-name root) (expand-file-name "~/"))
         (cons 'transient root))))
 
-  (add-to-list 'project-find-functions #'my-project-try-lsp)
+  (add-to-list 'project-find-functions #'aiser/project-try-lsp)
 
-  (defun my-project-discover-projects ()
+  (defun aiser/project-discover-projects ()
     "Scan project search paths and remember them."
     (dolist (path '("~/Code" "~/Projects"))
       (let ((search-path (expand-file-name path)))
@@ -97,7 +97,7 @@
                 (when proj
                   (project-remember-project proj)))))))))
 
-  (my-project-discover-projects))
+  (aiser/project-discover-projects))
 
 (provide 'init-project)
 

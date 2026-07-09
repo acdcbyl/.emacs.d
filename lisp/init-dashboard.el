@@ -4,14 +4,14 @@
 
 ;;; Code:
 
-(defvar my-use-dashboard t
+(defvar aiser-use-dashboard t
   "Enable dashboard.")
 
 ;; Set up dashboard
 (use-package
   dashboard
   :ensure t
-  :if my-use-dashboard
+  :if aiser-use-dashboard
   :diminish dashboard-mode
   :bind
   (("<f2>" . open-dashboard)

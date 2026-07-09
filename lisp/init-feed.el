@@ -16,7 +16,7 @@
 (setq rmh-elfeed-org-files (list "~/.emacs.d/feeds.org")))
 
 (with-eval-after-load 'general
-  (my-leader-def
+  (aiser/leader-def
     "r"   (list :wk (format "%s feed" (nerd-icons-mdicon "nf-md-rss")))
     "re"  'elfeed
     "ru"  'elfeed-update))

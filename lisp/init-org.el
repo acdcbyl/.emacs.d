@@ -198,13 +198,13 @@
   :hook (org-mode . org-modern-mode))
 
 (with-eval-after-load 'general
-  (my-leader-def
+  (aiser/leader-def
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
     "aa"  'org-agenda
     "oc"  'org-capture
     "ol"  'org-store-link)
 
-  (my-localleader-def
+  (aiser/localleader-def
     :major-modes '(org-mode)
     :keymaps 'org-mode-map
     "." 'org-goto

@@ -34,13 +34,13 @@
   :config
   (setq-default fringes-outside-margins t)
 
-  (defun my-diff-hl-fringe-bmp-function (_type _pos)
+  (defun aiser/diff-hl-fringe-bmp-function (_type _pos)
     "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
-    (define-fringe-bitmap 'my-diff-hl-bmp
+    (define-fringe-bitmap 'aiser/diff-hl-bmp
       (vector #b11111100)
       1 8
       '(center t)))
-  (setq diff-hl-fringe-bmp-function 'my-diff-hl-fringe-bmp-function)
+  (setq diff-hl-fringe-bmp-function 'aiser/diff-hl-fringe-bmp-function)
 
   (diff-hl-flydiff-mode 1)
 
