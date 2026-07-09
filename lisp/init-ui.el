@@ -50,9 +50,7 @@
    centaur-tabs-show-count nil
    centaur-tabs-icon-type 'nerd-icons
    centaur-tabs-gray-out-icons 'buffer
-   x-underline-at-descent-line t
-   centaur-tabs-left-edge-margin nil)
-  (centaur-tabs-change-fonts (face-attribute 'default :font) 100)
+   x-underline-at-descent-line t)
   (centaur-tabs-headline-match)
   (setq uniquify-separator "/")
   (setq uniquify-buffer-name-style 'forward)
@@ -107,9 +105,12 @@ Other buffer group by `centaur-tabs-get-group-name' with project name."
   (defun my/centaur-tabs-line-position ()
     "Return a propertized badge showing the current line position percentage."
     (condition-case nil
-        (let* ((total (max 1 (line-number-at-pos (point-max))))
-               (current (line-number-at-pos))
-               (percent (min 100 (/ (* current 100.0) total)))
+        (let* ((percent
+                (if (> (buffer-size) 50000)
+                    (round (* (/ (float (point)) (max 1 (point-max))) 100))
+                  (let ((total (max 1 (line-number-at-pos (point-max))))
+                        (current (line-number-at-pos)))
+                    (/ (* current 100.0) total))))
                (bg (face-background 'centaur-tabs-active-bar-face nil 'default))
                (fg (face-background 'centaur-tabs-default nil 'default)))
           (propertize (format " %d%%%% " (round percent))

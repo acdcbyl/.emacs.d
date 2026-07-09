@@ -200,7 +200,7 @@
     "w/"  'split-window-horizontally
 
     ;; workspace
-    "W"   (list 'my/workspace-menu
+    "W"   (list 'workspace-menu
                 :wk (format "%s workspaces" (nerd-icons-mdicon "nf-md-view_grid")))
 
     ;; tab (centaur-tabs)

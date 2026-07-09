@@ -10,7 +10,8 @@
   :ensure nil
   :commands (winner-undo winner-redo)
   ;; :hook window-setup
-  :init (setq winner-boring-buffers '("*Completions*"
+  :init (winner-mode 1)
+        (setq winner-boring-buffers '("*Completions*"
                                       "*Compile-Log*"
                                       "*inferior-lisp*"
                                       "*Fuzzy Completions*"

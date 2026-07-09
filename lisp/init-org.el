@@ -56,7 +56,8 @@
         ("reading")))
 
 ;; Org-refile: where should org-refile look?
-(setq org-refile-targets 'FIXME)
+(setq org-refile-targets '((nil :maxlevel . 3)
+                           (org-agenda-files :maxlevel . 3)))
 
 ;;; Phase 3 variables
 

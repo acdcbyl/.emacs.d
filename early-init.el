@@ -31,7 +31,7 @@
    gc-cons-percentage 0.3
    read-process-output-max (* 10 1024 1024)
    ;; Restore file-name-handler-alist
-   file-name-handler-alist my--file-name-handler-alist
+   file-name-handler-alist (append file-name-handler-alist my--file-name-handler-alist)
    ;; Don’t compact font caches during GC.
    inhibit-compacting-font-caches t))
 (add-hook 'after-init-hook #'my/setup-gc)

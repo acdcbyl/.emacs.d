@@ -68,34 +68,34 @@
   (defun my-project-try-lsp (dir)
     "Find project root by looking for project marker files."
     (when-let* ((root (locate-dominating-file
-                      dir
-                      (lambda (d)
-                        (let ((markers '(".lsp" ".ccls" "compile_commands.json"
-                                         "compile_flags.txt" ".clangd" "tsconfig.json"
-                                         "pyrightconfig.json" ".pylintrc" "setup.cfg"
-                                         "Cargo.toml" "go.mod" "pom.xml"
-                                         "build.gradle")))
-                          (and (not (string= (expand-file-name d) (expand-file-name "~/")))
-                               (cl-some (lambda (f)
-                                          (file-exists-p (expand-file-name f d)))
-                                        markers)))))))
+                       dir
+                       (lambda (d)
+                         (let ((markers '(".lsp" ".ccls" "compile_commands.json"
+                                          "compile_flags.txt" ".clangd" "tsconfig.json"
+                                          "pyrightconfig.json" ".pylintrc" "setup.cfg"
+                                          "Cargo.toml" "go.mod" "pom.xml"
+                                          "build.gradle")))
+                           (and (not (string= (expand-file-name d) (expand-file-name "~/")))
+                                (cl-some (lambda (f)
+                                           (file-exists-p (expand-file-name f d)))
+                                         markers)))))))
       (unless (string= (expand-file-name root) (expand-file-name "~/"))
-        (cons 'vc root))))
+        (cons 'transient root))))
 
-  (add-to-list 'project-find-functions #'my-project-try-lsp t)
+  (add-to-list 'project-find-functions #'my-project-try-lsp)
 
-  ;; Auto-discover projects in search paths
   (defun my-project-discover-projects ()
     "Scan project search paths and remember them."
-    (dolist (search-path '("~/Code" "~/Projects"))
-      (when (file-directory-p search-path)
-        (dolist (dir (directory-files search-path t))
-          (when (and (file-directory-p dir)
-                     (not (member (file-name-nondirectory dir) '("." "..")))
-                     (file-exists-p (expand-file-name ".git" dir)))
-            (let ((proj (project-current nil dir)))
-              (when proj
-                (project-remember-project proj))))))))
+    (dolist (path '("~/Code" "~/Projects"))
+      (let ((search-path (expand-file-name path)))
+        (when (file-directory-p search-path)
+          (dolist (dir (directory-files search-path t))
+            (when (and (file-directory-p dir)
+                       (not (member (file-name-nondirectory dir) '("." "..")))
+                       (file-exists-p (expand-file-name ".git" dir)))
+              (let ((proj (project-current nil dir)))
+                (when proj
+                  (project-remember-project proj)))))))))
 
   (my-project-discover-projects))
 

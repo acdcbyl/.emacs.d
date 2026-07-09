@@ -55,14 +55,13 @@
   "Return a new file path of a given file FPATH.
 If the new path's directories does not exist, create them."
   (let*
-      ((backupRootDir "~/.emacs.d/emacs-backup/")
+      ((backupRootDir (expand-file-name "~/.emacs.d/emacs-backup/"))
        (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath)) ; remove Windows driver letter in path
        (backupFilePath
         (replace-regexp-in-string
          "//" "/"
          (concat backupRootDir filePath "~"))))
-    (make-directory (file-name-directory backupFilePath)
-                    (file-name-directory backupFilePath))
+    (make-directory (file-name-directory backupFilePath) t)
     backupFilePath))
 (setopt make-backup-file-name-function 'backup-file-name)
 
@@ -125,7 +124,6 @@ If the new path's directories does not exist, create them."
 (setopt switch-to-buffer-obey-display-actions t) ; Make switching buffers more consistent
 
 (setopt show-trailing-whitespace nil) ; By default, don't underline trailing spaces
-(setopt indicate-buffer-boundaries 'left) ; Show buffer top and bottom in the margin
 
 ;; Enable horizontal scrolling
 (setopt mouse-wheel-tilt-scroll t)
@@ -199,6 +197,10 @@ If the new path's directories does not exist, create them."
     ;; Re-register ClockFace after nerd-icons so it takes priority for #xF0000..#xF008F
     (when (fboundp 'my/lambda-line-clockface-setup)
       (my/lambda-line-clockface-setup))
+
+    ;; Update centaur-tabs font if loaded
+    (when (fboundp 'centaur-tabs-change-fonts)
+      (centaur-tabs-change-fonts (face-attribute 'default :font) 100))
     ))
 
 (add-hook 'window-setup-hook #'setup-fonts)

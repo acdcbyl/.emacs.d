@@ -156,7 +156,10 @@
 (use-package
   orderless
   :ensure t
-  :config (setq completion-styles '(orderless)))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 (provide 'init-completion)
 
