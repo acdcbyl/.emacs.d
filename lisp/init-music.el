@@ -10,19 +10,27 @@
 ;;; Core Packages
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package mpd-modern
+;;   :load-path "~/Workspace/Emacs-plugins/mpd-modern"
+;;   :config
+;;   (setq mpd-modern-host "localhost"
+;;         mpd-modern-port 6600
+;;         mpd-modern-music-directory "/home/aiser/Music/"
+;;         mpd-modern-cover-cache-directory
+;;         (expand-file-name "mpd-covers/" user-emacs-directory)))
 (use-package
- mpdel
- :ensure t
- :commands (mpdel-mode mpdel-song-open)
- :defer t)
+  mpdel
+  :ensure t
+  :commands (mpdel-mode mpdel-song-open)
+  :defer t)
 ;; for embark
 (use-package
- mpdel-embark
- :ensure t
- :after (embark mpdel)
- :config
- (progn
-   (mpdel-embark-setup)))
+  mpdel-embark
+  :ensure t
+  :after (embark mpdel)
+  :config
+  (progn
+    (mpdel-embark-setup)))
 
 (with-eval-after-load 'general
   (aiser/leader-def
