@@ -45,8 +45,10 @@ git clone https://github.com/acdcbyl/.emacs.d.git ~/.emacs.d/
 - ~lisp/init-*.el~ — 按功能拆分的模块配置
 
 * 截图
-
+** Dashboard
 [[file:./assets/main.png]]
-
+** Lsp
 [[file:./assets/lsp.png]]
+** Org-mode
+[[file:./assets/org.png]]
 
