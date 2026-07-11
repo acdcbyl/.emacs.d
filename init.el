@@ -98,7 +98,7 @@
             (require 'init-feed)
             ;; (require 'init-tramp-rpc)
             ;; (require 'tramp-rpc)
-            ;; (require 'init-rimel) ;;It's have issues in 31+
+            (require 'init-rimel)
             (require 'init-org)))
 
 ;;; init.el ends here

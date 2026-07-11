@@ -19,6 +19,7 @@
   :defer t
   :init (setq default-input-method "rimel")
   :config
+  (setq rimel-schema "luna_pinyin_simp")
   (setq rimel-disable-predicates
         '(rimel-predicate-prog-in-code-p
           rimel-predicate-after-alphabet-char-p
