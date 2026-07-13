@@ -17,7 +17,6 @@
 
 ;; Defer package loading until after init
 (setq package-enable-at-startup nil)
-(setq package-quickstart t)
 
 ;; For the git version
 ;; (setq native-comp-deferred-compilation t)
@@ -27,6 +26,7 @@
 (setq file-name-handler-alist nil)
 
 (defun aiser/setup-gc ()
+  "For the faster startup."
   (setq
    gc-cons-threshold (* 64 1024 1024)
    gc-cons-percentage 0.3

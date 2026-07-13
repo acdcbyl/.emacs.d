@@ -90,6 +90,16 @@
   :bind
   (:map vertico-map ("M-DEL" . vertico-directory-delete-word)))
 
+(use-package vertico-buffer
+  :after vertico
+  :ensure nil
+  :config
+  (setq vertico-buffer-display-action
+        '(display-buffer-in-side-window
+          (window-height . 10)
+          (side . top)))
+  (vertico-buffer-mode 1))
+
 ;; Marginalia: annotations for minibuffer
 (use-package marginalia :ensure t :config (marginalia-mode))
 ;; Popup completion-at-point
