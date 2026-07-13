@@ -9,15 +9,18 @@
   :vc (:url "https://codeberg.org/Lambda-Emacs/lambda-line" :rev :newest)
   :custom
   (lambda-line-abbrev t)
-  (lambda-line-position 'bottom)
+  (lambda-line-position 'top)
   (lambda-line-hspace "  ")
-  (lambda-line-prefix nil)
+  (lambda-line-prefix t)
   (lambda-line-icon-time t)
   (lambda-line-prefix-padding nil)
   (lambda-line-status-invert nil)
+  (lambda-line-gui-ro-symbol  " ") ;; symbols
+  (lambda-line-gui-mod-symbol " ")
+  (lambda-line-gui-rw-symbol  " ")
   (lambda-line-vc-symbol "⎇ ")
-  (lambda-line-space-top +.25)
-  (lambda-line-space-bottom -.25)
+  (lambda-line-space-top +.20)
+  (lambda-line-space-bottom -.20)
   (lambda-line-symbol-position 0.1)
   (lambda-line-word-count-enabled t)
   :custom-face
@@ -25,7 +28,11 @@
    ((t (:background ,(doom-color 'red)))))
   :config
   (lambda-line-mode)
-  (lambda-line-visual-bell-config)
+  ;; (lambda-line-visual-bell-config)
+  ;; set divider line in footer
+  (when (eq lambda-line-position 'top)
+    (setq-default mode-line-format (list "%_"))
+    (setq mode-line-format (list "%_")))
 
   (defun aiser/lambda-line-clockface-setup ()
     "Setup ClockFace font on frame fontset with higher priority than nerd-icons."
@@ -38,13 +45,7 @@
           (set-fontset-font (frame-parameter frame 'font) range
                             (font-spec :family font) frame 'prepend)))))
 
-  (when (eq lambda-line-position 'top)
-    (setq-default mode-line-format (list "%_"))
-    (setq mode-line-format (list "%_"))))
-
-(use-package minions
-  :ensure t
-  :config (minions-mode 1))
+  )
 
 (use-package
   hide-mode-line
