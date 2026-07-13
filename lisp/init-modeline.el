@@ -9,7 +9,7 @@
   :vc (:url "https://codeberg.org/Lambda-Emacs/lambda-line" :rev :newest)
   :custom
   (lambda-line-abbrev t)
-  (lambda-line-position 'top)
+  (lambda-line-position 'bottom)
   (lambda-line-hspace "  ")
   (lambda-line-prefix t)
   (lambda-line-icon-time t)
