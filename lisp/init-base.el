@@ -173,7 +173,7 @@ If the new path's directories does not exist, create them."
 ;; Show matching delimiters
 (setopt show-paren-delay 0)
 (setopt show-paren-mode t)
-(setopt show-paren-style 'expression)
+(setopt show-paren-style 'parenthesis)
 (setopt show-paren-context-when-offscreen 'overlay)
 
 ;; Fonts
