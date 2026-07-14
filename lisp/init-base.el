@@ -194,7 +194,7 @@ If the new path's directories does not exist, create them."
     (when (fboundp 'nerd-icons-set-font)
       (nerd-icons-set-font))
 
-    ;; Re-register ClockFace after nerd-icons so it takes priority for #xF0000..#xF008F
+    ;; Re-register ClockFace after nerd-icons (remapped to PUA-A)
     (when (fboundp 'aiser/lambda-line-clockface-setup)
       (aiser/lambda-line-clockface-setup))
     ))

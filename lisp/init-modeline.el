@@ -36,6 +36,7 @@
     (setq-default mode-line-format (list "%_"))
     (setq mode-line-format (list "%_")))
 
+  ;; Setup ClockFace font (remapped to PUA-A)
   (defun aiser/lambda-line-clockface-setup ()
     "Setup ClockFace font on frame fontset (remapped to PUA-A)."
     (let ((font "ClockFaceRect")
@@ -46,7 +47,13 @@
         (dolist (frame (frame-list))
           (set-fontset-font (frame-parameter frame 'font) range
                             (font-spec :family font) frame 'prepend)))))
-
+  ;; Advice lambda-line to use remapped ClockFace codepoints
+  (defun aiser/lambda-line-clockface-icons-unicode-advice (orig-fn hours minutes)
+    "Advice for lambda-line-clockface-icons-unicode to use remapped codepoints."
+    (let* ((minute (- minutes (% minutes 5)))
+           (offset (round (+ (* (% hours 12) 12) (* 12 (/ minute 60.0))))))
+      (+ offset #xE3E4)))
+  (advice-add 'lambda-line-clockface-icons-unicode :around #'aiser/lambda-line-clockface-icons-unicode-advice)
   )
 
 (use-package
