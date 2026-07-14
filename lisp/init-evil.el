@@ -27,7 +27,13 @@
   ;; (setq evil-undo-system 'undo-fu)
   ;; Enable this if you want C-u to scroll up, more like pure Vim
                                         ;(setq evil-want-C-u-scroll t)
+  ;; Bug as of 2026-01-12; see https://github.com/emacs-evil/evil/issues/1983
+  (defvar evil-mode-buffers '())
+
   :config (evil-mode)
+  ;; If you use Magit, start editing in insert state
+  (add-hook 'git-commit-setup-hook 'evil-insert-state)
+
   ;; Configuring initial major mode for some modes
   (evil-set-initial-state 'minibuffer-mode 'insert)
   (evil-set-initial-state 'minibuffer-inactive-mode 'insert)

@@ -33,6 +33,11 @@
   (when (eq lambda-line-position 'top)
     (setq-default mode-line-format (list "%_"))
     (setq mode-line-format (list "%_")))
+  ;; Refresh VC state after magit commit
+  (with-eval-after-load 'magit
+    (add-hook 'magit-post-commit-hook #'vc-refresh-state)
+    (add-hook 'magit-post-stage-hook #'vc-refresh-state)
+    (add-hook 'magit-post-unstage-hook #'vc-refresh-state))
 
   (defun aiser/lambda-line-clockface-setup ()
     "Setup ClockFace font on frame fontset (remapped to PUA-A)."
