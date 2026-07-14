@@ -10,19 +10,19 @@
   :custom
   (lambda-line-abbrev t)
   (lambda-line-position 'bottom)
-  (lambda-line-hspace "  ")
+  (lambda-line-hspace " ")
   (lambda-line-prefix t)
   (lambda-line-icon-time t)
+  (lambda-line-position-format "%l:%c")
   (lambda-line-prefix-padding nil)
   (lambda-line-status-invert nil)
   (lambda-line-gui-ro-symbol  " ") ;; symbols
   (lambda-line-gui-mod-symbol " ")
   (lambda-line-gui-rw-symbol  " ")
   (lambda-line-vc-symbol "⎇ ")
-  (lambda-line-space-top +.20)
-  (lambda-line-space-bottom -.20)
+  (lambda-line-space-top +.25)
+  (lambda-line-space-bottom -.25)
   (lambda-line-symbol-position 0.1)
-  (lambda-line-word-count-enabled t)
   :custom-face
   (lambda-line-visual-bell
    ((t (:background ,(doom-color 'red)))))
@@ -35,10 +35,10 @@
     (setq mode-line-format (list "%_")))
 
   (defun aiser/lambda-line-clockface-setup ()
-    "Setup ClockFace font on frame fontset with higher priority than nerd-icons."
+    "Setup ClockFace font on frame fontset (remapped to PUA-A)."
     (let ((font "ClockFaceRect")
-          (range (cons (decode-char 'ucs #xF0000)
-                       (decode-char 'ucs #xF008F))))
+          (range (cons (decode-char 'ucs #xE3E4)
+                       (decode-char 'ucs #xE473))))
       (set-fontset-font "fontset-default" range (font-spec :family font) nil 'prepend)
       (when (display-graphic-p)
         (dolist (frame (frame-list))

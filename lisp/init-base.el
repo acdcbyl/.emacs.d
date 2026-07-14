@@ -173,7 +173,7 @@ If the new path's directories does not exist, create them."
     ;;                  (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
 
     ;; Specify font for all unicode characters
-    (cl-loop for font in '("Apple Symbols" "Segoe UI Symbol" "Symbola" "Symbol")
+    (cl-loop for font in '("Symbola" "Apple Symbols" "Segoe UI Symbol"  "Symbol")
              when (font-available-p font)
              return (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
 
