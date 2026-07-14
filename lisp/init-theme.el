@@ -21,11 +21,5 @@
   (doom-themes-org-config)
   )
 
-(use-package
-  solaire-mode
-  :ensure t
-  :hook ((after-init . solaire-global-mode)
-         (dashboard-mode . turn-off-solaire-mode)))
-
 (provide 'init-theme)
 ;;; init-theme.el ends here
