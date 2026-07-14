@@ -5,12 +5,9 @@
 
 ;;; Code:
 
-;; (setq window-divider-default-right-width 30)
-;; (set-face-attribute 'header-line nil :box '(:line-width 2 :color nil))
-;; (set-face-attribute 'tab-bar-tab nil :box '(:line-width 2 :color nil))
-;; (set-face-attribute 'custom-button nil :box '(:line-width 3 :color nil))
+(setq window-divider-default-right-width 10)
 (set-frame-parameter nil 'internal-border-width 15)
-;; (window-divider-mode 1)
+(window-divider-mode 1)
 
 (use-package
   doom-themes
