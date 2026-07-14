@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(eval-when-compile
-  (require 'package))
-
 (when (< emacs-major-version 31)
   (error
    (format

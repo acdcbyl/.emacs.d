@@ -40,9 +40,10 @@
 (setq byte-compile-warnings '(not obsolete))
 (setq warning-minimum-level :error)
 (setq warning-suppress-log-types '((comp) (bytecomp)))
+(setq native-comp-async-report-warnings-errors 'silent)
 
 ;; Silence stupid startup message
-(setq inhibit-startup-echo-area-message (user-login-name))
+(advice-add #'display-startup-echo-area-message :override #'ignore)
 ;; Reduce the clutter in the fringes; we'd like to reserve that space for more
 ;; useful information, like diff-hl and flycheck.
 (setq-default indicate-buffer-boundaries nil)

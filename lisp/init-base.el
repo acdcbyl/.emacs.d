@@ -33,11 +33,24 @@
 ;; Save cursor place
 (save-place-mode)
 
+;; Save clipboard before kill, deduplicate kill ring
+(setopt save-interprogram-paste-before-kill t)
+(setopt kill-do-not-save-duplicates t)
+
+;; Don't ping URL-looking things in find-file
+(setopt ffap-machine-p-known 'reject)
+
 ;; Remember projects for project.el
 (setq project-remember-projects-on-exit t)
 
 ;; Move through windows with Ctrl-<arrow keys>
 (windmove-default-keybindings 'control) ; You can use other modifiers here
+
+;; Rebalance windows automatically when splitting
+(setopt window-combination-resize t)
+
+;; Prefer horizontal split on landscape monitors
+(setopt split-window-preferred-direction 'longest)
 
 ;; Fix archaic defaults
 (setopt sentence-end-double-space nil)
@@ -48,6 +61,9 @@
 
 ;; y/n instead of yes/no
 (setq use-short-answers t)
+
+;; Makes it easier to repeat commands; e.g. C-x o C-x o becomes C-x o o
+(repeat-mode)
 
 ;; Don't litter file system with *~ backup files; put them all inside
 ;; ~/.emacs.d/backup or wherever
@@ -65,6 +81,10 @@ If the new path's directories does not exist, create them."
     backupFilePath))
 (setopt make-backup-file-name-function 'backup-file-name)
 
+;; Basic speedups: assume left-to-right text in all buffers
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Discovery aids
@@ -79,6 +99,7 @@ If the new path's directories does not exist, create them."
        (eq (frame-parameter (selected-frame) 'minibuffer) 't)))
 ;; Show the help buffer after startup
                                         ;(add-hook 'after-init-hook 'help-quick)
+(setopt view-lossage-auto-refresh t)
 
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
@@ -148,6 +169,12 @@ If the new path's directories does not exist, create them."
 ;; Modes to highlight the current line with
 (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+
+;; Show matching delimiters
+(setopt show-paren-delay 0)
+(setopt show-paren-mode t)
+(setopt show-paren-style 'expression)
+(setopt show-paren-context-when-offscreen 'overlay)
 
 ;; Fonts
 (defun font-available-p (font-name)
