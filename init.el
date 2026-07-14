@@ -93,6 +93,7 @@
             (require 'init-music)
             (require 'init-email)
             (require 'init-dev)
+            (require 'init-check)
             ;; (require 'init-treemacs)
             ;; (require 'init-matrix)
             (require 'init-feed)

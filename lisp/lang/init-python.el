@@ -6,6 +6,10 @@
   (setf (alist-get 'python-ts-mode apheleia-mode-alist)
         '(ruff-isort ruff)))
 
+(use-package flymake-ruff
+  :ensure t
+  :hook (python-mode . flymake-ruff-load))
+
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server")))
   (add-hook 'python-ts-mode-hook 'eglot-ensure))

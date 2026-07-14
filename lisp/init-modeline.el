@@ -28,16 +28,13 @@
    ((t (:background ,(doom-color 'red)))))
   :config
   (lambda-line-mode)
+  (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
+  (customize-set-variable 'flymake-mode-line-format '(" " flymake-mode-line-exception flymake-mode-line-counters))
   ;; (lambda-line-visual-bell-config)
   ;; set divider line in footer
   (when (eq lambda-line-position 'top)
     (setq-default mode-line-format (list "%_"))
     (setq mode-line-format (list "%_")))
-  ;; Refresh VC state after magit commit
-  (with-eval-after-load 'magit
-    (add-hook 'magit-post-commit-hook #'vc-refresh-state)
-    (add-hook 'magit-post-stage-hook #'vc-refresh-state)
-    (add-hook 'magit-post-unstage-hook #'vc-refresh-state))
 
   (defun aiser/lambda-line-clockface-setup ()
     "Setup ClockFace font on frame fontset (remapped to PUA-A)."

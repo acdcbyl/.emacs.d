@@ -12,7 +12,23 @@
      "a2d20d9c83d3e505faf577c9067d219473ca75511b53f4bc65b1ca99876eea83"
      default))
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(ace-window apheleia cape colorful-mode corfu dape dashboard diff-hl
+                dired-git-info diredfl doom-themes elcord eldoc-mouse
+                elfeed-org embark-consult evil-args evil-collection
+                evil-nerd-commenter evil-surround flycheck-eglot
+                flycheck-package flycheck-rust flymake-ruff flyover
+                general ghostel go-mode grip-mode helpful
+                hide-mode-line indent-bars js2-mode json-mode
+                kdl-ts-mode lambda-line magit-prime marginalia
+                markdown-mode mpdel-embark nerd-icons-completion
+                nerd-icons-corfu nerd-icons-dired nerd-icons-ibuffer
+                no-littering orderless org-modern page-break-lines
+                pdf-tools popper qml-ts-mode quickrun
+                rainbow-delimiters rimel rust-mode saveplace-pdf-view
+                solaire-mode symbols-outline tabspaces treesit-fold
+                undo-fu undo-fu-session vertico wakatime-mode
+                yaml-mode yasnippet-capf yasnippet-snippets))
  '(package-vc-selected-packages
    '((lambda-line :url "https://codeberg.org/Lambda-Emacs/lambda-line")
      (lambda-themes :url
