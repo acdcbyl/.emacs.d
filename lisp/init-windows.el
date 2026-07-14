@@ -87,7 +87,6 @@
           "\\*prolog\\*" inferior-python-mode inf-ruby-mode swift-repl-mode
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
           rustic-cargo-outdated-mode rustic-cargo-run-mode rustic-cargo-test-mode
-          flycheck-error-list-mode
           xwidget-webkit-mode
           "\\* MPDel\\ *"
           "\\*mpdel-Current playlist\\*"

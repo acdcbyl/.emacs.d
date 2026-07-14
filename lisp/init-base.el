@@ -197,10 +197,6 @@ If the new path's directories does not exist, create them."
     ;; Re-register ClockFace after nerd-icons so it takes priority for #xF0000..#xF008F
     (when (fboundp 'aiser/lambda-line-clockface-setup)
       (aiser/lambda-line-clockface-setup))
-
-    ;; Update centaur-tabs font if loaded
-    (when (fboundp 'centaur-tabs-change-fonts)
-      (centaur-tabs-change-fonts (face-attribute 'default :font) 100))
     ))
 
 (add-hook 'window-setup-hook #'setup-fonts)

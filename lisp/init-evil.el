@@ -209,16 +209,8 @@
     "W"   (list 'workspace-menu
                 :wk (format "%s workspaces" (nerd-icons-mdicon "nf-md-view_grid")))
 
-    ;; tab (centaur-tabs)
+    ;; tab (workspaces)
     "t"   (list :wk (format "%s tab" (nerd-icons-mdicon "nf-md-tab")))
-    "tc"  '(centaur-tabs--kill-this-buffer-dont-ask :wk "Close current tab")
-    "tg"  '(centaur-tabs-switch-group :wk "Switch group")
-    "th"  '(centaur-tabs-backward-group :wk "Backward group")
-    "tl"  '(centaur-tabs-forward-group :wk "Forward group")
-    "tn"  '(centaur-tabs-forward :wk "Next tab")
-    "to"  '(centaur-tabs-kill-other-buffers-in-current-group :wk "Close other tabs")
-    "tp"  '(centaur-tabs-backward :wk "Previous tab")
-    "tt"  '(centaur-tabs-mode :wk "Toggle centaur-tabs")
 
     ;; native tab-bar (workspaces)
     "tC"  '(tab-bar-close-tab :wk "Close workspace")
@@ -288,17 +280,13 @@
     "a" #'evil-inner-arg
     "A" #'evil-outer-arg)
 
-  ;; centaur-tabs navigation
+  ;; tab-bar navigation
   (general-def
     :states 'normal
-    "gt"  'centaur-tabs-forward
-    "gT"  'centaur-tabs-backward
-    "]t"  'centaur-tabs-forward
-    "[t"  'centaur-tabs-backward
-    "]g"  'centaur-tabs-forward-group
-    "[g"  'centaur-tabs-backward-group
-    "]T"  'centaur-tabs-move-current-tab-to-right
-    "[T"  'centaur-tabs-move-current-tab-to-left)
+    "gt"  'tab-bar-switch-to-next-tab
+    "gT"  'tab-bar-switch-to-prev-tab
+    "]t"  'tab-bar-switch-to-next-tab
+    "[t"  'tab-bar-switch-to-prev-tab)
 
   (aiser/leader-def
     "z" (list :ignore t :wk (format "%s folding/narrow" (nerd-icons-mdicon "nf-md-unfold_less_horizontal")))

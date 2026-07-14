@@ -10,13 +10,6 @@
   (rust-indent-where-clause t)
   (rust-load-optional-libraries t))
 
-(use-package flycheck-rust
-  :ensure t
-  :defer t
-  :config
-  (with-eval-after-load 'rust-ts-mode
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
-
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
   (add-hook 'rust-ts-mode-hook 'eglot-ensure))
