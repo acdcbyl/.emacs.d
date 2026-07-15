@@ -12,6 +12,7 @@
      "a2d20d9c83d3e505faf577c9067d219473ca75511b53f4bc65b1ca99876eea83"
      default))
  '(dape-buffer-window-arrangement 'right nil nil "Customized with use-package dape")
+ '(org-agenda-files '("/home/aiser/Documents/org/work.org"))
  '(package-selected-packages nil)
  '(package-vc-selected-packages
    '((lambda-line :url "https://codeberg.org/Lambda-Emacs/lambda-line")

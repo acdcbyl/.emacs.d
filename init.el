@@ -85,7 +85,6 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (require 'init-pdf)
             (require 'init-dap)
             (require 'init-music)
             (require 'init-email)
@@ -97,6 +96,10 @@
             ;; (require 'init-tramp-rpc)
             ;; (require 'tramp-rpc)
             (require 'init-rimel)
-            (require 'init-org)))
+            (run-with-idle-timer 0.2 nil (lambda ()
+                                           (require 'init-org)
+                                           (require 'init-workspaces-apps)
+                                           (require 'init-pdf)))
+            ))
 
 ;;; init.el ends here
