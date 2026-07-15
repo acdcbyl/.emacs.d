@@ -162,7 +162,7 @@
     "fJ"  'dired-jump-other-window
 
     ;; buffer & bookmark
-    "b"   (list :wk (format "%s bufmark" (nerd-icons-mdicon "nf-md-dock_window")))
+    "b"   (list :wk (format "%s bufmark & buffer" (nerd-icons-mdicon "nf-md-dock_window")))
     "bb"  'switch-to-buffer
     "bB"  'switch-to-buffer-other-window
     "bc"  'clone-indirect-buffer
@@ -170,6 +170,7 @@
     "by"  '+copy-current-buffer-name
     "bv"  'revert-buffer-quick
     "bx"  'scratch-buffer
+    "bk"  'kill-current-buffer
     "bz"  'bury-buffer
     ;; bookmark
     "bm"  'bookmark-set
@@ -260,7 +261,16 @@
     "ow"  'workspace-menu
     ;; "os"  'eat-other-window
     "og"  'ghostel
-    "ou"  'symbols-outline-show)
+    "ou"  'symbols-outline-show
+
+    ;; folding
+    "z" (list :wk (format "%s folding/narrow" (nerd-icons-mdicon "nf-md-unfold_less_horizontal")))
+    "zc" 'treesit-fold-close
+    "zC" 'treesit-fold-close-all
+    "zo" 'treesit-fold-open
+    "zO" 'treesit-fold-open-all
+    "zt" 'treesit-fold-toggle
+    )
 
   (aiser/localleader-def
     :major-modes '(emacs-lisp-mode lisp-interaction-mode)
@@ -287,10 +297,7 @@
     "gT"  'tab-bar-switch-to-prev-tab
     "]t"  'tab-bar-switch-to-next-tab
     "[t"  'tab-bar-switch-to-prev-tab)
-
-  (aiser/leader-def
-    "z" (list :ignore t :wk (format "%s folding/narrow" (nerd-icons-mdicon "nf-md-unfold_less_horizontal")))
-    "zx" #'kill-current-buffer))
+  )
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
