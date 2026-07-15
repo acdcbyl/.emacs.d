@@ -22,17 +22,8 @@
   mpdel
   :ensure t
   :commands (mpdel-mode mpdel-song-open)
-  :defer t)
-;; for embark
-(use-package
-  mpdel-embark
-  :ensure t
-  :after (embark mpdel)
-  :config
-  (progn
-    (mpdel-embark-setup)))
-
-(with-eval-after-load 'general
+  :defer t
+  :general
   (aiser/leader-def
     "m"   (list :wk (format "%s music" (nerd-icons-mdicon "nf-md-music_note")))
     "mb"  'mpdel-browser-open
@@ -47,6 +38,15 @@
     "mr"  'libmpdel-playback-set-random
     "mR"  'libmpdel-playback-set-repeat
     "mc"  'libmpdel-playlist-clear))
+
+;; for embark
+(use-package
+  mpdel-embark
+  :ensure t
+  :after (embark mpdel)
+  :config
+  (progn
+    (mpdel-embark-setup)))
 
 (provide 'init-music)
 ;;; init-music.el ends here

@@ -98,23 +98,9 @@
 
   ;; Make org-open-at-point follow file links in the same window
   (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
-  ;; with images show
-  ;; (setq org-startup-with-inline-images t)
   ;; Make exporting quotes better
-  (setq org-export-with-smart-quotes t))
+  (setq org-export-with-smart-quotes t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Phase 2: todos, agenda generation, and task tracking
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Yes, you can have multiple use-package declarations. It's best if their
-;; configs don't overlap. Once you've reached Phase 2, I'd recommend merging the
-;; config from Phase 1. I've broken it up here for the sake of clarity.
-(use-package
-  org
-  :config
   ;; Instead of just two states (TODO, DONE) we set up a few different states
   ;; that a task can be in.
   (setq org-todo-keywords
@@ -158,46 +144,8 @@
 
   (setq org-agenda-custom-commands
         '(("n" "Agenda and All Todos" ((agenda) (todo)))
-          ("w" "Work" agenda "" ((org-agenda-files '("work.org")))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Phase 3: extensions (org-roam, etc.)
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (use-package
-;;   org-roam
-;;   :ensure t
-;;   :defer t
-;;   :config (org-roam-db-autosync-mode)
-;;   ;; Dedicated side window for backlinks
-;;   (add-to-list
-;;    'display-buffer-alist
-;;    '("\\*org-roam\\*"
-;;      (display-buffer-in-side-window)
-;;      (side . right)
-;;      (window-width . 0.4)
-;;      (window-height . fit-window-to-buffer))))
-
-;; Pretty web interface for org-roam
-                                        ;(use-package org-roam-ui
-                                        ;  :ensure t
-                                        ;  :after org-roam
-                                        ;  :config
-                                        ;  (setq org-roam-ui-sync-theme t
-                                        ;        org-roam-ui-follow t
-                                        ;        org-roam-ui-update-on-save t
-                                        ;        org-roam-ui-open-on-start t))
-
-;; Install and configure org-modern
-(use-package
-  org-modern
-  :ensure t
-  :defer t
-  :hook (org-mode . org-modern-mode))
-
-(with-eval-after-load 'general
+          ("w" "Work" agenda "" ((org-agenda-files '("work.org"))))))
+  :general
   (aiser/leader-def
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
     "aa"  'org-agenda
@@ -251,6 +199,43 @@
     "It" 'org-time-stamp-inactive
     "Ii" 'org-toggle-inline-images
     "IT" 'org-time-stamp))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Phase 3: extensions (org-roam, etc.)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (use-package
+;;   org-roam
+;;   :ensure t
+;;   :defer t
+;;   :config (org-roam-db-autosync-mode)
+;;   ;; Dedicated side window for backlinks
+;;   (add-to-list
+;;    'display-buffer-alist
+;;    '("\\*org-roam\\*"
+;;      (display-buffer-in-side-window)
+;;      (side . right)
+;;      (window-width . 0.4)
+;;      (window-height . fit-window-to-buffer))))
+
+;; Pretty web interface for org-roam
+                                        ;(use-package org-roam-ui
+                                        ;  :ensure t
+                                        ;  :after org-roam
+                                        ;  :config
+                                        ;  (setq org-roam-ui-sync-theme t
+                                        ;        org-roam-ui-follow t
+                                        ;        org-roam-ui-update-on-save t
+                                        ;        org-roam-ui-open-on-start t))
+
+;; Install and configure org-modern
+(use-package
+  org-modern
+  :ensure t
+  :defer t
+  :hook (org-mode . org-modern-mode))
 
 (provide 'init-org)
 ;;; init-org.el ends here

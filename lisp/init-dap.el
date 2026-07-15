@@ -40,9 +40,8 @@
      ("w" "Watch"             dape-watch-dwim)
      ("s" "Select stack"      dape-select-stack)]
     ["Others"
-     ("i" "Info"              dape-info)]))
-
-(with-eval-after-load 'general
+     ("i" "Info"              dape-info)])
+  :general
   (aiser/leader-def
     "d"   (list :wk (format "%s debug" (nerd-icons-mdicon "nf-md-bug")))
     "dd"  'dape

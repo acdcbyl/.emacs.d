@@ -5,7 +5,14 @@
 
 ;;; Code:
 
-(use-package elfeed :ensure t :defer t)
+(use-package elfeed
+  :ensure t
+  :defer t
+  :general
+  (aiser/leader-def
+    "r"   (list :wk (format "%s feed" (nerd-icons-mdicon "nf-md-rss")))
+    "re"  'elfeed
+    "ru"  'elfeed-update))
 
 (use-package
  elfeed-org
@@ -14,12 +21,6 @@
  :config
  (elfeed-org)
 (setq rmh-elfeed-org-files (list "~/.emacs.d/feeds.org")))
-
-(with-eval-after-load 'general
-  (aiser/leader-def
-    "r"   (list :wk (format "%s feed" (nerd-icons-mdicon "nf-md-rss")))
-    "re"  'elfeed
-    "ru"  'elfeed-update))
 
 (provide 'init-feed)
 ;;; init-feed.el ends here
