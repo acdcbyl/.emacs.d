@@ -13,6 +13,7 @@
   (lambda-line-hspace " ")
   (lambda-line-prefix t)
   (lambda-line-icon-time t)
+  (lambda-line-use-nerd-icons t)
   (lambda-line-position-format "%l:%c")
   (lambda-line-prefix-padding nil)
   (lambda-line-status-invert nil)
