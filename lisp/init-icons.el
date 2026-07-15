@@ -29,5 +29,13 @@
   :ensure t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
+;; Use nerd-icons for Dired
+(use-package
+  nerd-icons-dired
+  :ensure t
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
+
+
 (provide 'init-icons)
 ;;; init-icons.el ends here.

@@ -20,13 +20,6 @@
   (setq dired-listing-switches "-alh --group-directories-first")
   )
 
-;; Use nerd-icons for Dired
-(use-package
-  nerd-icons-dired
-  :ensure t
-  :hook
-  (dired-mode . nerd-icons-dired-mode))
-
 ;; Make dired colorful
 (use-package
   diredfl

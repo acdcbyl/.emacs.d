@@ -10,7 +10,7 @@
   :custom
   (lambda-line-abbrev t)
   (lambda-line-position 'bottom)
-  (lambda-line-hspace " ")
+  (lambda-line-hspace "  ")
   (lambda-line-prefix t)
   (lambda-line-icon-time t)
   (lambda-line-use-nerd-icons t)
