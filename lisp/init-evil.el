@@ -259,7 +259,7 @@
     "ol"  'org-store-link
     "od"  'dired
     "ow"  'workspace-menu
-    ;; "os"  'eat-other-window
+    "oi"  'ibuffer
     "og"  'ghostel
     "ou"  'symbols-outline-show
 

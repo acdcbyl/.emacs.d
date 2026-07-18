@@ -32,7 +32,7 @@
 (setq org-directory "~/Documents/org/") ; Non-absolute paths for agenda and
                                         ; capture templates will look here.
 
-(setq org-agenda-files '("inbox.org" "work.org"))
+(setq org-agenda-files '("inbox.org" "work.org" "gongkao.org" "index.org"))
 
 ;; Default tags
 (setq org-tag-alist
@@ -144,7 +144,16 @@
 
   (setq org-agenda-custom-commands
         '(("n" "Agenda and All Todos" ((agenda) (todo)))
-          ("w" "Work" agenda "" ((org-agenda-files '("work.org"))))))
+          ("w" "Work" agenda "" ((org-agenda-files '("work.org"))))
+          ("g" "考公备考"
+           ((agenda
+             ""
+             ((org-agenda-files '("gongkao.org"))
+              (org-agenda-overriding-header "📚 考公每日任务")))
+            (todo
+             "TODO"
+             ((org-agenda-files '("gongkao.org"))
+              (org-agenda-overriding-header "📚 考公待办")))))))
   :general
   (aiser/leader-def
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))

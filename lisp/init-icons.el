@@ -36,6 +36,10 @@
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
+;; Set icons for speedbar.
+(use-package nerd-icons-speedbar
+  :vc (:url "https://github.com/Akane-6730/nerd-icons-speedbar")
+  :hook (speedbar-mode . nerd-icons-speedbar-mode))
 
 (provide 'init-icons)
 ;;; init-icons.el ends here.

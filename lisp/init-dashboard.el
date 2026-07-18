@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defvar aiser-use-dashboard t
+(defvar aiser-use-dashboard nil
   "Enable dashboard.")
 
 ;; Set up dashboard
@@ -34,7 +34,7 @@
                )
             "Restore"
             "Restore previous session"
-             (lambda (&rest _) (tabspaces-restore-session)))
+            (lambda (&rest _) (tabspaces-restore-session)))
            (,(if (fboundp 'nerd-icons-octicon)
                  (nerd-icons-octicon "nf-oct-tools"))
             "Settings" "Open custom file"
