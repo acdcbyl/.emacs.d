@@ -16,7 +16,7 @@ This is run when this file is loaded, typically after an idle delay."
   (interactive)
   (tab-bar-rename-tab aiser-main-workspace)
   (dolist (buf-name '("*Messages*" "*dashboard*" "*scratch*"))
-    (when-let ((buf (get-buffer buf-name)))
+    (when-let* ((buf (get-buffer buf-name)))
       (set-frame-parameter nil
                            'buffer-list
                            (cons buf (frame-parameter nil 'buffer-list))))))
