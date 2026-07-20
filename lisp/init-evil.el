@@ -261,7 +261,7 @@
     "ow"  'workspace-menu
     "oi"  'ibuffer
     "og"  'ghostel
-    "ou"  'symbols-outline-show
+    "os"  'symbols-outline-show
 
     ;; folding
     "z" (list :wk (format "%s folding/narrow" (nerd-icons-mdicon "nf-md-unfold_less_horizontal")))

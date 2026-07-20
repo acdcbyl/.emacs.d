@@ -5,7 +5,8 @@
 
 ;;; Code:
 
-(setq window-divider-default-right-width 10)
+(setq window-divider-default-right-width 1)
+(setq window-divider-default-bottom-width 1)
 (set-frame-parameter nil 'internal-border-width 15)
 (window-divider-mode 1)
 

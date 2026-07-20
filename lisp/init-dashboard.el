@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defvar aiser-use-dashboard nil
+(defvar aiser-use-dashboard t
   "Enable dashboard.")
 
 ;; Set up dashboard

@@ -29,8 +29,8 @@
    ((t (:background ,(doom-color 'red)))))
   :config
   (lambda-line-mode)
-  (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
-  (customize-set-variable 'flymake-mode-line-format '(" " flymake-mode-line-exception flymake-mode-line-counters))
+  ;; (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
+  ;; (customize-set-variable 'flymake-mode-line-format '(" " flymake-mode-line-exception flymake-mode-line-counters))
   ;; (lambda-line-visual-bell-config)
   ;; set divider line in footer
   (when (eq lambda-line-position 'top)
@@ -74,6 +74,7 @@
      mpdel-tablist-mode
      mpdel-playlist-mode
      mpdel-song-mode
+     symbols-outline-mode
      lsp-ui-imenu-mode
      pdf-view-mode
      pdf-annot-list-mode)
