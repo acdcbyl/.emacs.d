@@ -11,6 +11,7 @@
 (use-package
   dashboard
   :ensure t
+  :after nerd-icons
   :if aiser-use-dashboard
   :diminish dashboard-mode
   :bind

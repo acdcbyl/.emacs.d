@@ -29,8 +29,19 @@
    ((t (:background ,(doom-color 'red)))))
   :config
   (lambda-line-mode)
-  ;; (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
-  ;; (customize-set-variable 'flymake-mode-line-format '(" " flymake-mode-line-exception flymake-mode-line-counters))
+  (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
+  (customize-set-variable 'flymake-mode-line-format '(" " flymake-mode-line-exception flymake-mode-line-counters))
+  (with-eval-after-load 'flymake
+    (set-face-attribute 'flymake-error-echo nil
+                        :foreground (doom-color 'red)
+                        :weight 'bold)
+
+    (set-face-attribute 'flymake-warning-echo nil
+                        :foreground (doom-color 'yellow)
+                        :weight 'bold)
+
+    (set-face-attribute 'flymake-note-echo nil
+                        :foreground (doom-color 'green)))
   ;; (lambda-line-visual-bell-config)
   ;; set divider line in footer
   (when (eq lambda-line-position 'top)

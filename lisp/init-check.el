@@ -12,6 +12,7 @@
   :hook prog-mode
   :custom
   (flymake-no-changes-timeout nil)
+  (flymake-suppress-zero-counters t)
   (flymake-fringe-indicator-position 'right-fringe)
   (flymake-margin-indicator-position 'right-margin)
   :config
