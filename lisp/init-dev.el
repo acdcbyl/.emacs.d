@@ -43,6 +43,8 @@
             (toml . ("https://github.com/tree-sitter/tree-sitter-toml"))
             (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
             (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+            (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" nil "tree-sitter-markdown/src"))
+            (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" nil "tree-sitter-markdown-inline/src"))
             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))))
   :hook
   ;; Auto parenthesis matching
