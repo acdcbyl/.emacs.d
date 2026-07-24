@@ -70,7 +70,7 @@
   :ensure t
   :defer t
   :hook
-  ((python-ts-mode json-ts-mode yaml-ts-mode toml-ts-mode rust-ts-mode go-ts-mode) . indent-bars-mode)
+  ((emacs-lisp-mode simpc-mode python-ts-mode json-ts-mode yaml-ts-mode toml-ts-mode rust-ts-mode go-ts-mode) . indent-bars-mode)
   :custom
   (indent-bars-no-descend-lists 'skip)
   (indent-bars-treesit-support t)

@@ -244,7 +244,14 @@
   org-modern
   :ensure t
   :defer t
-  :hook (org-mode . org-modern-mode))
+  :hook ((org-mode . org-modern-mode)
+         (org-agenda-finalize . org-modern-agenda))
+  :custom
+  (org-modern-star 'replace)
+  ;; ◉⦿⊚⊙○
+  ;;ⅠⅡⅢⅣⅤⅥ
+  ;; ♠♤♥♡♣♧
+  (org-modern-replace-stars "◉⦿⊚⊙∘"))
 
 (provide 'init-org)
 ;;; init-org.el ends here
