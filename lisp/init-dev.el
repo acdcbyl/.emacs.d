@@ -74,7 +74,15 @@
   :custom
   (indent-bars-no-descend-lists 'skip)
   (indent-bars-treesit-support t)
-  (indent-bars-treesit-ignore-blank-lines-types '("module")))
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  (indent-bars-pattern ".")
+  (indent-bars-width-frac 0.2)
+  (indent-bars-pad-frac 0.1)
+  (indent-bars-highlight-current-depth
+   '(:width 0.45
+            :pad 0.025
+            :blend 1.0))
+  )
 
 ;; Outline
 (use-package symbols-outline
