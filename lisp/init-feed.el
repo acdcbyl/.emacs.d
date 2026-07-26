@@ -15,12 +15,12 @@
     "ru"  'elfeed-update))
 
 (use-package
- elfeed-org
- :ensure t
- :after elfeed
- :config
- (elfeed-org)
-(setq rmh-elfeed-org-files (list "~/.emacs.d/feeds.org")))
+  elfeed-org
+  :ensure t
+  :after elfeed
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.emacs.d/feeds.org")))
 
 (provide 'init-feed)
 ;;; init-feed.el ends here

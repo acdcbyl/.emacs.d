@@ -104,7 +104,15 @@
   :general
   (aiser/leader-def
     "oe"  'mu4e-transient-menu))
-
+;; (use-package nano-mu4e
+;;   :load-path "nano-mu4e"
+;;   :after mu4e
+;;   :commands (nano-mu4e-mode nano-mu4e)
+;;   :hook (mu4e-headers-mode . nano-mu4e-mode)
+;;   :config
+;;   (setq nano-mu4e-view-style 'simple)
+;;   ;; (setq nano-mu4e-tag-style 'round)
+;;   (setq nano-mu4e-msg-preview t))
 (provide 'init-email)
 
 ;;; init-email.el ends here
