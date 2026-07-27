@@ -98,6 +98,7 @@
             (require 'init-rimel)
             (run-with-idle-timer 0.2 nil (lambda ()
                                            (require 'init-org)
+                                           (require 'init-telega)
                                            (require 'init-workspaces-apps)
                                            (require 'init-pdf)))
             ))
