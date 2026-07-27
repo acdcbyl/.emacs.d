@@ -155,12 +155,6 @@
              ((org-agenda-files '("gongkao.org"))
               (org-agenda-overriding-header "📚 考公待办")))))))
   :general
-  (aiser/leader-def
-    "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
-    "aa"  'org-agenda
-    "oc"  'org-capture
-    "ol"  'org-store-link)
-
   (aiser/localleader-def
     :major-modes '(org-mode)
     :keymaps 'org-mode-map

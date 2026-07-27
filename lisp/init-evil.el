@@ -238,7 +238,10 @@
     ;; app
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
     "ac"  'calendar
-    "ag"  'gnus
+    "aG"  'gnus
+    "aa"  'org-agenda
+    "at"  'telega
+    "ag"  'ghostel
     "ai"  'rcirc
 
     ;; git
@@ -260,7 +263,6 @@
     "od"  'dired
     "ow"  'workspace-menu
     "oi"  'ibuffer
-    "og"  'ghostel
     "os"  'symbols-outline-show
 
     ;; folding

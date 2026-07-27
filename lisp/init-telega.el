@@ -45,7 +45,7 @@
   (setq telega-sticker-size '(6 . 24))
 
   ;; Clean button display without brackets [...]
-  (setq telega-chat-button-brackets nil)
+  (setq telega-brackets nil)
 
   ;; Group consecutive message timestamps from same sender
   (setq telega-squash-message-timestamps t)
@@ -109,8 +109,8 @@
           telega-symbol-forum (nerd-icons-mdicon "nf-md-format_list_text")
           telega-symbol-flames (nerd-icons-mdicon "nf-md-delete_clock")
           telega-symbol-mark (propertize " " 'face 'telega-button-highlight)
-          telega-symbol-reply (nerd-icons-faicon "nf-fa-reply")
-          telega-symbol-reply-quote (nerd-icons-faicon "nf-fa-reply_all")
+          telega-symbol-reply (nerd-icons-faicon "nf-fa-reply" :face 'ansi-color-blue)
+          telega-symbol-reply-quote (nerd-icons-faicon "nf-fa-reply_all" :face 'ansi-color-blue)
           telega-symbol-forward (nerd-icons-faicon "nf-fa-mail_forward")
           telega-symbol-checkmark (nerd-icons-mdicon "nf-md-check")
           telega-symbol-heavy-checkmark (nerd-icons-codicon "nf-cod-check_all")
@@ -130,10 +130,10 @@
   ;; (global-set-key (kbd "C-c t") telega-prefix-map)
   )
 
-(use-package telega-bubbles
-  :vc (:url "https://github.com/guidao/telega-bubbles" :rev :newest)
-  :after telega
-  :config
-  (telega-bubbles-mode 1))
+;; (use-package telega-bubbles
+;;   :vc (:url "https://github.com/guidao/telega-bubbles" :rev :newest)
+;;   :after telega
+;;   :config
+;;   (telega-bubbles-mode 1))
 (provide 'init-telega)
 ;;; init-telega.el ends here
