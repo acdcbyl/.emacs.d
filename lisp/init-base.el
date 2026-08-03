@@ -216,14 +216,6 @@ If the new path's directories does not exist, create them."
              return (progn
                       (setq face-font-rescale-alist `((,font . 1.05)))
                       (set-fontset-font t 'han (font-spec :family font))))
-
-    ;; Register nerd-icons PUA codepoints so icons render in all contexts (which-key, etc.)
-    (when (fboundp 'nerd-icons-set-font)
-      (nerd-icons-set-font))
-
-    ;; Re-register ClockFace after nerd-icons (remapped to PUA-A)
-    (when (fboundp 'aiser/lambda-line-clockface-setup)
-      (aiser/lambda-line-clockface-setup))
     ))
 
 (add-hook 'window-setup-hook #'setup-fonts)
