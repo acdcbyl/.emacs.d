@@ -112,7 +112,8 @@
      dashboard-insert-newline
      dashboard-insert-footer))
   :config
-  (add-hook 'dashboard-mode-hook #'dashboard-hide-modeline))
+  (add-hook 'dashboard-mode-hook #'dashboard-hide-modeline)
+  (add-hook 'dashboard-mode-hook (lambda () (setq-local track-mouse t))))
 
 ;; Hide modeline
 (defun dashboard-hide-modeline ()
