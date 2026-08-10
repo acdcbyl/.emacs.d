@@ -27,7 +27,7 @@
   (tab-bar-new-tab-choice "*scratch*")
   (tab-bar-close-tab-select 'recent)
   (tab-bar-new-tab-to 'rightmost)
-  (tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+  (tab-bar-close-last-tab-choice 'delete-frame)
   (tab-bar-auto-width nil)
   (tab-bar-format '(tab-bar-format-history
                     tab-bar-format-tabs))
