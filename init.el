@@ -86,7 +86,7 @@
 (add-hook 'after-init-hook
           (lambda ()
             (require 'init-dap)
-            (require 'init-music)
+            (require 'init-emms)
             (require 'init-email)
             (require 'init-dev)
             (require 'init-check)

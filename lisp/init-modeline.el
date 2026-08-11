@@ -63,10 +63,10 @@
      embark-collect-mode
      quickrun--mode
      ghostel-mode
-     mpdel-browser-mode
-     mpdel-tablist-mode
-     mpdel-playlist-mode
-     mpdel-song-mode
+     emms-browser-mode
+     emms-playlist-mode
+     emms-mark-mode
+     emms-stream-mode
      symbols-outline-mode
      lsp-ui-imenu-mode
      pdf-view-mode

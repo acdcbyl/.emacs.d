@@ -88,8 +88,8 @@
           "\\*rustfmt\\*$" rustic-compilation-mode rustic-cargo-clippy-mode
           rustic-cargo-outdated-mode rustic-cargo-run-mode rustic-cargo-test-mode
           xwidget-webkit-mode
-          "\\* MPDel\\ *"
-          "\\*mpdel-Current playlist\\*"
+          "\\*EMMS Playlist\\*"
+          "\\*EMMS Browser\\*"
           ))
 
   :config
