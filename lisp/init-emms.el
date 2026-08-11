@@ -29,10 +29,15 @@
   "Return the directory used for cached embedded artwork."
   (expand-file-name "covers/" emms-directory))
 
+(defvar +emms-cover-max-size 1024
+  "Maximum width/height in pixels for cached extracted covers.
+Embedded artwork larger than this is scaled down before caching, keeping
+the cache small and fast for Emacs to decode and display.")
+
 (defun +emms-track-cover-cache-file (track)
   "Return the cached cover filename for TRACK."
   (expand-file-name
-   (concat (md5 (expand-file-name track)) ".png")
+   (concat (md5 (expand-file-name track)) ".jpg")
    (+emms-cover-cache-directory)))
 
 (defun +emms-track-thumbnail-cache-file (track size)
@@ -50,14 +55,17 @@
     (_ emms-browser-thumbnail-medium-size)))
 
 (defun +emms-extract-embedded-cover (track)
-  "Return TRACK's embedded artwork as a cached cover file.
+  "Return TRACK's embedded artwork as a cached, scaled cover file.
 
-The cache is keyed by TRACK instead of by directory, so different files in the
-same directory may keep different embedded covers."
+The artwork is extracted with ffmpeg, scaled down to at most
+`+emms-cover-max-size' pixels, and stored as a JPEG so the cache stays small
+and quick for Emacs to decode and display.  The cache is keyed by TRACK
+instead of by directory, so different files in the same directory may keep
+different embedded covers."
   (when-let* ((ffmpeg (executable-find "ffmpeg"))
               ((file-readable-p track)))
     (let* ((cover (+emms-track-cover-cache-file track))
-           (temporary-cover (concat cover ".tmp.png")))
+           (temporary-cover (concat cover ".tmp.jpg")))
       (when (or (not (file-readable-p cover))
                 (file-newer-than-file-p track cover))
         (make-directory (file-name-directory cover) t)
@@ -67,7 +75,9 @@ same directory may keep different embedded covers."
              (call-process
               ffmpeg nil nil nil "-nostdin" "-v" "error" "-y"
               "-i" track "-map" "0:v:0" "-frames:v" "1" "-update" "1"
-              temporary-cover))
+              "-vf" (format "scale='min(%d,iw)':'min(%d,ih)':force_original_aspect_ratio=decrease"
+                            +emms-cover-max-size +emms-cover-max-size)
+              "-q:v" "3" temporary-cover))
             (rename-file temporary-cover cover t)
           (when (file-exists-p temporary-cover)
             (delete-file temporary-cover))))
@@ -214,8 +224,8 @@ file keyed by the track itself."
     "m["  'emms-previous
     "mP"  'emms-previous
     "mk"  'emms-volume-mode-plus
-    "m+"  'emms-volume-mode-minus
-    "mj"  'emms-volume-mode-plus
+    "m+"  'emms-volume-mode-plus
+    "mj"  'emms-volume-mode-minus
     "m-"  'emms-volume-mode-minus
     "mu"  'emms-ui
     "ma"  (list :wk (format "%s add" (nerd-icons-mdicon "nf-md-playlist_plus")))
@@ -286,5 +296,38 @@ file keyed by the track itself."
   :after emms
   :commands (emms-ui emms-ui-albums emms-ui-list
                      emms-ui-now-playing))
+
+;; Evil bindings for emms-ui.  evil-collection does not cover these modes, so
+;; default them to normal state and map left/right (and row movement) onto h/l
+;; (and j/k) as in the original keymap's <left>/<right>/<up>/<down>.
+(defun +emms-ui-albums-next-row (&optional count)
+  "Move COUNT rows down in the EMMS album grid."
+  (interactive "p")
+  (emms-ui-albums--move-row count))
+
+(defun +emms-ui-albums-previous-row (&optional count)
+  "Move COUNT rows up in the EMMS album grid."
+  (interactive "p")
+  (emms-ui-albums--move-row (- count)))
+
+(with-eval-after-load 'emms-ui
+  (evil-set-initial-state 'emms-ui-albums-mode 'normal)
+  (evil-set-initial-state 'emms-ui-list-mode 'normal)
+  (evil-set-initial-state 'emms-ui-now-playing-mode 'normal)
+
+  (general-define-key
+   :states '(normal)
+   :keymaps 'emms-ui-albums-mode-map
+   "h" #'emms-ui-albums-previous
+   "l" #'emms-ui-albums-next
+   "L" #'emms-ui-list
+   "j" #'+emms-ui-albums-next-row
+   "k" #'+emms-ui-albums-previous-row)
+
+  (general-define-key
+   :states '(normal)
+   :keymaps 'emms-ui-now-playing-mode-map
+   "h" #'emms-seek-backward
+   "l" #'emms-seek-forward))
 (provide 'init-emms)
 ;;; init-emms.el ends here
