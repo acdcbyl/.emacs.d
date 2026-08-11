@@ -67,6 +67,9 @@
      emms-playlist-mode
      emms-mark-mode
      emms-stream-mode
+     emms-ui-albums-mode
+     emms-ui-list-mode
+     emms-ui-now-playing-mode
      symbols-outline-mode
      lsp-ui-imenu-mode
      pdf-view-mode

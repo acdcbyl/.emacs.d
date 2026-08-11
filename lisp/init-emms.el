@@ -25,43 +25,136 @@
                (split-string (buffer-string) "\0" t))))
         (directory-files-recursively directory regex)))))
 
+(defun +emms-cover-cache-directory ()
+  "Return the directory used for cached embedded artwork."
+  (expand-file-name "covers/" emms-directory))
+
+(defun +emms-track-cover-cache-file (track)
+  "Return the cached cover filename for TRACK."
+  (expand-file-name
+   (concat (md5 (expand-file-name track)) ".png")
+   (+emms-cover-cache-directory)))
+
+(defun +emms-track-thumbnail-cache-file (track size)
+  "Return the cached thumbnail filename for TRACK at SIZE."
+  (expand-file-name
+   (format "%s-%s.png" (md5 (expand-file-name track)) size)
+   (+emms-cover-cache-directory)))
+
+(defun +emms-cover-size-pixels (size)
+  "Return the pixel size configured for an EMMS cover SIZE."
+  (pcase size
+    ('small emms-browser-thumbnail-small-size)
+    ('medium emms-browser-thumbnail-medium-size)
+    ('large emms-browser-thumbnail-large-size)
+    (_ emms-browser-thumbnail-medium-size)))
+
 (defun +emms-extract-embedded-cover (track)
-  "Return TRACK's embedded artwork as a large cover file."
-  (let ((cover (expand-file-name "cover_large.png"
-                                 (file-name-directory track))))
-    (unless (file-readable-p cover)
-      (unless (zerop
-               (call-process
-                (executable-find "ffmpeg") nil nil nil "-nostdin" "-v" "error" "-y"
-                "-i" track "-map" "0:v:0" "-frames:v" "1" "-update" "1" cover))
-        (when (file-exists-p cover) (delete-file cover))))
-    (and (file-readable-p cover) cover)))
+  "Return TRACK's embedded artwork as a cached cover file.
+
+The cache is keyed by TRACK instead of by directory, so different files in the
+same directory may keep different embedded covers."
+  (when-let* ((ffmpeg (executable-find "ffmpeg"))
+              ((file-readable-p track)))
+    (let* ((cover (+emms-track-cover-cache-file track))
+           (temporary-cover (concat cover ".tmp.png")))
+      (when (or (not (file-readable-p cover))
+                (file-newer-than-file-p track cover))
+        (make-directory (file-name-directory cover) t)
+        (when (file-exists-p temporary-cover)
+          (delete-file temporary-cover))
+        (if (zerop
+             (call-process
+              ffmpeg nil nil nil "-nostdin" "-v" "error" "-y"
+              "-i" track "-map" "0:v:0" "-frames:v" "1" "-update" "1"
+              temporary-cover))
+            (rename-file temporary-cover cover t)
+          (when (file-exists-p temporary-cover)
+            (delete-file temporary-cover))))
+      (and (file-readable-p cover) cover))))
+
+(defun +emms-resize-cover (track size)
+  "Return a cached thumbnail for TRACK's embedded cover at SIZE."
+  (if (eq size 'large)
+      (+emms-extract-embedded-cover track)
+    (when-let* ((source-cover (+emms-extract-embedded-cover track)))
+      (if-let* ((convert (or (executable-find "magick")
+                             (executable-find "convert"))))
+          (let* ((thumbnail (+emms-track-thumbnail-cache-file track size))
+                 (temporary-thumbnail (concat thumbnail ".tmp.png"))
+                 (pixels (+emms-cover-size-pixels size)))
+            (when (or (not (file-readable-p thumbnail))
+                      (file-newer-than-file-p source-cover thumbnail))
+              (when (file-exists-p temporary-thumbnail)
+                (delete-file temporary-thumbnail))
+              (if (zerop
+                   (if (string-equal (file-name-base convert) "magick")
+                       (call-process
+                        convert nil nil nil source-cover "-resize"
+                        (format "%sx%s" pixels pixels) temporary-thumbnail)
+                     (call-process
+                      convert nil nil nil source-cover "-resize"
+                      (format "%sx%s" pixels pixels) temporary-thumbnail)))
+                  (rename-file temporary-thumbnail thumbnail t)
+                (when (file-exists-p temporary-thumbnail)
+                  (delete-file temporary-thumbnail))))
+            (or (and (file-readable-p thumbnail) thumbnail)
+                source-cover))
+        source-cover))))
 
 (defun +emms-extract-embedded-covers ()
   "Extract missing large covers from embedded artwork."
   (interactive)
   (require 'emms-browser)
-  (let (albums)
+  (let (tracks-without-cover)
     (dolist (track
              (+emms-source-file-directory-tree-fd
               emms-source-file-default-directory (emms-source-file-regex)))
-      (unless (member (file-name-directory track) albums)
-        (push (file-name-directory track) albums)
-        (+emms-extract-embedded-cover track))))
+      (unless (+emms-extract-embedded-cover track)
+        (push track tracks-without-cover)))
+    (when tracks-without-cover
+      (message "EMMS: %d tracks had no readable embedded cover"
+               (length tracks-without-cover))))
   (when (hash-table-p emms-browser--cache-hash)
     (emms-browser-clear-cache-hash))
   (when (buffer-live-p emms-browser-buffer)
     (kill-buffer emms-browser-buffer)))
 
+(defun +emms-directory-first-track (directory)
+  "Return the first playable track directly below DIRECTORY."
+  (seq-find
+   (lambda (file)
+     (and (file-regular-p file)
+          (string-match-p (emms-source-file-regex) file)))
+   (directory-files directory t directory-files-no-dot-files-regexp)))
+
+(defun +emms-track-for-cover-path (path)
+  "Return a playable track for cover PATH.
+
+PATH may be a track file or a directory, depending on the caller."
+  (cond
+   ((and (stringp path)
+         (file-regular-p path)
+         (string-match-p (emms-source-file-regex) path))
+    path)
+   ((and (stringp path)
+         (file-directory-p path))
+    (+emms-directory-first-track path))))
+
 (defun +emms-browser-cover (directory size)
-  "Return an EMMS SIZE cover from DIRECTORY, extracting large artwork on demand."
-  (if (eq size 'large)
-      (let ((cover (expand-file-name "cover_large.png" directory)))
-        (or (and (file-readable-p cover) cover)
-            (when-let* ((track (car (directory-files
-                                     directory t (emms-source-file-regex)))))
-              (+emms-extract-embedded-cover track))))
-    (emms-browser-cache-thumbnail-async directory size)))
+  "Return an EMMS SIZE cover from DIRECTORY, extracting artwork on demand.
+
+EMMS browser asks for covers by directory.  For large covers, use the first
+track in DIRECTORY as that directory's representative cover, but keep the cache
+file keyed by the track itself."
+  (when-let* ((track (+emms-track-for-cover-path directory)))
+    (+emms-resize-cover track size)))
+
+(defun +emms-browser-get-cover-from-track-path (oldfun path &optional size)
+  "Use embedded artwork from PATH before falling back to OLDFUN."
+  (or (when-let* ((track (+emms-track-for-cover-path path)))
+        (+emms-resize-cover track (or size 'medium)))
+      (funcall oldfun path size)))
 
 (defun +emms-lyrics-find-with-info-lyric (file)
   "Find external lyric FILE, falling back to the current track's tag."
@@ -120,13 +213,11 @@
     "mn"  'emms-next
     "m["  'emms-previous
     "mP"  'emms-previous
-    "mu"  'emms-player-mpd-connect
-    "mww" 'emms-lyrics
     "mk"  'emms-volume-mode-plus
     "m+"  'emms-volume-mode-minus
     "mj"  'emms-volume-mode-plus
     "m-"  'emms-volume-mode-minus
-    "mc"  'aiser/emms-cleanup-urls
+    "mu"  'emms-ui
     "ma"  (list :wk (format "%s add" (nerd-icons-mdicon "nf-md-playlist_plus")))
     "maf" 'emms-add-file
     "mad" 'emms-add-directory
@@ -177,6 +268,8 @@
 
 ;; Keymaps for quitting EMMS windows with 'q'
 (with-eval-after-load 'emms-browser
+  (advice-add 'emms-browser-get-cover-from-path
+              :around #'+emms-browser-get-cover-from-track-path)
   (general-define-key
    :states '(normal)
    :keymaps 'emms-browser-mode-map
