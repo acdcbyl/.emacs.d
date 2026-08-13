@@ -213,6 +213,7 @@
 (require 'init-kdl)
 (require 'init-lua)
 (require 'init-elisp)
+(require 'init-fish)
 
 (provide 'init-dev)
 ;;; init-dev.el ends here

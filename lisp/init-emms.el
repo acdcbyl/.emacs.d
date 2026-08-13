@@ -227,7 +227,10 @@ file keyed by the track itself."
     "m+"  'emms-volume-mode-plus
     "mj"  'emms-volume-mode-minus
     "m-"  'emms-volume-mode-minus
-    "mu"  'emms-ui
+    "mu"  (list :wk (format "%s emms ui" (nerd-icons-mdicon "nf-md-music_note")))
+    "muu" 'emms-ui
+    "mun" 'emms-ui-now-playing
+    "mul" 'emms-ui-list
     "ma"  (list :wk (format "%s add" (nerd-icons-mdicon "nf-md-playlist_plus")))
     "maf" 'emms-add-file
     "mad" 'emms-add-directory

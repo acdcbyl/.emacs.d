@@ -8,7 +8,7 @@
 
   :init
   ;; Basic directory paths
-  (setq telega-directory "~/.local/share/telega")
+  (setq telega-directory "/home/aiser/.local/share/telega/")
   (setq telega-msg-save-dir "~/Downloads")
   (setq telega-server-libs-prefix "/usr")
 
@@ -54,7 +54,7 @@
   (setq telega-chat-input-markups '("markdown2" "org"))
 
   ;; Root view configuration
-  (setq telega-root-default-view-function #'telega-view-folders)
+  (setq telega-root-default-view-function #'telega-view-default)
   (setq telega-root-keep-cursor 'track)
   (setq telega-root-buffer-name "*Telega Root*")
 
