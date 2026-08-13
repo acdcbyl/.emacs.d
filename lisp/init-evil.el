@@ -245,16 +245,22 @@
     "ai"  'rcirc
 
     ;; git
-    "g"   (list :wk (format "%s magit" (nerd-icons-mdicon "nf-md-git")))
-    "gm"  'magit
+    "g"   (list :wk (format "%s git/magit" (nerd-icons-mdicon "nf-md-git")))
+    "gm"  'magit-status
+    "gb"  'magit-blame
     "gp"  'magit-push
     "gP"  'magit-pull
-    "gb"  'magit-branch
+    "gB"  'magit-branch
     "gc"  'magit-clone
     "gC"  'magit-clean
     "gl"  'magit-log
     "gd"  'magit-dispatch
     "gD"  'magit-diff
+    "gt"  'git-timemachine
+    "gn"  'diff-hl-next-hunk
+    "gN"  'diff-hl-previous-hunk
+    "gs"  'diff-hl-stage-hunk
+    "gr"  'diff-hl-revert-hunk
 
     ;; open
     "o"   (list :wk (format "%s open" (nerd-icons-mdicon "nf-md-open_in_new")))

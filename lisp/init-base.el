@@ -20,6 +20,8 @@
 ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
 (setopt auto-revert-interval 5)
 (setopt auto-revert-check-vc-info t)
+;; Restrict version control backends to Git only to avoid unnecessary I/O checks
+(setq vc-handled-backends '(Git))
 (global-auto-revert-mode)
 
 ;; undo-limit

@@ -101,16 +101,45 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Magit: best Git client to ever exist
-(use-package magit :ensure t :bind (("C-x g" . magit-status)))
+;; Magit: the best Git client for Emacs
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status))
+  :custom
+  ;; Display magit status in current window while retaining a clean layout
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  ;; Highlight word-level diffs inside the current hunk automatically
+  (magit-diff-refine-hunk 'all)
+  ;; Save modified file buffers in the repository before executing magit commands
+  (magit-save-repository-buffers 'autosave)
+  ;; Set maximum summary line length for git commit messages
+  (git-commit-summary-max-length 72))
 
-;; A Magit extension that primes the magit cache in parallel before refresh, reducing refresh times
+;; Magit-prime: asynchronous cache pre-warming for faster magit status refreshes
 (use-package magit-prime
   :ensure t
-  :defer t
   :after magit
   :config
-  (magit-prime-mode))
+  (magit-prime-mode 1))
+
+;; Git modes: syntax highlighting for .gitignore, .gitconfig, and .gitattributes
+(use-package git-modes
+  :ensure t)
+
+;; Git timemachine: step through historical git revisions of a file
+(use-package git-timemachine
+  :ensure t
+  :defer t)
+
+;; Auto-enable smerge-mode when merge conflict markers are detected
+(use-package smerge-mode
+  :ensure nil
+  :hook (find-file . (lambda ()
+                       (save-excursion
+                         (goto-char (point-min))
+                         (when (re-search-forward "^<<<<<<< " nil t)
+                           (smerge-mode 1))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Eglot, the built-in LSP client for Emacs
