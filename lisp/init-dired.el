@@ -85,6 +85,54 @@
                                       ('darwin "open")
                                       ('windows-nt "start")
                                       (_ ""))))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   File operations (bound in init-evil.el: SPC f C / D / y / R)
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun +copy-current-file ()
+  "Copy the current file to a new location."
+  (interactive)
+  (if-let* ((path (buffer-file-name)))
+      (let* ((new-path (read-file-name "Copy current file to: "))
+             (new-dir (file-name-directory new-path)))
+        (unless (file-exists-p new-dir)
+          (make-directory new-dir t))
+        (copy-file path new-path 1)
+        (message "Copied %s to %s" path new-path))
+    (user-error "Buffer is not visiting a file")))
+
+(defun +delete-current-file ()
+  "Delete the current file after confirmation, then kill its buffer."
+  (interactive)
+  (if-let* ((path (buffer-file-name)))
+      (when (y-or-n-p (format "Delete %s? " (file-name-nondirectory path)))
+        (delete-file path)
+        (kill-current-buffer)
+        (message "Deleted %s" path))
+    (user-error "Buffer is not visiting a file")))
+
+(defun +copy-current-filename ()
+  "Copy the current file's absolute path to the kill ring."
+  (interactive)
+  (if-let* ((path (buffer-file-name)))
+      (progn (kill-new path)
+             (message "Copied path: %s" path))
+    (user-error "Buffer is not visiting a file")))
+
+(defun +rename-current-file ()
+  "Rename the current file and keep visiting it under the new name."
+  (interactive)
+  (if-let* ((path (buffer-file-name)))
+      (let* ((dir (file-name-directory path))
+             (new-path (read-file-name "Rename to: " dir
+                                       (file-name-nondirectory path))))
+        (rename-file path new-path 1)
+        (set-visited-file-name new-path t t)
+        (message "Renamed to %s" new-path))
+    (user-error "Buffer is not visiting a file")))
+
 (provide 'init-dired)
 
 ;;; init-dired.el ends here.

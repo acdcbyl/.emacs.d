@@ -259,5 +259,15 @@
    ("w" "Save" aiser/workspace-transient-save)
    ("l" "Load" aiser/workspace-transient-load)])
 
+(defun +transient-tab-bar-history ()
+  "Step back through tab history, like a browser's back button.
+
+Enables `tab-bar-history-mode' on first use.  Bound in
+init-evil.el: SPC w u."
+  (interactive)
+  (unless tab-bar-history-mode
+    (tab-bar-history-mode 1))
+  (tab-bar-history-back))
+
 (provide 'init-workspaces)
 ;;; init-workspaces.el ends here

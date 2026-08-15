@@ -62,5 +62,11 @@
 ;;         which-key-posframe-parameters '((left-fringe . 8)
 ;;                                         (right-fringe . 8))))
 
+(defun +copy-current-buffer-name ()
+  "Copy the current buffer's name to the kill ring."
+  (interactive)
+  (kill-new (buffer-name))
+  (message "Copied buffer name: %s" (buffer-name)))
+
 (provide 'init-utils)
 ;;; init-utils.el ends here

@@ -15,6 +15,14 @@
 
 (use-package quickrun :ensure t :defer t)
 
+;; Switch to the *compilation* buffer (bound in init-evil.el: SPC c l)
+(defun +switch-to-compilation ()
+  "Switch to the *compilation* buffer in another window, if it exists."
+  (interactive)
+  (if (get-buffer "*compilation*")
+      (switch-to-buffer-other-window "*compilation*")
+    (user-error "No *compilation* buffer; run compile first")))
+
 (use-package
   emacs
   :config
