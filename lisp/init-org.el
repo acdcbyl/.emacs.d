@@ -212,7 +212,7 @@
   :ensure t
   :after org
   :commands
-  (vulpea-select
+  (
    vulpea-insert
    vulpea-find
    vulpea-db-sync-full-scan
@@ -269,6 +269,17 @@
   ;; Heading-level indexing is more powerful but requires more parsing.
   ;;
   (setq vulpea-db-index-heading-level t)
+
+  ;; --------------------------------------------------------------------------
+  ;; Note creation template
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; File names are slugified titles, no timestamp prefix (the default
+  ;; `${timestamp}_${slug}.org' was deemed noise).  Caveat: identical
+  ;; titles produce identical file names; `aiser/vulpea-create' guards
+  ;; against silently overwriting an existing note.
+  ;;
+  (setq vulpea-create-default-template '(:file-name "${slug}.org"))
 
   ;; --------------------------------------------------------------------------
   ;; External filesystem monitoring
@@ -328,12 +339,41 @@
   ;;
   ;; This enables Vulpea's filesystem watcher / async synchronization.
   ;;
-  (vulpea-db-autosync-mode 1))
+  (vulpea-db-autosync-mode 1)
+  ;; Record the pre-save title so `vulpea-propagate-title-change'
+  ;; doesn't need to ask for the old title.
+  (vulpea-title-change-detection-mode 1))
 
 (use-package vulpea-ui
   :ensure t
   :after vulpea
   )
+
+;; ----------------------------------------------------------------------------
+;; Interactive wrappers for the non-interactive v2 API
+;; ----------------------------------------------------------------------------
+;; `vulpea-create' and `vulpea-select' are programmatic interfaces
+;; (no (interactive) spec), so they can't be bound or called via M-x.
+
+(defun aiser/vulpea-create (title)
+  "Create a new vulpea note with TITLE and visit it for editing."
+  (interactive "sNote title: ")
+  ;; `vulpea--create-file' writes directly without a collision check, so
+  ;; an existing file with the same slug would be silently overwritten.
+  ;; Refuse instead.
+  (let ((path (ignore-errors (vulpea--expand-file-name-template title))))
+    (when (and path (file-exists-p path))
+      (user-error "Note file already exists: %s" path)))
+  (let ((note (vulpea-create title)))
+    (when note
+      (vulpea-visit note))))
+
+(defun aiser/vulpea-select-other-window ()
+  "Select a vulpea note and open it in another window."
+  (interactive)
+  (let ((note (vulpea-select "Note")))
+    (when note
+      (vulpea-visit note t))))
 
 ;; ----------------------------------------------------------------------------
 ;; Evil keybindings: SPC v prefix (via general)
@@ -344,8 +384,10 @@
   "vF"  'consult-vulpea-find
   "vg"  'consult-vulpea-grep
   "vi"  'vulpea-insert
-  "vc"  'vulpea-create
-  "vs"  'vulpea-select
+  "vc"  'aiser/vulpea-create
+  "vs"  'aiser/vulpea-select-other-window
+  "vr"  'vulpea-propagate-title-change
+  "vm"  'vulpea-move-file
   "vt"  'vulpea-ui-sidebar-toggle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
