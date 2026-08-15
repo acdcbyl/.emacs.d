@@ -97,7 +97,9 @@
                 (when proj
                   (project-remember-project proj)))))))))
 
-  (aiser/project-discover-projects))
+  ;; Scan ~/Code and ~/Projects in the background after idle, so startup
+  ;; isn't blocked by synchronous filesystem I/O.
+  (run-with-idle-timer 5 nil #'aiser/project-discover-projects))
 
 (provide 'init-project)
 

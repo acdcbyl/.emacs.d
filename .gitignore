@@ -52,3 +52,8 @@ var/
 tree-sitter/
 .dap-breakpoints
 lisp/private.el
+
+# Vulpea 笔记数据库（机器状态，不要提交）
+vulpea.db
+vulpea.db-shm
+vulpea.db-wal

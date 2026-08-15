@@ -83,9 +83,7 @@ If the new path's directories does not exist, create them."
     backupFilePath))
 (setopt make-backup-file-name-function 'backup-file-name)
 
-;; Basic speedups: assume left-to-right text in all buffers
-(setq-default bidi-paragraph-direction 'left-to-right)
-(setq bidi-inhibit-bpa t)
+;; bidi 相关设置统一放在 early-init.el（bidi-display-reordering 为有意设计）
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

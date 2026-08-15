@@ -32,7 +32,8 @@
   (setq mu4e-inbox-folder  "/INBOX"
         mu4e-sent-folder   "/[Gmail]/已发邮件"
         mu4e-drafts-folder "/[Gmail]/草稿"
-        mu4e-trash-folder  "/[Gmail]/垃圾邮件")
+        ;; 注意：垃圾邮件是 Spam，回收站是 [Gmail]/已删除邮件
+        mu4e-trash-folder  "/[Gmail]/已删除邮件")
 
   ;; Fix duplicate UID errors when using mbsync and mu4e
   (setq mu4e-change-filenames-when-moving t)

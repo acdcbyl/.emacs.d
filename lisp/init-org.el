@@ -94,6 +94,7 @@
    ("C-c l i" . org-insert-link-global)) ; Mnemonic: link → insert
   :config
   (require 'oc-csl) ; citation support
+  (require 'org-tempo) ; <s 等模板展开
   (add-to-list 'org-export-backends 'md)
 
   ;; Make org-open-at-point follow file links in the same window
@@ -202,6 +203,19 @@
     "It" 'org-time-stamp-inactive
     "Ii" 'org-toggle-inline-images
     "IT" 'org-time-stamp))
+
+;; Show hidden markup (bold/italic markers etc.) while editing
+(use-package org-appear
+  :ensure t
+  :hook (org-mode . org-appear-mode))
+
+;; Paste/screenshot images into org notes (saved to images/ subdir)
+(use-package org-download
+  :ensure t
+  :after org
+  :config
+  (setq org-download-method 'directory
+        org-download-image-dir "images"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

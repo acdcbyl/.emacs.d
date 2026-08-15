@@ -103,6 +103,10 @@
   (corfu-preselect 'prompt)
   (corfu-auto-trigger ".") ;; Custom trigger characters
   (corfu-quit-no-match 'separator) ;; or t
+  :config
+  ;; Remember frequently used candidates and show numeric indices
+  (corfu-history-mode +1)
+  (corfu-indexed-mode +1)
   :bind
   (:map
    corfu-map
