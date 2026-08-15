@@ -2,7 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package js2-mode :ensure t)
+;; NOTE: js2-mode is intentionally NOT loaded here: with
+;; `treesit-enabled-modes' set to t, .js files are remapped to
+;; `js-ts-mode' anyway (the installed js2-mode package no longer even
+;; registers itself in `auto-mode-alist'), so js2-mode would only
+;; waste startup time.  Use js-ts-mode (powered by tree-sitter) and
+;; eglot below.
 
 (with-eval-after-load 'apheleia
   (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))

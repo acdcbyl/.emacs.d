@@ -45,7 +45,8 @@
             (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
             (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" nil "tree-sitter-markdown/src"))
             (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" nil "tree-sitter-markdown-inline/src"))
-            (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))))
+            (qmljs . ("https://github.com/yuja/tree-sitter-qmljs" "master" "src"))
+            (yaml . ("https://github.com/tree-sitter-grammars/tree-sitter-yaml"))))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))

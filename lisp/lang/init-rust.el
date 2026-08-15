@@ -2,13 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package rust-mode
-  :ensure t
-  :defer t
-  :init (setq rust-mode-treesitter-derive t)
-  :custom
-  (rust-indent-where-clause t)
-  (rust-load-optional-libraries t))
+;; NOTE: the third-party `rust-mode' package has been removed.  With
+;; `treesit-enabled-modes' set to t, .rs files are handled by the
+;; built-in rust-ts-mode anyway (the treesit remap redirects
+;; rust-mode → rust-ts-mode before rust-mode ever activates, so all
+;; of rust-mode's settings were dead code).  Eglot below is what
+;; powers IDE features.
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))

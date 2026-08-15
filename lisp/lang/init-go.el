@@ -2,7 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package go-mode :ensure t :defer t)
+;; NOTE: the third-party `go-mode' package has been removed.  With
+;; `treesit-enabled-modes' set to t, .go files are handled by the
+;; built-in go-ts-mode anyway (remap `(go-mode . go-ts-mode)'), and
+;; go-mode's go-dot-mod-mode / go-dot-work-mode shadowed the built-in
+;; go-mod-ts-mode / go-work-ts-mode for go.mod / go.work files.
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
