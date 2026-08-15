@@ -32,7 +32,7 @@
   (setq mu4e-inbox-folder  "/INBOX"
         mu4e-sent-folder   "/[Gmail]/已发邮件"
         mu4e-drafts-folder "/[Gmail]/草稿"
-        ;; 注意：垃圾邮件是 Spam，回收站是 [Gmail]/已删除邮件
+        ;; Note: Spam is not Trash; deleted mail goes to the Bin folder
         mu4e-trash-folder  "/[Gmail]/已删除邮件")
 
   ;; Fix duplicate UID errors when using mbsync and mu4e

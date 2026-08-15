@@ -16,11 +16,11 @@
                 lambda-line liberime lyrics-fetcher magit magit-prime
                 marginalia mpdel mpdel-embark nerd-icons-completion
                 nerd-icons-corfu nerd-icons-dired nerd-icons-ibuffer
-                nerd-icons-speedbar no-littering orderless org-modern
-                page-break-lines pdf-tools popper qml-ts-mode quickrun
-                rainbow-delimiters rimel saveplace-pdf-view
-                symbols-outline tabspaces telega treesit-fold
-                undo-fu undo-fu-session vertico vulpea
+                nerd-icons-speedbar no-littering orderless org-appear
+                org-download org-modern page-break-lines pdf-tools
+                popper qml-ts-mode quickrun rainbow-delimiters rimel
+                saveplace-pdf-view symbols-outline tabspaces telega
+                treesit-fold undo-fu undo-fu-session vertico vulpea
                 vulpea-ui wakatime-mode yaml-mode yasnippet
                 yasnippet-capf yasnippet-snippets))
  '(package-vc-selected-packages

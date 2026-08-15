@@ -1,5 +1,5 @@
 # -*- mode: gitignore; -*-
-# Emacs 通用临时/备份文件
+# Emacs common temp/backup files
 *~
 \#*\#
 .\#*
@@ -13,39 +13,39 @@ tramp
 .network-security.data
 .session
 
-# Org-mode 生成的文件
+# Org-mode generated files
 .org-id-locations
 *_archive
 
-# Flycheck/Flymake 等检查临时文件
+# Temp files from checkers (Flycheck/Flymake etc.)
 *_flymake.*
 flycheck_*.el
 
-# ELPA 包管理（下载的包，不要提交！）
+# ELPA packages (downloaded; do not commit!)
 elpa/
 eln-cache/
 elpa-*/
 eln-cache-*/
 
-# Emacs 备份目录（如果你配置了 backups）
+# Emacs backup dir (if you configure backups)
 emacs-backup/
 backups/
 
-# EMMS（音乐播放器）缓存
+# EMMS (music player) cache
 emms/
 emms-cache
 emms-history
 emms-streams
 
-# etc/ extras/ themes/ var/ 等自定义目录（这些通常是用户特定或生成的）
+# etc/ extras/ themes/ var/ etc. (usually user-specific or generated)
 etc/
 var/
 
-# Doom Emacs 特定（如果你的目录里有 .local）
+# Doom Emacs specific (if your .local exists)
 .local/
 .local*/
 
-# 其他常见
+# Miscellaneous
 *.cache*
 *.log
 .tree-sitter/
@@ -53,7 +53,7 @@ tree-sitter/
 .dap-breakpoints
 lisp/private.el
 
-# Vulpea 笔记数据库（机器状态，不要提交）
+# Vulpea note database (machine state, do not commit)
 vulpea.db
 vulpea.db-shm
 vulpea.db-wal

@@ -47,7 +47,7 @@
 ;; (use-package benchmark-init
 ;;   :ensure t
 ;;   :config
-;;   ;; 启动后自动显示报告
+;;   ;; Automatically show the report after startup
 ;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 ;; (use-package which-key-posframe
 ;;   :ensure t

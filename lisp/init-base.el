@@ -83,7 +83,7 @@ If the new path's directories does not exist, create them."
     backupFilePath))
 (setopt make-backup-file-name-function 'backup-file-name)
 
-;; bidi 相关设置统一放在 early-init.el（bidi-display-reordering 为有意设计）
+;; bidi settings live in early-init.el (bidi-display-reordering is intentional)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

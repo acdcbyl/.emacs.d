@@ -94,7 +94,7 @@
    ("C-c l i" . org-insert-link-global)) ; Mnemonic: link → insert
   :config
   (require 'oc-csl) ; citation support
-  (require 'org-tempo) ; <s 等模板展开
+  (require 'org-tempo) ; <s template expansion
   (add-to-list 'org-export-backends 'md)
 
   ;; Make org-open-at-point follow file links in the same window
