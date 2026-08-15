@@ -29,7 +29,7 @@
 ;; Specify the default dictionary (change it to what you want, e.g., en_US, zh_CN, etc.)
 (setq ispell-dictionary "en_US")
 ;; Agenda variables
-(setq org-directory "~/Documents/org/") ; Non-absolute paths for agenda and
+(setq org-directory "~/Org/") ; Non-absolute paths for agenda and
                                         ; capture templates will look here.
 
 (setq org-agenda-files '("inbox.org" "work.org" "gongkao.org" "index.org"))
@@ -205,33 +205,135 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;;   Phase 3: extensions (org-roam, etc.)
+;;;   Phase 3: extensions (vulpea, etc.)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package vulpea
+  :ensure t
+  :after org
+  :commands
+  (vulpea-select
+   vulpea-insert
+   vulpea-find
+   vulpea-create
+   vulpea-db-sync-full-scan
+   vulpea-db-query
+   vulpea-db-query-by-tags
+   vulpea-db-query-by-properties
+   vulpea-db-query-by-links
+   vulpea-db-query-dead-links
+   vulpea-db-query-orphan-notes
+   vulpea-db-query-isolated-notes
+   vulpea-db-query-title-collisions)
+  :init
+  ;; --------------------------------------------------------------------------
+  ;; Note directories
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; Put every directory containing your Org notes here.
+  ;;
+  ;; Example:
+  ;;
+  ;;   ~/org/
+  ;;   ~/org/projects/
+  ;;   ~/org/reference/
+  ;;
+  ;; Vulpea recursively indexes these directories.
+  ;;
+  (setq vulpea-db-sync-directories
+        '("~/Org/"))
 
-;; (use-package
-;;   org-roam
-;;   :ensure t
-;;   :defer t
-;;   :config (org-roam-db-autosync-mode)
-;;   ;; Dedicated side window for backlinks
-;;   (add-to-list
-;;    'display-buffer-alist
-;;    '("\\*org-roam\\*"
-;;      (display-buffer-in-side-window)
-;;      (side . right)
-;;      (window-width . 0.4)
-;;      (window-height . fit-window-to-buffer))))
+  ;; --------------------------------------------------------------------------
+  ;; Database
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; Keep the database outside the notes directory.
+  ;;
+  ;; This is especially useful if your Org directory is managed by Git,
+  ;; Syncthing, Dropbox, etc.
+  ;;
+  (setq vulpea-db-location
+        (expand-file-name "vulpea.db"
+                          user-emacs-directory))
 
-;; Pretty web interface for org-roam
-                                        ;(use-package org-roam-ui
-                                        ;  :ensure t
-                                        ;  :after org-roam
-                                        ;  :config
-                                        ;  (setq org-roam-ui-sync-theme t
-                                        ;        org-roam-ui-follow t
-                                        ;        org-roam-ui-update-on-save t
-                                        ;        org-roam-ui-open-on-start t))
+  ;; --------------------------------------------------------------------------
+  ;; Heading-level notes
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; t = index Org headings with IDs as notes.
+  ;;
+  ;; nil = only index file-level notes.
+  ;;
+  ;; Heading-level indexing is more powerful but requires more parsing.
+  ;;
+  (setq vulpea-db-index-heading-level t)
+
+  ;; --------------------------------------------------------------------------
+  ;; External filesystem monitoring
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; fswatch is recommended if your notes can be changed outside Emacs:
+  ;;
+  ;;   git pull
+  ;;   Syncthing
+  ;;   Dropbox
+  ;;   shell scripts
+  ;;   other editors
+  ;;
+  ;; Vulpea v2 uses an asynchronous architecture, so synchronization
+  ;; doesn't block normal Emacs interaction.
+  ;;
+  (setq vulpea-db-sync-external-method 'fswatch)
+
+  ;; --------------------------------------------------------------------------
+  ;; Debugging
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; Keep this nil normally.
+  ;;
+  ;; Set to t temporarily when debugging synchronization.
+  ;;
+  (setq vulpea-db-sync-debug nil)
+
+
+  :config
+
+  ;; --------------------------------------------------------------------------
+  ;; Start automatic synchronization
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; This enables Vulpea's filesystem watcher / async synchronization.
+  ;;
+  (vulpea-db-autosync-mode 1))
+
+(use-package vulpea-ui
+  :ensure t
+  :after vulpea
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Convenience functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun aiser/vulpea-sync ()
+  "Run a complete Vulpea database scan."
+  (interactive)
+  (vulpea-db-sync-full-scan))
+
+(defun aiser/vulpea-check-database ()
+  "Run basic diagnostics against the Vulpea database."
+  (interactive)
+  (message
+   "Dead links: %d, orphan notes: %d, isolated notes: %d"
+   (length (vulpea-db-query-dead-links))
+   (length (vulpea-db-query-orphan-notes))
+   (length (vulpea-db-query-isolated-notes))))
+
+(use-package consult-vulpea
+  :ensure t
+  :after vulpea
+  :config
+  (consult-vulpea-mode 1))
 
 ;; Install and configure org-modern
 (use-package
