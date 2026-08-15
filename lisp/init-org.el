@@ -215,12 +215,14 @@
   (vulpea-select
    vulpea-insert
    vulpea-find
-   vulpea-create
    vulpea-db-sync-full-scan
    vulpea-db-query
-   vulpea-db-query-by-tags
-   vulpea-db-query-by-properties
-   vulpea-db-query-by-links
+   vulpea-db-query-by-tags-some
+   vulpea-db-query-by-tags-every
+   vulpea-db-query-by-tags-none
+   vulpea-db-query-by-property
+   vulpea-db-query-by-links-some
+   vulpea-db-query-by-links-every
    vulpea-db-query-dead-links
    vulpea-db-query-orphan-notes
    vulpea-db-query-isolated-notes
@@ -295,6 +297,28 @@
   ;;
   (setq vulpea-db-sync-debug nil)
 
+  ;; --------------------------------------------------------------------------
+  ;; Async worker extraction (v2)
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; 'full = parse AND write the DB in a background emacs --batch worker
+  ;; (database switches to WAL journaling).  The UI only registers note
+  ;; IDs, so syncs never freeze the save path.
+  ;;
+  (setq vulpea-db-async-extraction 'full)
+
+  ;; --------------------------------------------------------------------------
+  ;; Initial scan on autosync enable
+  ;; --------------------------------------------------------------------------
+  ;;
+  ;; Scan asynchronously when autosync starts, catching changes made
+  ;; while Emacs was closed (git pull, external edits).
+  ;;
+  (setq vulpea-db-sync-scan-on-enable 'async)
+
+  ;; Silence routine sync status messages on every save.
+  (setq vulpea-db-sync-verbose nil)
+
 
   :config
 
@@ -310,6 +334,19 @@
   :ensure t
   :after vulpea
   )
+
+;; ----------------------------------------------------------------------------
+;; Evil keybindings: SPC v prefix (via general)
+;; ----------------------------------------------------------------------------
+(aiser/leader-def
+  "v"   (list :wk (format "%s vulpea" (nerd-icons-mdicon "nf-md-note_text_outline")))
+  "vf"  'vulpea-find
+  "vF"  'consult-vulpea-find
+  "vg"  'consult-vulpea-grep
+  "vi"  'vulpea-insert
+  "vc"  'vulpea-create
+  "vs"  'vulpea-select
+  "vt"  'vulpea-ui-sidebar-toggle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Convenience functions
