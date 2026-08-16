@@ -2,15 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package
-  lua-mode
+(use-package lua-ts-mode
   :ensure nil
   :mode "\\.lua\\'"
-  :defer t)
-
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '(lua-ts-mode . ("lua-language-server")))
-  (add-hook 'lua-ts-mode-hook 'eglot-ensure))
+  :after eglot
+  :hook (lua-ts-mode . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs '(lua-ts-mode . ("lua-language-server"))))
 
 (provide 'init-lua)
 ;;; init-lua.el ends here

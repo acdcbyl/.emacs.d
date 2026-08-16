@@ -29,7 +29,7 @@
    ((t (:background ,(doom-color 'red)))))
   :config
   (lambda-line-mode)
-  (lambda-line-clockface-update-fontset "ClockFaceSolid")
+  (lambda-line-clockface-update-fontset "ClockFace")
   (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
   (customize-set-variable 'flymake-mode-line-format '(" " flymake-mode-line-exception flymake-mode-line-counters))
   (with-eval-after-load 'flymake

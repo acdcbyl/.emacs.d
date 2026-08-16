@@ -71,7 +71,7 @@
   apheleia
   :ensure t
   :diminish apheleia-mode
-  :hook (prog-mode . apheleia-mode))
+  :hook ((prog-mode yaml-ts-mode) . apheleia-mode))
 
 ;; Indentation guide-bars
 (use-package

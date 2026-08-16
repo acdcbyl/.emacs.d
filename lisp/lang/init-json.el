@@ -16,7 +16,9 @@
 
 ;; The built-in mode only covers \.json\'; handle .jsonld the same way
 ;; (via js-json-mode so the treesit remap applies uniformly).
-(add-to-list 'auto-mode-alist '("\\.jsonld\\'" . js-json-mode))
+(use-package json-ts-mode
+  :ensure nil
+  :mode ("\\.jsonld\\'" . js-json-mode))
 
 (provide 'init-json)
 ;;; init-json.el ends here

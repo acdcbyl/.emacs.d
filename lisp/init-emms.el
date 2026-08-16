@@ -252,6 +252,16 @@ file keyed by the track itself."
   (require 'emms-history)
   (require 'emms-compat)
 
+  ;; EMMS's `emms-time-less-p' assumes the legacy (HIGH LOW) timestamp
+  ;; format.  Modern Emacs (29+) returns file mtimes from
+  ;; `file-attributes' as (TICKS . HZ) (e.g. (1729675943458041424 .
+  ;; 1000000000)), which made `emms-time-less-p' call (car 1000000000)
+  ;; on the HZ slot when comparing two equal timestamps, signalling
+  ;; "Wrong type argument: listp, 1000000000" whenever `emms-cache-sync'
+  ;; runs (e.g. from `emms-ui-list').  Use Emacs's built-in `time-less-p'
+  ;; instead, which understands every timestamp representation.
+  (advice-add 'emms-time-less-p :override #'time-less-p)
+
   (add-to-list 'emms-track-initialize-functions
                #'emms-info-initialize-track)
   (add-hook 'emms-player-started-hook

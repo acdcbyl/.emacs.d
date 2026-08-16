@@ -4,20 +4,29 @@
 
 ;; NOTE: the third-party `go-mode' package has been removed.  With
 ;; `treesit-enabled-modes' set to t, .go files are handled by the
-;; built-in go-ts-mode anyway (remap `(go-mode . go-ts-mode)'), and
-;; go-mode's go-dot-mod-mode / go-dot-work-mode shadowed the built-in
-;; go-mod-ts-mode / go-work-ts-mode for go.mod / go.work files.
+;; built-in go-ts-mode anyway: on git Emacs (31+) the auto-mode-alist
+;; entry `("\\.go\\'" . go-ts-mode-maybe)' plus the remap
+;; `(go-mode . go-ts-mode)' take care of it.  go-mode's
+;; go-dot-mod-mode / go-dot-work-mode would also shadow the built-in
+;; go-mod-ts-mode / go-work-ts-mode for go.mod / go.work files, so it
+;; is deliberately not installed.
 
-(with-eval-after-load 'eglot
+(use-package go-ts-mode
+  :ensure nil
+  :after eglot
+  :hook (go-ts-mode . eglot-ensure)
+  :config
   (add-to-list 'eglot-server-programs
                '(go-ts-mode . ("gopls" :initializationOptions
                                (:hints (:assignVariableTypes t
                                                              :compositeLiteralFields t
                                                              :parameterNames t
-                                                             :functionTypeParameters t)))))
-  (add-hook 'go-ts-mode-hook 'eglot-ensure))
+                                                             :functionTypeParameters t))))))
 
-;; (with-eval-after-load 'lsp-proxy
-;;   (add-hook 'go-ts-mode-hook #'lsp-proxy-mode))
+;; (use-package lsp-proxy
+;;   :ensure nil
+;;   :after eglot
+;;   :hook (go-ts-mode . lsp-proxy-mode))
+
 (provide 'init-go)
 ;;; init-go.el ends here
