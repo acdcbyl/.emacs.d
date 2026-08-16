@@ -28,6 +28,11 @@
   (lambda-line-visual-bell
    ((t (:background ,(doom-color 'red)))))
   :config
+  ;; MUST be installed before (lambda-line-mode): that call queues an
+  ;; advice that hijacks mu4e's header line to draw lambda-line at the
+  ;; top of mu4e buffers.  The bottom mode-line already shows lambda-line,
+  ;; so neutralise it (the headers view is rendered by mu4e-nano anyway).
+  (advice-add 'lambda-line-mu4e-activate :override #'ignore)
   (lambda-line-mode)
   (lambda-line-clockface-update-fontset "ClockFace")
   (customize-set-variable 'flymake-mode-line-counter-format '("" flymake-mode-line-error-counter flymake-mode-line-warning-counter flymake-mode-line-note-counter ""))
