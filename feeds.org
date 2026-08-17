@@ -4,7 +4,7 @@
 ** Emacs                                                             :emacs:
 # *** [[https://planet.emacslife.com/atom.xml][Planet Emacslife]]     :planet:
 # *** [[https://irreal.org/blog/?feed=rss2][Irreal]]                 :irreal:
-# *** [[https://www.reddit.com/r/emacs.rss][r/emacs]]                :reddit:
+*** [[https://www.reddit.com/r/emacs.rss][r/emacs]]                :reddit:
 
 ** 科技/编程                                                    :tech:programming:
 # *** [[https://www.phoronix.com/rss.php][Phoronix]]                 :linux:

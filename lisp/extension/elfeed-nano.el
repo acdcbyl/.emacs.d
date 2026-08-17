@@ -14,9 +14,9 @@
 ;;   * alternating row backgrounds and a highlighted current row,
 ;;     colors auto-adapted to whatever theme is active (doom-matugen here)
 ;;   * relative dates: "just now", "12m ago", "3h ago", "Yesterday", ...
-;;   * feed icons via nerd-icons (customizable), orange RSS icon when unread;
+;;   * feed icons with brand/category colors via nerd-icons (customizable);
 ;;     icons are matched against the feed title AND feed URL, so both
-;;     "r/emacs" (title) and "reddit.com" (URL) get the Reddit icon
+;;     "r/emacs" (title) and "reddit.com" (URL) get the Reddit icon (orange)
 ;;   * `n'/`p' (and arrows) move entry-by-entry; `n'/`p' in the reading
 ;;     view go to the next/previous article
 ;;
@@ -25,7 +25,7 @@
 ;;   (require 'elfeed-nano)
 ;;   (elfeed-nano-mode)
 ;;
-;; Customize `elfeed-nano-feed-icons' to map feed titles to nerd-icons.
+;; Customize `elfeed-nano-feed-icons' to map feed titles to nerd-icons and colors.
 
 ;;; Code:
 
@@ -93,96 +93,164 @@
   ;; First match wins; regexps are matched against the lowercased
   ;; "feed-title feed-url" string, so both the site name and the domain
   ;; work.  Brand icons come before the generic category rules.
+  ;; Format: (REGEXP ICON-NAME &optional FACE)
   '(;; --- your own feeds --------------------------------------------
-    ("半月谈\\|banyuetan"      . "nf-md-newspaper")
-    ("人民日报\\|people-daily" . "nf-md-newspaper")
+    ("半月谈\\|banyuetan"      "nf-md-newspaper" nerd-icons-red)
+    ("人民日报\\|people-daily" "nf-md-newspaper" nerd-icons-red)
+    ("新华社\\|xinhua"         "nf-md-newspaper" nerd-icons-red)
     ;; --- brands -----------------------------------------------------
-    ("reddit"                . "nf-fa-reddit")
-    ("youtube"               . "nf-fa-youtube")
-    ("twitter\\|\\bx\\.com"   . "nf-fa-twitter")
-    ("github"                . "nf-fa-github")
-    ("gitlab"                . "nf-fa-gitlab")
-    ("bitbucket"             . "nf-fa-bitbucket")
-    ("stack ?overflow"       . "nf-fa-terminal")
-    ("hacker ?news\\|y[- ]?combinator" . "nf-fa-fire")
-    ("telegram"              . "nf-fa-telegram")
-    ("weibo\\|微博"         . "nf-fa-weibo")
-    ("weixin\\|wechat\\|微信\\|公众号" . "nf-fa-weixin")
-    ("zhihu\\|知乎"         . "nf-fa-comments")
-    ("bilibili\\|哔哩"      . "nf-fa-play")
-    ("medium"                . "nf-fa-medium")
-    ("wordpress"             . "nf-fa-wordpress")
-    ("blogger"               . "nf-fa-blogger")
-    ("dev\\.to\\|devto"   . "nf-fa-dev")
-    ("slack"                 . "nf-fa-slack")
-    ("discord"               . "nf-fa-discord")
-    ("steam"                 . "nf-fa-steam")
-    ("spotify"               . "nf-fa-spotify")
-    ("podcast\\|simplecast" . "nf-fa-podcast")
-    ("soundcloud"            . "nf-fa-soundcloud")
-    ("twitch"                . "nf-fa-twitch")
-    ("facebook"              . "nf-fa-facebook")
-    ("instagram"             . "nf-fa-instagram")
-    ("linkedin"              . "nf-fa-linkedin")
-    ("pinterest"             . "nf-fa-pinterest")
-    ("apple\\|9to5mac\\|macrumors" . "nf-fa-apple")
-    ("androidpolice\\|android" . "nf-fa-android")
-    ("linux\\|phoronix\\|itsfoss\\|omgubuntu" . "nf-fa-linux")
-    ("ubuntu"                . "nf-fa-ubuntu")
-    ("docker"                . "nf-fa-docker")
-    ("google"                . "nf-fa-google")
-    ("tumblr"                . "nf-fa-tumblr")
-    ("dropbox"               . "nf-fa-dropbox")
-    ("qq\\.com\\|renren"  . "nf-fa-qq")
+    ("reddit"                "nf-fa-reddit"    nerd-icons-orange)
+    ("youtube"               "nf-fa-youtube"   nerd-icons-red)
+    ("twitter\\|\\bx\\.com"   "nf-fa-twitter"   nerd-icons-blue)
+    ("github"                "nf-fa-github"    nerd-icons-purple)
+    ("gitlab"                "nf-fa-gitlab"    nerd-icons-orange)
+    ("bitbucket"             "nf-fa-bitbucket" nerd-icons-blue)
+    ("stack ?overflow"       "nf-fa-terminal"  nerd-icons-orange)
+    ("hacker ?news\\|y[- ]?combinator" "nf-fa-fire" nerd-icons-orange)
+    ("telegram"              "nf-fa-telegram"  nerd-icons-cyan)
+    ("weibo\\|微博"         "nf-fa-weibo"     nerd-icons-red)
+    ("weixin\\|wechat\\|微信\\|公众号" "nf-fa-weixin" nerd-icons-green)
+    ("zhihu\\|知乎"         "nf-fa-comments"  nerd-icons-blue)
+    ("bilibili\\|哔哩"      "nf-fa-play"      nerd-icons-pink)
+    ("medium"                "nf-fa-medium"    nerd-icons-green)
+    ("wordpress"             "nf-fa-wordpress" nerd-icons-blue)
+    ("blogger"               "nf-fa-blogger"   nerd-icons-orange)
+    ("dev\\.to\\|devto"   "nf-fa-dev"       nerd-icons-silver)
+    ("slack"                 "nf-fa-slack"     nerd-icons-purple)
+    ("discord"               "nf-fa-discord"   nerd-icons-purple)
+    ("steam"                 "nf-fa-steam"     nerd-icons-blue)
+    ("spotify"               "nf-fa-spotify"   nerd-icons-green)
+    ("podcast\\|simplecast" "nf-fa-podcast"   nerd-icons-purple)
+    ("soundcloud"            "nf-fa-soundcloud" nerd-icons-orange)
+    ("twitch"                "nf-fa-twitch"    nerd-icons-purple)
+    ("facebook"              "nf-fa-facebook"  nerd-icons-blue)
+    ("instagram"             "nf-fa-instagram" nerd-icons-pink)
+    ("linkedin"              "nf-fa-linkedin"  nerd-icons-blue)
+    ("pinterest"             "nf-fa-pinterest" nerd-icons-red)
+    ("apple\\|9to5mac\\|macrumors" "nf-fa-apple" nerd-icons-silver)
+    ("androidpolice\\|android" "nf-fa-android" nerd-icons-green)
+    ("linux\\|phoronix\\|itsfoss\\|omgubuntu" "nf-fa-linux" nerd-icons-yellow)
+    ("ubuntu"                "nf-fa-ubuntu"    nerd-icons-orange)
+    ("docker"                "nf-fa-docker"    nerd-icons-blue)
+    ("google"                "nf-fa-google"    nerd-icons-blue)
+    ("tumblr"                "nf-fa-tumblr"    nerd-icons-blue)
+    ("dropbox"               "nf-fa-dropbox"   nerd-icons-blue)
+    ("qq\\.com\\|renren"  "nf-fa-qq"        nerd-icons-cyan)
+    ("v2ex"                  "nf-fa-comments"  nerd-icons-silver)
+    ("sspai\\|少数派"       "nf-fa-bolt"      nerd-icons-red)
+    ("juejin\\|掘金"         "nf-fa-diamond"   nerd-icons-blue)
+    ("rust"                  "nf-dev-rust"     nerd-icons-orange)
+    ("python"                "nf-dev-python"   nerd-icons-blue)
+    ("golang\\|\\bgo\\b"     "nf-dev-go"       nerd-icons-cyan)
     ;; --- generic categories -----------------------------------------
     ("arxiv\\|biorxiv\\|sciencedaily\\|nature\\.com\\|plos\\|elife\\|jneuro\\|neuroscience\\|sciencemag\\|phys\\.org"
-                               . "nf-fa-flask")
+                             "nf-fa-flask"     nerd-icons-cyan)
     ("nytimes\\|guardian\\|bbc\\|cnn\\|reuters\\|washingtonpost\\|economist\\|bloomberg\\|wsj\\|forbes\\|ft\\.com\\|npr\\|bleepingcomputer\\|theregister\\|wired\\|arstechnica\\|theverge\\|engadget\\|gizmodo\\|slashdot\\|boingboing\\|techcrunch\\|pcmag\\|zdnet\\|thenextweb"
-                               . "nf-fa-newspaper")
-    ("emacs\\|irreal\\|emacslife" . "nf-md-emoticon"))
-  "Alist of (regexp . nerd-icons name) for feed icons.
+                             "nf-fa-newspaper" nerd-icons-yellow)
+    ("emacs\\|irreal\\|emacslife" "nf-md-emoticon" nerd-icons-purple))
+  "Alist of (REGEXP ICON-NAME &optional FACE) for feed icons.
 Regexps are matched (first match wins) against the lowercased feed
-title + feed URL.  Feeds matching nothing get the generic RSS icon.
+title + feed URL.  Feeds matching nothing get the generic RSS icon with
+`nerd-icons-orange'.
 
-See `nerd-icons-mdicon' / `nerd-icons-faicon' for available names."
-  :type '(alist :key-type (string :tag "Regexp")
-                :value-type (string :tag "nerd-icons name"))
+FACE can be a face symbol (e.g. `nerd-icons-red') or a hex color string.
+Legacy format (REGEXP . ICON-NAME) is also supported."
+  :type '(repeat (list :tag "Rule"
+                       (string :tag "Regexp")
+                       (string :tag "nerd-icons name")
+                       (choice :tag "Face or Color"
+                               (const :tag "None" nil)
+                               (face :tag "Face")
+                               (color :tag "Color string"))))
   :group 'elfeed-nano)
 
+(defcustom elfeed-nano-color-read-icons nil
+  "When non-nil, preserve icon colors even for read entries.
+When nil (default, nano style), icons for read entries are dimmed using
+`font-lock-comment-face'."
+  :type 'boolean
+  :group 'elfeed-nano)
+
+(defun elfeed-nano--feed-icon-info (feed)
+  "Return (ICON-NAME . FACE) for FEED based on `elfeed-nano-feed-icons'.
+FEED can be an `elfeed-feed' struct or a string."
+  (let* ((haystack (downcase
+                    (if (stringp feed)
+                        feed
+                      (concat (or (elfeed-feed-title feed) "")
+                              " " (or (elfeed-feed-url feed) "")))))
+         (entry (cl-find-if (lambda (item)
+                              (string-match-p (car item) haystack))
+                            elfeed-nano-feed-icons)))
+    (cond
+     ((null entry)
+      (cons "nf-md-rss" 'nerd-icons-orange))
+     ;; Plist format: ("regexp" :icon "nf-fa-xxx" :face nerd-icons-xxx)
+     ((and (listp (cdr entry)) (plist-member (cdr entry) :icon))
+      (cons (plist-get (cdr entry) :icon)
+            (plist-get (cdr entry) :face)))
+     ;; List format: ("regexp" "nf-fa-xxx" [face])
+     ((and (listp (cdr entry)) (stringp (cadr entry)))
+      (cons (cadr entry) (nth 2 entry)))
+     ;; Dotted pair with list: ("regexp" . ("nf-fa-xxx" face))
+     ((and (consp (cdr entry)) (stringp (car (cdr entry))))
+      (cons (car (cdr entry)) (cadr (cdr entry))))
+     ;; Classic dotted pair: ("regexp" . "nf-fa-xxx")
+     ((stringp (cdr entry))
+      (cons (cdr entry) nil))
+     (t
+      (cons "nf-md-rss" 'nerd-icons-orange)))))
+
 (defun elfeed-nano--feed-icon-name (feed)
-  "Return the nerd-icons name for FEED, or the RSS fallback.
-Matching is done against the feed title and URL (see
-`elfeed-nano-feed-icons')."
-  (let ((haystack (downcase (concat (or (elfeed-feed-title feed) "")
-                                    " " (or (elfeed-feed-url feed) "")))))
-    (or (cdr (cl-find-if (lambda (pair)
-                           (string-match-p (car pair) haystack))
-                         elfeed-nano-feed-icons))
-        "nf-md-rss")))
+  "Return the nerd-icons name for FEED, or the RSS fallback."
+  (car (elfeed-nano--feed-icon-info feed)))
 
 (defun elfeed-nano--face-fg (face)
-  "Return the foreground color of FACE, or nil when unspecified."
-  (let ((fg (face-foreground face)))
-    (and fg (not (equal fg "unspecified-fg")) fg)))
+  "Return the foreground color of FACE (a face symbol or color string), or nil."
+  (cond
+   ((null face) nil)
+   ((and (stringp face) (color-defined-p face)) face)
+   ((facep face)
+    (let ((fg (face-foreground face nil t)))
+      (and fg (not (member fg '("unspecified-fg" "unspecified"))) fg)))
+   (t nil)))
+
+(defun elfeed-nano--icon-accessor (name)
+  "Return the appropriate nerd-icons insertion function for NAME."
+  (cond ((string-prefix-p "nf-fa-" name)        #'nerd-icons-faicon)
+        ((string-prefix-p "nf-oct-" name)       #'nerd-icons-octicon)
+        ((string-prefix-p "nf-cod-" name)       #'nerd-icons-codicon)
+        ((string-prefix-p "nf-dev-" name)       #'nerd-icons-devicon)
+        ((string-prefix-p "nf-seti-" name)      #'nerd-icons-sucicon)
+        ((string-prefix-p "nf-weather-" name)   #'nerd-icons-wicon)
+        ((string-prefix-p "nf-pom-" name)       #'nerd-icons-pomicon)
+        ((string-prefix-p "nf-powerline-" name) #'nerd-icons-powerline)
+        ((string-prefix-p "nf-fl-" name)        #'nerd-icons-flicon)
+        ((string-prefix-p "nf-ips-" name)       #'nerd-icons-ipsicon)
+        (t #'nerd-icons-mdicon)))
 
 (defun elfeed-nano--icon (feed unread &optional background)
   "Return a colored icon string for FEED, bright when UNREAD.
 BACKGROUND is an optional stripe background color to merge in."
-  (let* ((name (elfeed-nano--feed-icon-name feed))
-         (accessor (cond ((string-prefix-p "nf-fa-" name)
-                          #'nerd-icons-faicon)
-                         ((string-prefix-p "nf-oct-" name)
-                          #'nerd-icons-octicon)
-                         ((string-prefix-p "nf-cod-" name)
-                          #'nerd-icons-codicon)
-                         (t #'nerd-icons-mdicon)))
+  (let* ((info (elfeed-nano--feed-icon-info feed))
+         (name (car info))
+         (icon-face (cdr info))
+         (accessor (elfeed-nano--icon-accessor name))
          (glyph (funcall accessor name))
-         (face (plist-get (text-properties-at 0 glyph) 'face))
-         (face (if (listp face) face (list face)))
-         (fg (cond ((not unread) (elfeed-nano--face-fg 'font-lock-comment-face))
-                   ((equal name "nf-md-rss") (elfeed-nano--face-fg 'warning))
-                   (t (elfeed-nano--face-fg 'default))))
-         (spec (append (list :foreground (or fg "gray")) face)))
+         (face-props (plist-get (text-properties-at 0 glyph) 'face))
+         (face-props (if (listp face-props) face-props (list face-props)))
+         (fg (cond ((and (not unread) (not elfeed-nano-color-read-icons))
+                    (elfeed-nano--face-fg 'font-lock-comment-face))
+                   (icon-face
+                    (or (elfeed-nano--face-fg icon-face)
+                        (elfeed-nano--face-fg 'nerd-icons-orange)
+                        (elfeed-nano--face-fg 'default)))
+                   ((equal name "nf-md-rss")
+                    (or (elfeed-nano--face-fg 'nerd-icons-orange)
+                        (elfeed-nano--face-fg 'warning)))
+                   (t
+                    (elfeed-nano--face-fg 'default))))
+         (spec (append (list :foreground (or fg "gray")) face-props)))
     (when background
       (setq spec (plist-put spec :background background)))
     ;; Keep BOTH `face' and `font-lock-face' in sync: nerd-icons relies on

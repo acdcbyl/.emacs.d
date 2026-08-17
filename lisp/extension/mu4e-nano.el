@@ -45,15 +45,15 @@
   "Face for read messages (regular weight; unread uses the bold face).")
 
 (defface mu4e-nano-new-face
-  '((t :inherit bold :extend t))
+  '((t :inherit (bold warning) :extend t))
   "Face for brand-new messages.")
 
 (defface mu4e-nano-flagged-face
-  '((t :inherit bold :extend t))
+  '((t :inherit (bold error) :extend t))
   "Face for flagged messages.")
 
 (defface mu4e-nano-draft-face
-  '((t :inherit font-lock-comment-face :extend t))
+  '((t :inherit (font-lock-comment-face warning) :extend t))
   "Face for drafts.")
 
 (defface mu4e-nano-sent-face
@@ -61,11 +61,11 @@
   "Face for sent/forwarded messages.")
 
 (defface mu4e-nano-replied-face
-  '((t :inherit bold :extend t))
+  '((t :inherit (bold success) :extend t))
   "Face for the replied status icon.")
 
 (defface mu4e-nano-passed-face
-  '((t :inherit bold :extend t))
+  '((t :inherit (bold link) :extend t))
   "Face for the forwarded (passed) status icon.")
 
 (defface mu4e-nano-trash-face
@@ -73,7 +73,7 @@
   "Face for trashed messages.")
 
 (defface mu4e-nano-junk-face
-  '((t :inherit bold :extend t))
+  '((t :inherit (bold error) :extend t))
   "Face for junk/spam messages.")
 
 (defface mu4e-nano-date-face
@@ -101,7 +101,9 @@
        0.5)))
 
 (defun mu4e-nano--update-theme-faces ()
-  "Adapt stripe/highlight backgrounds and status-icon colors to the theme."
+  "Adapt stripe/highlight backgrounds to the theme.
+Status-icon colors follow the active theme automatically via `:inherit'
+on their faces (see `mu4e-nano-status-icons'); no hardcoded colors here."
   (let* ((bg (face-background 'default))
          (dark (or (and bg (color-defined-p bg) (mu4e-nano--dark-p bg)) t)))
     (when (and bg (color-defined-p bg))
@@ -110,22 +112,7 @@
                             (color-darken-name bg 2)))
       (set-face-attribute 'mu4e-nano-hl-face nil :background
                           (if dark (color-lighten-name bg 7)
-                            (color-darken-name bg 5))))
-    ;; Distinct colors for the status icons, derived from theme faces
-    ;; (with dark/light-aware fallbacks).
-    (let ((error-fg   (mu4e-nano--face-fg 'error))
-          (warning-fg (mu4e-nano--face-fg 'warning))
-          (success-fg (mu4e-nano--face-fg 'success))
-          (link-fg    (mu4e-nano--face-fg 'link))
-          (comment-fg (mu4e-nano--face-fg 'font-lock-comment-face)))
-      (dolist (spec `((mu4e-nano-flagged-face . ,(or error-fg (if dark "#f07178" "#c0392b")))
-                      (mu4e-nano-junk-face    . ,(or error-fg (if dark "#f07178" "#c0392b")))
-                      (mu4e-nano-new-face     . ,(or warning-fg (if dark "#ffcc66" "#b8860b")))
-                      (mu4e-nano-draft-face   . ,(or warning-fg (if dark "#ffcc66" "#b8860b")))
-                      (mu4e-nano-replied-face . ,(or success-fg (if dark "#9ece6a" "#2e7d32")))
-                      (mu4e-nano-passed-face  . ,(or link-fg (if dark "#7aa2f7" "#1565c0")))
-                      (mu4e-nano-trash-face   . ,(or comment-fg (if dark "#565f89" "#9e9e9e")))))
-        (set-face-foreground (car spec) (cdr spec))))))
+                            (color-darken-name bg 5))))))
 
 (when (boundp 'after-load-theme-hook)
   (add-hook 'after-load-theme-hook #'mu4e-nano--update-theme-faces))
@@ -135,8 +122,10 @@
 ;; ---------------------------------------------------------------------------
 
 (defun mu4e-nano--face-fg (face)
-  "Return the foreground color of FACE, or nil when unspecified."
-  (let ((fg (face-foreground face)))
+  "Return the foreground color of FACE, or nil when unspecified.
+Resolves inherited foregrounds so face `:inherit' chains (theme
+semantic faces such as `error' / `warning') are honored."
+  (let ((fg (face-foreground face nil t)))
     (and fg (not (equal fg "unspecified-fg")) fg)))
 
 (defun mu4e-nano--glyph (name face &optional background)
@@ -154,8 +143,8 @@ The nerd-icons accessor is chosen from the name prefix (nf-md-, nf-fa-...)."
          (glyph (funcall accessor name))
          (gface (plist-get (text-properties-at 0 glyph) 'face))
          (gface (if (listp gface) gface (list gface)))
-         (spec (append (list :foreground (or (mu4e-nano--face-fg face) "gray"))
-                       gface)))
+         (fg (mu4e-nano--face-fg face))
+         (spec (append (and fg (list :foreground fg)) gface)))
     (when background
       (setq spec (plist-put spec :background background)))
     (propertize glyph 'face spec 'font-lock-face spec)))
