@@ -104,7 +104,7 @@
   (add-hook 'dired-mode-hook #'gnus-dired-mode)
   :general
   (aiser/leader-def
-    "oe"  'mu4e-transient-menu))
+    "ae"  'mu4e-transient-menu))
 (use-package mu4e-nano
   :ensure nil
   :after mu4e
