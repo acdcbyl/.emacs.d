@@ -64,7 +64,7 @@
 
 (defun elfeed-nano--dark-p (color)
   "Return non-nil when COLOR is a dark color."
-  (let ((rgb (color-name-to-rgb color)))
+  (when-let* ((rgb (color-name-to-rgb color)))
     (< (+ (* 0.299 (nth 0 rgb))
           (* 0.587 (nth 1 rgb))
           (* 0.114 (nth 2 rgb)))
@@ -263,16 +263,19 @@ BACKGROUND is an optional stripe background color to merge in."
 ;; ---------------------------------------------------------------------------
 
 (defun elfeed-nano--relative-date (time)
-  "Return a short relative date string for TIME (epoch seconds)."
-  (let* ((diff (- (float-time) time))
-         (secs (abs diff)))
-    (cond ((< secs 60) "just now")
-          ((< secs 3600) (format "%dm ago" (max 1 (floor (/ secs 60)))))
-          ((< secs 86400) (format "%dh ago" (max 1 (floor (/ secs 3600)))))
-          ((< secs 172800) "yesterday")
-          ((< secs (* 7 86400)) (format "%dd ago" (floor (/ secs 86400))))
-          ((< secs (* 30 86400)) (format "%dw ago" (floor (/ secs (* 7 86400)))))
-          (t (format-time-string "%Y-%m-%d" time)))))
+  "Return a short relative date string for TIME (epoch seconds).
+Return \"unknown\" when TIME is nil or not a number."
+  (if (not (numberp time))
+      "unknown"
+    (let* ((diff (- (float-time) time))
+           (secs (abs diff)))
+      (cond ((< secs 60) "just now")
+            ((< secs 3600) (format "%dm ago" (max 1 (floor (/ secs 60)))))
+            ((< secs 86400) (format "%dh ago" (max 1 (floor (/ secs 3600)))))
+            ((< secs 172800) "yesterday")
+            ((< secs (* 7 86400)) (format "%dd ago" (floor (/ secs 86400))))
+            ((< secs (* 30 86400)) (format "%dw ago" (floor (/ secs (* 7 86400)))))
+            (t (format-time-string "%Y-%m-%d" time))))))
 
 (defun elfeed-nano--truncate (str width)
   "Return STR truncated to WIDTH columns, with an ellipsis when cut."
@@ -350,7 +353,8 @@ BACKGROUND is an optional stripe background color to merge in."
 (defun elfeed-nano-show-next ()
   "Show the next entry in the search buffer."
   (interactive)
-  (funcall elfeed-show-entry-delete)
+  (when (bound-and-true-p elfeed-show-entry-delete)
+    (funcall elfeed-show-entry-delete))
   (with-current-buffer (elfeed-search-buffer)
     (when (elfeed-search--remain-on-entry-p 'show) (elfeed-nano-next-entry))
     (call-interactively #'elfeed-search-show-entry)))
@@ -358,9 +362,10 @@ BACKGROUND is an optional stripe background color to merge in."
 (defun elfeed-nano-show-prev ()
   "Show the previous entry in the search buffer."
   (interactive)
-  (funcall elfeed-show-entry-delete)
+  (when (bound-and-true-p elfeed-show-entry-delete)
+    (funcall elfeed-show-entry-delete))
   (with-current-buffer (elfeed-search-buffer)
-    (when (elfeed-search--remain-on-entry-p 'show) (elfeed-nano-next-entry))
+    (when (elfeed-search--remain-on-entry-p 'show) (elfeed-nano-prev-entry))
     (elfeed-nano-prev-entry)
     (elfeed-nano-prev-entry)
     (call-interactively #'elfeed-search-show-entry)))
@@ -405,9 +410,19 @@ BACKGROUND is an optional stripe background color to merge in."
       (overlay-put (make-overlay (pos-bol) (pos-bol 3))
                    'category 'elfeed-search-marked))))
 
-(defun elfeed-nano-mode ()
-  "Enable the lightweight nano-style elfeed UI."
-  (interactive)
+(defvar elfeed-nano--saved-state nil
+  "Saved state for toggling elfeed-nano-mode off.")
+
+(defvar-keymap elfeed-nano-mode-map
+  "n"       #'elfeed-nano-next-entry
+  "p"       #'elfeed-nano-prev-entry
+  "<down>"  #'elfeed-nano-next-entry
+  "<up>"    #'elfeed-nano-prev-entry)
+
+(defun elfeed-nano--on ()
+  "Install the nano-style elfeed UI."
+  (setq elfeed-nano--saved-state
+        (list elfeed-search-print-entry-function))
   (setq elfeed-search-print-entry-function #'elfeed-nano-search-print-entry)
   (add-hook 'elfeed-search-mode-hook #'elfeed-nano-search-mode)
   (add-hook 'elfeed-show-mode-hook #'elfeed-nano-show-mode)
@@ -436,6 +451,35 @@ BACKGROUND is an optional stripe background color to merge in."
   (with-eval-after-load 'elfeed-show
     (keymap-set elfeed-show-mode-map "n" #'elfeed-nano-show-next)
     (keymap-set elfeed-show-mode-map "p" #'elfeed-nano-show-prev)))
+
+(defun elfeed-nano--off ()
+  "Remove the nano-style elfeed UI."
+  (pcase-let ((`(,print-entry) elfeed-nano--saved-state))
+    (setq elfeed-search-print-entry-function print-entry))
+  (remove-hook 'elfeed-search-mode-hook #'elfeed-nano-search-mode)
+  (remove-hook 'elfeed-show-mode-hook #'elfeed-nano-show-mode)
+  (add-hook 'elfeed-search-update-hook #'elfeed-search-add-separators)
+  (advice-remove 'elfeed-search--update-line #'elfeed-nano--update-line)
+  (advice-remove 'elfeed-search--remove-marked-overlay #'elfeed-nano--remove-marked-overlay)
+  (advice-remove 'elfeed-search--make-marked-overlay #'elfeed-nano--make-marked-overlay)
+  (with-eval-after-load 'elfeed-search
+    (keymap-set elfeed-search-mode-map "n" #'elfeed-search-show-entry)
+    (keymap-set elfeed-search-mode-map "p" #'elfeed-search-show-entry)
+    (keymap-set elfeed-search-mode-map "<down>" #'elfeed-search-next-entry)
+    (keymap-set elfeed-search-mode-map "<up>" #'elfeed-search-previous-entry))
+  (with-eval-after-load 'elfeed-show
+    (keymap-set elfeed-show-mode-map "n" #'elfeed-show-next)
+    (keymap-set elfeed-show-mode-map "p" #'elfeed-show-previous))
+  (setq elfeed-nano--saved-state nil))
+
+;;;###autoload
+(define-minor-mode elfeed-nano-mode
+  "Lightweight nano-style elfeed UI."
+  :lighter " eN"
+  :keymap elfeed-nano-mode-map
+  (if elfeed-nano-mode
+      (elfeed-nano--on)
+    (elfeed-nano--off)))
 
 (provide 'elfeed-nano)
 ;;; elfeed-nano.el ends here

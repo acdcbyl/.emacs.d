@@ -94,7 +94,7 @@
 
 (defun mu4e-nano--dark-p (color)
   "Return non-nil when COLOR is a dark color."
-  (let ((rgb (color-name-to-rgb color)))
+  (when-let* ((rgb (color-name-to-rgb color)))
     (< (+ (* 0.299 (nth 0 rgb))
           (* 0.587 (nth 1 rgb))
           (* 0.114 (nth 2 rgb)))
@@ -157,15 +157,18 @@ The nerd-icons accessor is chosen from the name prefix (nf-md-, nf-fa-...)."
 
 (defun mu4e-nano--relative-date (time)
   "Return a short relative date string for TIME.
-TIME can be epoch seconds or an Emacs time value (list)."
-  (let* ((secs (abs (- (float-time) (float-time time)))))
-    (cond ((< secs 60) "just now")
-          ((< secs 3600) (format "%dm ago" (max 1 (floor (/ secs 60)))))
-          ((< secs 86400) (format "%dh ago" (max 1 (floor (/ secs 3600)))))
-          ((< secs 172800) "yesterday")
-          ((< secs (* 7 86400)) (format "%dd ago" (floor (/ secs 86400))))
-          ((< secs (* 30 86400)) (format "%dw ago" (floor (/ secs (* 7 86400)))))
-          (t (format-time-string "%Y-%m-%d" time)))))
+TIME can be epoch seconds or an Emacs time value (list).
+Return \"unknown\" when TIME is nil."
+  (if (null time)
+      "unknown"
+    (let* ((secs (abs (- (float-time) (float-time time)))))
+      (cond ((< secs 60) "just now")
+            ((< secs 3600) (format "%dm ago" (max 1 (floor (/ secs 60)))))
+            ((< secs 86400) (format "%dh ago" (max 1 (floor (/ secs 3600)))))
+            ((< secs 172800) "yesterday")
+            ((< secs (* 7 86400)) (format "%dd ago" (floor (/ secs 86400))))
+            ((< secs (* 30 86400)) (format "%dw ago" (floor (/ secs (* 7 86400)))))
+            (t (format-time-string "%Y-%m-%d" time))))))
 
 (defun mu4e-nano--contact-name (contact)
   "Extract the display name from a mu4e CONTACT, in any known format.
@@ -402,11 +405,13 @@ in `mu4e-nano--update-theme-faces')."
 
 (defun mu4e-nano--remove-entry (docid)
   "Delete the two-line entry with DOCID from the headers buffer."
-  (with-current-buffer (mu4e-get-headers-buffer)
-    (when (mu4e~headers-goto-docid docid)
-      (let ((inhibit-read-only t)
-            (beg (line-beginning-position)))
-        (delete-region beg (min (point-max) (line-beginning-position 3)))))))
+  (when-let* ((buf (mu4e-get-headers-buffer))
+              ((buffer-live-p buf)))
+    (with-current-buffer buf
+      (when (mu4e~headers-goto-docid docid)
+        (let ((inhibit-read-only t)
+              (beg (line-beginning-position)))
+          (delete-region beg (min (point-max) (line-beginning-position 3))))))))
 
 (defun mu4e-nano-remove-handler (docid)
   "Remove the two-line entry with DOCID and close its view if needed."
@@ -478,6 +483,9 @@ in `mu4e-nano--update-theme-faces')."
 (defvar mu4e-nano--saved-handlers nil
   "Saved mu4e handler variables, for toggling the mode off.")
 
+(defvar mu4e-nano--saved-hl-line nil
+  "Saved hl-line variables, for toggling the mode off.")
+
 (defun mu4e-nano--on ()
   "Install the nano header rendering handlers."
   (setq mu4e-nano--saved-handlers
@@ -489,6 +497,12 @@ in `mu4e-nano--update-theme-faces')."
         mu4e-update-func #'mu4e-nano-update-handler
         mu4e-remove-func #'mu4e-nano-remove-handler
         mu4e-headers-fields nil)
+  ;; Save hl-line variables from the headers buffer if available.
+  (when-let* ((buf (mu4e-get-headers-buffer)))
+    (with-current-buffer buf
+      (setq mu4e-nano--saved-hl-line
+            (list (buffer-local-value 'hl-line-range-function buf)
+                  (buffer-local-value 'hl-line-face buf)))))
   ;; `mu4e-view' calls `mu4e~headers-update-handler' directly (not via
   ;; `mu4e-update-func'); that default handler only knows the one-line
   ;; layout and would clobber the first line of our two-line entries.
@@ -505,7 +519,15 @@ in `mu4e-nano--update-theme-faces')."
           mu4e-erase-func erase
           mu4e-update-func update
           mu4e-remove-func remove
-          mu4e-headers-fields fields)))
+          mu4e-headers-fields fields))
+  ;; Restore hl-line variables in the headers buffer if available.
+  (when-let* ((buf (mu4e-get-headers-buffer))
+              (saved mu4e-nano--saved-hl-line))
+    (with-current-buffer buf
+      (setq-local hl-line-range-function (nth 0 saved)
+                  hl-line-face (nth 1 saved))))
+  (setq mu4e-nano--saved-handlers nil
+        mu4e-nano--saved-hl-line nil))
 
 (defvar-keymap mu4e-nano-mode-map
   "n"     #'mu4e-nano-next-msg
