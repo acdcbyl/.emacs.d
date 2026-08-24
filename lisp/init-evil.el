@@ -186,7 +186,6 @@
 
     ;; code
     "c"   (list :wk (format "%s code" (nerd-icons-mdicon "nf-md-code_tags")))
-    "cd"  'rmsbolt-compile
     "cc"  'compile
     "cC"  'recompile
     "ck"  'kill-compilation
@@ -290,13 +289,6 @@
     "gf" 'find-function
     "gv" 'find-variable
     "gl" 'find-library)
-
-  (general-def
-    :states '(operator pending visual)
-    :keymaps 'override
-    "a" '(:ignore t :wk "arg")
-    "a" #'evil-inner-arg
-    "A" #'evil-outer-arg)
 
   ;; tab-bar navigation
   (general-def

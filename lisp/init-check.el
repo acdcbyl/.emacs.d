@@ -5,6 +5,10 @@
 
 ;;; Code:
 
+;; Flymake's Elisp byte-compile checker consults `trusted-content';
+;; mark the local config as trusted so it is not flagged untrusted.
+(setopt trusted-content (list (expand-file-name "lisp/" user-emacs-directory)))
+
 (use-package flymake
   :diminish
   :functions aiser/elisp-flymake-byte-compile

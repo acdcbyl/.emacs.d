@@ -7,9 +7,6 @@
 ;; Left and right side windows occupy full frame height
 (use-package emacs :custom (window-sides-vertical t))
 
-;; For a more ergonomic Emacs and `dape' experience
-(use-package repeat :custom (repeat-mode +1))
-
 (require 'transient)
 (require 'init-icons)
 (require 'init-evil)
@@ -17,7 +14,7 @@
   dape
   :ensure t
   :bind ("<f5>" . dape)
-  :custom (dape-buffer-window-arrangment 'right)
+  :custom (dape-buffer-window-arrangement 'right)
   :config
   ;; Save buffers on startup, useful for interpreted languages
   (add-hook 'dape-start-hook (lambda () (save-some-buffers t t)))

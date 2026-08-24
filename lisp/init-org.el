@@ -61,9 +61,8 @@
 
 ;;; Phase 3 variables
 
-;; Org-roam variables
-(setq org-roam-directory "~/Documents/org-roam/")
-(setq org-roam-index-file "~/Documents/org-roam/index.org")
+;; NOTE: org-roam has been replaced by vulpea; no org-roam variables
+;; are needed here any more.
 
 ;;; Optional variables
 

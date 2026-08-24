@@ -5,7 +5,8 @@
 (use-package qml-ts-mode
   :vc (:url "https://github.com/xhcoding/qml-ts-mode"
             :rev :newest)
-  :mode "\\.qml\\'"
+  ;; :mode is registered centrally in init-dev.el (this file is only
+  ;; loaded once the mode library is first used).
   :after eglot
   :hook (qml-ts-mode . eglot-ensure)
   :config

@@ -19,7 +19,10 @@
 ;; Some systems don't do file notifications well; see
 ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
 (setopt auto-revert-interval 5)
-(setopt auto-revert-check-vc-info t)
+;; Keep nil (the default): checking VC info on every revert shells out
+;; to git each time, which stutters on network mounts / huge repos.
+;; diff-hl refreshes its own indicators anyway.
+(setopt auto-revert-check-vc-info nil)
 ;; Restrict version control backends to Git only to avoid unnecessary I/O checks
 (setq vc-handled-backends '(Git))
 (global-auto-revert-mode)
@@ -38,6 +41,9 @@
 ;; Save clipboard before kill, deduplicate kill ring
 (setopt save-interprogram-paste-before-kill t)
 (setopt kill-do-not-save-duplicates t)
+;; Emacs 30+: strip common leading indentation when yanking multi-line
+;; regions into different contexts.
+(kill-ring-deindent-mode 1)
 
 ;; Don't ping URL-looking things in find-file
 (setopt ffap-machine-p-known 'reject)
@@ -165,6 +171,11 @@ If the new path's directories does not exist, create them."
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)
+
+;; Emacs 30+ `visual-wrap-prefix-mode' (built-in replacement for
+;; adaptive-wrap): hanging indent for wrapped lines in Org/Markdown.
+(add-hook 'text-mode-hook #'visual-wrap-prefix-mode)
+(add-hook 'org-mode-hook #'visual-wrap-prefix-mode)
 
 ;; Modes to highlight the current line with
 (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))

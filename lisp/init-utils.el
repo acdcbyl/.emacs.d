@@ -41,6 +41,7 @@
 (use-package undo-fu-session
   :ensure t
   :after undo-fu
+  :defer 1
   :config (undo-fu-session-global-mode 1))
 
 ;; test speed

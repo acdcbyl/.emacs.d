@@ -81,6 +81,9 @@
       (when (bound-and-true-p winner-mode)
         (winner-undo))
       (setq dashboard-recover-layout-p nil)))
+
+  (add-hook 'dashboard-mode-hook #'dashboard-hide-modeline)
+  (add-hook 'dashboard-mode-hook (lambda () (setq-local track-mouse t)))
   :custom-face
   (dashboard-heading ((t (:inherit (font-lock-string-face bold)))))
   (dashboard-items-face ((t (:weight normal))))
@@ -110,15 +113,12 @@
      dashboard-insert-init-info
      dashboard-insert-items
      dashboard-insert-newline
-     dashboard-insert-footer))
-  :config
-  (add-hook 'dashboard-mode-hook #'dashboard-hide-modeline)
-  (add-hook 'dashboard-mode-hook (lambda () (setq-local track-mouse t))))
+     dashboard-insert-footer)))
 
 ;; Hide modeline
 (defun dashboard-hide-modeline ()
   "Hide modeline in the dashboard buffer."
-  (setq-local hl-line-mode -1)
+  (hl-line-mode -1)
   (setq-local mode-line-format nil)
   (setq-local header-line-format nil))
 

@@ -5,7 +5,8 @@
 (use-package kdl-ts-mode
   :vc (:url "https://github.com/merrickluo/kdl-ts-mode" :rev :newest)
   :defer t
-  :mode "\\.kdl\\'"
+  ;; :mode is registered centrally in init-dev.el (this file is only
+  ;; loaded once the mode library is first used).
   :config
   ;; kdl-ts-mode itself only calls `treesit-ready-p' (which just warns
   ;; when the grammar is missing).  Ask to install it like the built-in

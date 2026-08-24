@@ -4,6 +4,8 @@
 \#*\#
 .\#*
 *.elc
+package-quickstart.el
+package-quickstart.elc
 auto-save-list/
 tramp
 .emacs.desktop
@@ -50,6 +52,8 @@ var/
 *.log
 .tree-sitter/
 tree-sitter/
+.rime/
+rime/
 .dap-breakpoints
 lisp/private.el
 

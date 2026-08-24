@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; Emacs 32: fontify Elisp buffers using the real reader (semantic
+;; highlighting), much more accurate than the regexp-based one.
+(setopt elisp-fontify-semantically t)
+
 (use-package elisp-mode
   :ensure nil
   :bind (:map emacs-lisp-mode-map

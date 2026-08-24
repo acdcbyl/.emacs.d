@@ -1,10 +1,12 @@
 ;;; init-lua.el --- Lua configuration -*- lexical-binding: t -*-
 ;;; Commentary:
+;; No :mode entry: with `treesit-enabled-modes' set to t, startup
+;; installs ("\\.lua\\'" . lua-ts-mode-maybe) for the built-in
+;; lua-ts-mode already.
 ;;; Code:
 
 (use-package lua-ts-mode
   :ensure nil
-  :mode "\\.lua\\'"
   :after eglot
   :hook (lua-ts-mode . eglot-ensure)
   :config

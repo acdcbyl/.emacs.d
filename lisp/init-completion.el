@@ -82,7 +82,9 @@
   :ensure t
   :init
   ;; You'll want to make sure that e.g. fido-mode isn't enabled
-  (vertico-mode))
+  (vertico-mode)
+  ;; Make `vertico-repeat' (SPC ') remember history across invocations
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save))
 
 (use-package
   vertico-directory
@@ -97,7 +99,7 @@
   corfu
   :ensure t
   :init (global-corfu-mode)
-  :custom (corfu-auto t) (corfu-auto-delay 0) (corfu-cycle t)
+  :custom (corfu-auto t) (corfu-auto-delay 0.15) (corfu-cycle t)
   ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
   (corfu-auto-prefix 2)
   (corfu-preselect 'prompt)
@@ -107,6 +109,8 @@
   ;; Remember frequently used candidates and show numeric indices
   (corfu-history-mode +1)
   (corfu-indexed-mode +1)
+  ;; Persist corfu history across sessions via savehist
+  (add-to-list 'savehist-additional-variables 'corfu-history)
   :bind
   (:map
    corfu-map
@@ -164,6 +168,10 @@
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
+
+;; Emacs 30+: inline "ghost text" preview of the top candidate,
+;; complements Corfu. Only in programming buffers.
+(add-hook 'prog-mode-hook #'completion-preview-mode)
 
 (provide 'init-completion)
 

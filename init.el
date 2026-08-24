@@ -3,18 +3,17 @@
 ;;; Code:
 
 (when (< emacs-major-version 31)
-  (error
-   (format
-    "Only works with Emacs 31 and newer; you have version ~a"
-    emacs-major-version)))
+  (error "Only works with Emacs 31 and newer; you have version %s"
+         emacs-major-version))
 
 ;; Set custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
 
-;; Manual package initialization
-(package-initialize)
+;; Package activation happens at startup via `package-quickstart'
+;; (see early-init.el); do not call `package-initialize' here, it
+;; would rescan elpa/ and slow startup down.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

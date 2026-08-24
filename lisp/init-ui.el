@@ -10,11 +10,11 @@
   colorful-mode
   :ensure t
   :diminish
-  :hook (after-init . global-colorful-mode)
+  ;; Enable per buffer via hooks instead of `global-colorful-mode':
+  ;; scanning for color names is wasteful in large non-code buffers.
   :init (setq colorful-use-prefix t)
-  :config
-  (dolist (mode '(html-mode php-mode emacs-lisp-mode help-mode helpful-mode))
-    (add-to-list 'global-colorful-modes mode)))
+  :hook ((prog-mode text-mode css-mode html-mode php-mode help-mode helpful-mode)
+         . colorful-mode))
 
 ;; Highlight brackets according to their depth
 (use-package rainbow-delimiters :ensure t :hook prog-mode)

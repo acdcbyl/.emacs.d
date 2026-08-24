@@ -30,6 +30,8 @@
 
   ;; Emacs 31 can remap built-in modes to tree-sitter modes directly.
   (setopt treesit-enabled-modes t)
+  ;; Ask before downloading missing grammars (needs `treesit' loaded;
+  ;; setopt is fine on not-yet-defined variables).
   (setopt treesit-auto-install-grammar 'ask)
   ;; Amount to highlight: integer between 1-4; 4 is max highlighting
   (setopt treesit-font-lock-level 3)
@@ -71,6 +73,10 @@
   apheleia
   :ensure t
   :diminish apheleia-mode
+  ;; yaml-ts-mode derives from text-mode, so the prog-mode hook does
+  ;; not cover it; it needs its own entry (prettier-yaml via
+  ;; `apheleia-npx', needs prettier in the project's node_modules or on
+  ;; PATH).
   :hook ((prog-mode yaml-ts-mode) . apheleia-mode))
 
 ;; Indentation guide-bars
@@ -144,10 +150,13 @@
 (use-package smerge-mode
   :ensure nil
   :hook (find-file . (lambda ()
-                       (save-excursion
-                         (goto-char (point-min))
-                         (when (re-search-forward "^<<<<<<< " nil t)
-                           (smerge-mode 1))))))
+                       ;; Skip huge buffers: scanning for conflict
+                       ;; markers from point-min is expensive there.
+                       (when (< (buffer-size) (* 2 1024 1024))
+                         (save-excursion
+                           (goto-char (point-min))
+                           (when (re-search-forward "^<<<<<<< " nil t)
+                             (smerge-mode 1)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -165,14 +174,16 @@
   ;; no :ensure t here because it's built-in
 
   :custom
-  (eglot-send-changes-idle-time 0.1)
+  (eglot-send-changes-idle-time 0.3)
   (eglot-extend-to-xref t) ; activate Eglot in referenced non-project files
 
   :config
   ;; Avoid changing line heights if your font is wonky. See
   ;; https://github.com/joaotavora/eglot/discussions/1492
   (setopt eglot-code-action-indicator "h")
-  (advice-add #'jsonrpc--log-event :override #'ignore) ; massive perf boost---don't log every event
+  ;; Emacs 32 way of taming the jsonrpc events buffer; no need to
+  ;; advice `jsonrpc--log-event' any more.
+  (setopt eglot-events-buffer-config '(:size 0 :format full))
   )
 
 ;;eglot doc
@@ -229,9 +240,10 @@
   (defun aiser/eglot-capf ()
     (setq-local completion-at-point-functions
                 (list
-	         (cape-capf-super
-		  #'eglot-completion-at-point
-		  #'yasnippet-capf)))))
+                 (cape-capf-super
+                  #'eglot-completion-at-point
+                  #'yasnippet-capf)
+                 #'cape-file))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -240,18 +252,40 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'init-go)
-(require 'init-rust)
-(require 'init-python)
-(require 'init-js)
-(require 'init-markdown)
-(require 'init-yaml)
-(require 'init-json)
-(require 'init-qml)
-(require 'init-kdl)
-(require 'init-lua)
+;; Language configs are NOT required eagerly: that would pull
+;; go/rust/python/js/... setup into the startup critical path.
+;;
+;; With `treesit-enabled-modes' set to t, startup already installs
+;; `auto-mode-alist' entries like ("\\.go\\'" . go-ts-mode-maybe), so
+;; built-in ts-modes are reached without any help here.  For external
+;; packages we register their file extensions up-front, then load each
+;; full config only when its major-mode library is first loaded
+;; (`with-eval-after-load' handlers run while the mode's library is
+;; being autoloaded, i.e. before mode hooks run, so eglot-ensure fires
+;; for the very first buffer as well).
+
+;; File extensions for third-party modes (built-in ts-modes are covered
+;; by `treesit-enabled-modes').
+(add-to-list 'auto-mode-alist '("\\.qml\\'" . qml-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.kdl\\'" . kdl-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.fish\\'" . fish-mode))
+;; Built-in json-ts-mode only covers \.json\' via the js-json-mode remap;
+;; handle .jsonld the same way.
+(add-to-list 'auto-mode-alist '("\\.jsonld\\'" . js-json-mode))
+
+(with-eval-after-load 'go-ts-mode          (require 'init-go))
+(with-eval-after-load 'rust-ts-mode        (require 'init-rust))
+(with-eval-after-load 'python-ts-mode      (require 'init-python))
+(with-eval-after-load 'js                  (require 'init-js))
+(with-eval-after-load 'typescript-ts-mode  (require 'init-js))
+(with-eval-after-load 'markdown-ts-mode    (require 'init-markdown))
+(with-eval-after-load 'qml-ts-mode         (require 'init-qml))
+(with-eval-after-load 'kdl-ts-mode         (require 'init-kdl))
+(with-eval-after-load 'lua-ts-mode         (require 'init-lua))
+(with-eval-after-load 'fish-mode           (require 'init-fish))
+
+;; Elisp config is always relevant to this setup; load it eagerly.
 (require 'init-elisp)
-(require 'init-fish)
 
 (provide 'init-dev)
 ;;; init-dev.el ends here

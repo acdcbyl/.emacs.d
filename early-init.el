@@ -13,13 +13,24 @@
  ;; proper value after init
  gc-cons-threshold most-positive-fixnum
  gc-cons-percentage 0.3
- read-process-output-max (* 10 1024 1024))
+ read-process-output-max (* 1 1024 1024))
 
-;; Defer package loading until after init
-(setq package-enable-at-startup nil)
+;; Let startup activate packages itself: with `package-quickstart' t it
+;; just loads the quickstart file (much faster than scanning elpa/).
+;; Do NOT set `package-enable-at-startup' to nil here, that would skip
+;; the quickstart load entirely.
+(setq package-quickstart t)
+;; Pin to the same location no-littering uses, so the auto-refresh
+;; triggered by the very first package install (which happens BEFORE
+;; no-littering itself gets loaded) lands in var/ instead of the
+;; default root directory.
+(setq package-quickstart-file
+      (expand-file-name "var/package-quickstart.el" user-emacs-directory))
+(make-directory (file-name-directory package-quickstart-file) t)
 
-;; For the git version
-;; (setq native-comp-deferred-compilation t)
+;; For the git version (renamed in Emacs 29+)
+(setq native-comp-jit-compilation t
+      package-native-compile t)
 
 ;; Speed up startup by disabling file-name-handler-alist temporarily
 (defvar aiser--file-name-handler-alist file-name-handler-alist)
@@ -29,10 +40,10 @@
   "For the faster startup."
   (setq
    gc-cons-threshold (* 64 1024 1024)
-   gc-cons-percentage 0.3
-   read-process-output-max (* 10 1024 1024)
+   gc-cons-percentage 0.15
+   read-process-output-max (* 1 1024 1024)
    ;; Restore file-name-handler-alist
-   file-name-handler-alist (append file-name-handler-alist aiser--file-name-handler-alist)
+   file-name-handler-alist aiser--file-name-handler-alist
    ;; Don’t compact font caches during GC.
    inhibit-compacting-font-caches t))
 (add-hook 'after-init-hook #'aiser/setup-gc)
