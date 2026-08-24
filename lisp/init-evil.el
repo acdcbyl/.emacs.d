@@ -306,5 +306,24 @@
   "xf" 'fullwidth-region
   "xh" 'halfwidth-region)
 
+;; Emacs 31: whole-layout transforms inside the window map (SPC w).
+;; NOTE evil's own r/R rotate window *buffers* cyclically; these new
+;; commands transform the split *layout tree* itself:
+;;   t   transpose   - every horizontal split becomes vertical & vice versa
+;;   y   rotate clockwise / Y anticlockwise
+;;   F   flip left-right / V flip top-down
+(general-def :keymaps 'evil-window-map
+  "t" 'window-layout-transpose
+  "y" 'window-layout-rotate-clockwise
+  "Y" 'window-layout-rotate-anticlockwise
+  "F" 'window-layout-flip-leftright
+  "V" 'window-layout-flip-topdown)
+
+;; Free C-h inside the window map: it shadows the generic help-char
+;; handler that which-key uses for paging while the SPC w popup is up.
+;; Window navigation is unaffected -- lowercase h/j/k/l in the same map
+;; do exactly what C-h/C-j/C-k/C-l did.
+(general-def :keymaps 'evil-window-map "C-h" nil)
+
 (provide 'init-evil)
 ;;; init-evil.el ends here
