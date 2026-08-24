@@ -5,6 +5,12 @@
 
 ;;; Code:
 
+;; Emacs 31: let SHR leave line breaking to the window (visual-wrap)
+;; instead of hard-wrapping at `fill-column'.  Much better for CJK text,
+;; which has no spaces to re-fill from.  Affects eww and elfeed articles.
+(setopt shr-fill-text nil)
+(add-hook 'elfeed-show-mode-hook #'visual-wrap-prefix-mode)
+
 (use-package elfeed
   :ensure t
   :defer t
@@ -20,7 +26,7 @@
 
 ;; Lightweight nano-style elfeed UI.  No extra dependencies: it only needs
 ;; elfeed + nerd-icons, both already installed.
-;; (see lisp/elfeed-nano.el)
+;; (see user-lisp/elfeed-nano.el)
 (use-package elfeed-nano
   :demand t
   :config

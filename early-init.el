@@ -32,6 +32,22 @@
 (setq native-comp-jit-compilation t
       package-native-compile t)
 
+;; Emacs 31: don't start new async native compilations while on battery
+;; power (no-op on machines where no battery is detected).  Plain setq
+;; here: the variable is defined in comp-run.el which loads later, and
+;; defcustom never overrides an already-bound value.
+(setq native-comp-async-on-battery-power nil)
+
+;; Emacs 31: User Lisp directory.  Everything below ~/.emacs.d/user-lisp/
+;; is recursively byte-compiled (lazily, by timestamp), scraped for
+;;; ###autoload cookies into .user-lisp-autoloads.el, and added to
+;; `load-path' at startup -- before the regular init file loads, which
+;; is why these variables must be set here.
+;; Personal libraries and git-cloned packages can just be dropped in;
+;; VC dirs (.git etc.) are skipped via `user-lisp-ignored-directories'.
+(setq user-lisp-directory (expand-file-name "user-lisp/" user-emacs-directory)
+      user-lisp-auto-scrape t)
+
 ;; Speed up startup by disabling file-name-handler-alist temporarily
 (defvar aiser--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)

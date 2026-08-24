@@ -11,10 +11,18 @@
 ;; go-mod-ts-mode / go-work-ts-mode for go.mod / go.work files, so it
 ;; is deliberately not installed.
 
+;; Emacs 31: built-in unit-test commands in go-ts-mode:
+;;   C-c C-t t  run test at point (all tests under active region)
+;;   C-c C-t f  run all tests in current file
+;;   C-c C-t p  run all tests in current package
 (use-package go-ts-mode
   :ensure nil
   :after eglot
   :hook (go-ts-mode . eglot-ensure)
+  :custom
+  ;; Extra flags for `go test'; add build tags here if needed, e.g.
+  ;; '("-tags=integration" "-count=1")
+  (go-ts-mode-test-flags nil)
   :config
   (add-to-list 'eglot-server-programs
                '(go-ts-mode . ("gopls" :initializationOptions

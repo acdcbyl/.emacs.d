@@ -299,5 +299,12 @@
     "[t"  'tab-bar-switch-to-prev-tab)
   )
 
+;; Emacs 31: built-in CJK fullwidth <-> halfwidth conversion
+;; (defined in text-mode but preloaded).  With no active region they
+;; act on the word at point; with a region, on the whole region.
+(aiser/leader-def
+  "xf" 'fullwidth-region
+  "xh" 'halfwidth-region)
+
 (provide 'init-evil)
 ;;; init-evil.el ends here

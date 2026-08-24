@@ -64,8 +64,10 @@
 
 (let ((dir (locate-user-emacs-file "lisp")))
   (add-to-list 'load-path (file-name-as-directory dir))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "extension" dir))))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
+;; Personal libraries live in ~/.emacs.d/user-lisp/ (Emacs 31 User Lisp
+;; directory): byte-compiled, autoload-scraped and added to `load-path'
+;; automatically at startup -- see early-init.el.
                                         ; (add-to-list 'load-path "/home/aiser/.emacs.d/lisp")
 
 (require 'init-base)

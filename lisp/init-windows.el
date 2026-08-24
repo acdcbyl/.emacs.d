@@ -23,6 +23,17 @@
                                       "*esh command on file*")))
 
 ;; Enforce rules for popups
+
+;; Emacs 31: xref jump commands now use `display-buffer' with the
+;; category `xref-jump', so we can finally control where eglot/xref
+;; land: prefer reusing a window that already shows the target buffer,
+;; otherwise pick the most-recently-used window.
+(with-eval-after-load 'xref
+  (add-to-list 'display-buffer-alist
+               '((category . xref-jump)
+                 (display-buffer-reuse-window display-buffer-use-some-window)
+                 (some-window . mru))))
+
 (use-package popper
   :ensure t
   :custom

@@ -55,9 +55,11 @@
     (setq mode-line-format (list "%_")))
   )
 
-(use-package
-  hide-mode-line
-  :ensure t
+;; Emacs 31: built-in buffer-local minor mode that hides the current
+;; buffer's mode line -- replaces the third-party `hide-mode-line'
+;; package (which worked by the same trick of setting `mode-line-format').
+(use-package mode-line-invisible
+  :ensure nil
   :hook
   (((eat-mode
      eshell-mode
@@ -79,7 +81,7 @@
      lsp-ui-imenu-mode
      pdf-view-mode
      pdf-annot-list-mode)
-    . turn-on-hide-mode-line-mode)))
+    . mode-line-invisible-mode)))
 
 (provide 'init-modeline)
 ;;; init-modeline.el ends here

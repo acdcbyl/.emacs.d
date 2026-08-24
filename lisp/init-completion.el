@@ -173,6 +173,17 @@
 ;; complements Corfu. Only in programming buffers.
 (add-hook 'prog-mode-hook #'completion-preview-mode)
 
+;; Emacs 31: keep ghost text and Corfu's popup from fighting.
+(defun aiser/completion-preview-inhibit-corfu-p ()
+  "Inhibit the completion preview while Corfu's popup is visible."
+  (and (bound-and-true-p corfu--frame)
+       (frame-live-p corfu--frame)
+       (frame-visible-p corfu--frame)))
+(add-hook 'completion-preview-inhibit-functions
+          #'aiser/completion-preview-inhibit-corfu-p)
+;; Sort preview candidates the same way Corfu sorts its popup.
+(setopt completion-preview-sort-function #'corfu-sort-length-alpha)
+
 (provide 'init-completion)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
