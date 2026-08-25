@@ -12,17 +12,17 @@
                 evil-collection evil-nerd-commenter evil-surround
                 fish-mode flymake-ruff flyover general ghostel
                 git-modes git-timemachine grip-mode helpful
-                hide-mode-line indent-bars kdl-ts-mode
-                lambda-line liberime lyrics-fetcher magit magit-prime
-                marginalia nerd-icons-completion nerd-icons-corfu
+                hide-mode-line indent-bars kdl-ts-mode lambda-line
+                liberime lyrics-fetcher magit magit-prime marginalia
+                nerd-icons-completion nerd-icons-corfu
                 nerd-icons-dired nerd-icons-ibuffer
                 nerd-icons-speedbar no-littering orderless org-appear
                 org-download org-modern page-break-lines pdf-tools
-                popper qml-ts-mode quickrun rainbow-delimiters
-                rimel saveplace-pdf-view stripes
-                symbols-outline tabspaces telega treesit-fold undo-fu
-                undo-fu-session vertico vulpea vulpea-ui wakatime-mode
-                yasnippet yasnippet-capf yasnippet-snippets))
+                popper qml-ts-mode quickrun rainbow-delimiters rimel
+                saveplace-pdf-view stripes symbols-outline tabspaces
+                telega treesit-fold undo-fu undo-fu-session vertico
+                vulpea vulpea-ui wakatime-mode yasnippet
+                yasnippet-capf yasnippet-snippets))
  '(package-vc-selected-packages
    '((emms-ui :url "https://github.com/roife/emms-ui")
      (nano-mu4e :url "https://github.com/rougier/nano-mu4e")

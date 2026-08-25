@@ -7,7 +7,18 @@
 (defvar aiser-use-dashboard t
   "Enable dashboard.")
 
-;; Set up dashboard
+;; Stable "N packages installed" line.  With `package-quickstart' t,
+;; startup skips the full package scan, so `package-alist' stays empty and
+;; dashboard's built-in counter shows nothing on most startups.  Count
+;; `package-activated-list' instead -- quickstart always populates it.
+;; Set at top level (not inside use-package): the form is deferred via
+;; `:after nerd-icons', and this setting must not depend on that timing.
+(setq dashboard-init-info
+      (lambda ()
+        (format "%d packages installed. Emacs started in %s."
+                (length package-activated-list)
+                (emacs-init-time))))
+
 (use-package
   dashboard
   :ensure t
@@ -96,13 +107,12 @@
   (dashboard-vertically-center-content t)
   (dashboard-projects-backend 'project-el)
   (dashboard-path-max-length 60)
-  (dashboard-startup-banner
-   "~/.emacs.d/assets/GNUEmacs.png")
+  (dashboard-startup-banner "~/.emacs.d/assets/GNUEmacs.png")
   (dashboard-image-banner-max-width 400)
   (dashboard-set-heading-icons t)
   ;; (dashboard-show-shortcuts nil)
   (dashboard-set-file-icons t)
-  (dashboard-items '((recents . 10) (bookmarks . 5)(projects . 7)))
+  (dashboard-items '((recents . 10) (bookmarks . 5) (projects . 7)))
   (dashboard-startupify-list
    '(dashboard-insert-banner
      dashboard-insert-newline
@@ -113,7 +123,8 @@
      dashboard-insert-init-info
      dashboard-insert-items
      dashboard-insert-newline
-     dashboard-insert-footer)))
+     dashboard-insert-footer))
+  )
 
 ;; Hide modeline
 (defun dashboard-hide-modeline ()

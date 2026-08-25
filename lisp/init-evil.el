@@ -272,11 +272,11 @@
 
     ;; folding
     "z" (list :wk (format "%s folding/narrow" (nerd-icons-mdicon "nf-md-unfold_less_horizontal")))
-    "zc" 'treesit-fold-close
-    "zC" 'treesit-fold-close-all
-    "zo" 'treesit-fold-open
-    "zO" 'treesit-fold-open-all
-    "zt" 'treesit-fold-toggle
+    "zc" 'hs-hide-block
+    "zC" 'hs-hide-all
+    "zo" 'hs-show-block
+    "zO" 'hs-show-all
+    "zt" 'hs-toggle-hiding
     )
 
   (aiser/localleader-def

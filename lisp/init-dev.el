@@ -58,15 +58,10 @@
             (qmljs . ("https://github.com/yuja/tree-sitter-qmljs" "master" "src"))
             (yaml . ("https://github.com/tree-sitter-grammars/tree-sitter-yaml"))))
   :hook
-  ;; Auto parenthesis matching
-  ((prog-mode . electric-pair-mode)))
-
-;; Set up code folding
-(use-package
-  treesit-fold
-  :ensure t
-  :defer 1
-  :config (global-treesit-fold-mode))
+  ;; Auto parenthesis matching, built-in code folding (hideshow is
+  ;; tree-sitter aware since 31)
+  ((prog-mode . electric-pair-mode)
+   ((prog-mode yaml-ts-mode) . hs-minor-mode)))
 
 ;; Set up code format
 (use-package

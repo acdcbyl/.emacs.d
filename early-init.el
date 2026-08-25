@@ -36,7 +36,7 @@
 ;; power (no-op on machines where no battery is detected).  Plain setq
 ;; here: the variable is defined in comp-run.el which loads later, and
 ;; defcustom never overrides an already-bound value.
-(setq native-comp-async-on-battery-power nil)
+(setq native-comp-async-on-battery-power t)
 
 ;; Emacs 31: User Lisp directory.  Everything below ~/.emacs.d/user-lisp/
 ;; is recursively byte-compiled (lazily, by timestamp), scraped for
