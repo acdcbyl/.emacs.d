@@ -110,7 +110,6 @@
   (dashboard-startup-banner "~/.emacs.d/assets/GNUEmacs.png")
   (dashboard-image-banner-max-width 400)
   (dashboard-set-heading-icons t)
-  ;; (dashboard-show-shortcuts nil)
   (dashboard-set-file-icons t)
   (dashboard-items '((recents . 10) (bookmarks . 5) (projects . 7)))
   (dashboard-startupify-list

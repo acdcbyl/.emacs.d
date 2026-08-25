@@ -157,17 +157,12 @@ If the new path's directories does not exist, create them."
 (setopt mouse-wheel-flip-direction t)
 
 
-;; We won't set these, but they're good to know about
-;;
 (setopt indent-tabs-mode nil)
-;; (setopt tab-width 4)
+;; (setopt tab-width 4)  ; per-language defaults are set by major modes
 
 ;; Misc. UI tweaks
 (blink-cursor-mode -1) ; Steady cursor
 (pixel-scroll-precision-mode) ; Smooth scrolling
-
-;; Use common keystrokes by default
-;; (cua-mode)
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)

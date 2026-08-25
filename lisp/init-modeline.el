@@ -48,7 +48,6 @@
 
     (set-face-attribute 'flymake-note-echo nil
                         :foreground (doom-color 'green)))
-  ;; (lambda-line-visual-bell-config)
   ;; set divider line in footer
   (when (eq lambda-line-position 'top)
     (setq-default mode-line-format (list "%_"))

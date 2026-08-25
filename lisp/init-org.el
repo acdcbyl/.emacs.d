@@ -61,14 +61,7 @@
 
 ;;; Phase 3 variables
 
-;; NOTE: org-roam has been replaced by vulpea; no org-roam variables
-;; are needed here any more.
-
-;;; Optional variables
-
 ;; Advanced: Custom link types
-;; This example is for linking a person's 7-character ID to their page on the
-;; free genealogy website Family Search.
 (setq org-link-abbrev-alist
       '(("family_search"
          .

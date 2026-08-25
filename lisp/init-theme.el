@@ -12,7 +12,6 @@
 
 (use-package
   doom-themes
-  ;; :load-path "doom-themes-matugen"
   :vc (:url "https://github.com/acdcbyl/doom-themes-matugen" :rev :newest)
   :custom (doom-themes-enable-bold t)
   (doom-matugen-region-highlight 'frost)

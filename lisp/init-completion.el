@@ -100,7 +100,6 @@
   :ensure t
   :init (global-corfu-mode)
   :custom (corfu-auto t) (corfu-auto-delay 0.15) (corfu-cycle t)
-  ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
   (corfu-auto-prefix 2)
   (corfu-preselect 'prompt)
   (corfu-auto-trigger ".") ;; Custom trigger characters
@@ -119,9 +118,6 @@
    ("S-TAB" . corfu-previous)
    ("SPC" . corfu-insert-separator)
    ([backtab] . corfu-previous)))
-;;  ;; ("TAB" . corfu-next)           ; Tab to select next
-;;  ;; ("<backtab>" . corfu-previous) ; Shift-Tab to select previous
-;; ("C-n" . corfu-next) ("C-p" . corfu-previous)))
 
 ;; Part of corfu
 (use-package

@@ -160,24 +160,7 @@
      telega-symbol-heavy-checkmark (nerd-icons-codicon "nf-cod-check_all")
      telega-symbol-summarize-in (nerd-icons-octicon "nf-oct-fold")
      telega-symbol-summarize-out (nerd-icons-octicon "nf-oct-unfold")))
-
-  ;; ;; ========================================================================
-  ;; ;; Keybindings
-  ;; ;; ========================================================================
-  ;; (define-key telega-prefix-map (kbd "p") #'telega-chatbuf-filter-search)
-  ;; (define-key telega-prefix-map (kbd "d") #'telega-chat-remove-member)
-  ;; (define-key telega-prefix-map (kbd "m") #'telega-describe-chat-members)
-  ;; (define-key telega-prefix-map (kbd "h") #'telega-notifications-history)
-  ;; (define-key telega-prefix-map (kbd "x") #'telega-chatbuf-thread-cancel)
-
-  ;; ;; Global prefix keybinding (C-c t)
-  ;; (global-set-key (kbd "C-c t") telega-prefix-map)
   )
 
-;; (use-package telega-bubbles
-;;   :vc (:url "https://github.com/guidao/telega-bubbles" :rev :newest)
-;;   :after telega
-;;   :config
-;;   (telega-bubbles-mode 1))
 (provide 'init-telega)
 ;;; init-telega.el ends here

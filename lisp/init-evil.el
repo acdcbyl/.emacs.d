@@ -24,9 +24,6 @@
   :init
   (setq evil-respect-visual-line-mode t)
   (setq evil-echo-state nil)
-  ;; (setq evil-undo-system 'undo-fu)
-  ;; Enable this if you want C-u to scroll up, more like pure Vim
-                                        ;(setq evil-want-C-u-scroll t)
   ;; Bug as of 2026-01-12; see https://github.com/emacs-evil/evil/issues/1983
   (defvar evil-mode-buffers '())
 
@@ -37,16 +34,12 @@
   ;; Configuring initial major mode for some modes
   (evil-set-initial-state 'minibuffer-mode 'insert)
   (evil-set-initial-state 'minibuffer-inactive-mode 'insert)
-  ;; (evil-set-initial-state 'vterm-mode 'emacs)
-  ;; (evil-set-initial-state 'emms-browser-mode 'normal)
-  ;; (evil-set-initial-state 'emms-playlist-mode 'normal)
   )
 ;; evil-collection configuration
 (use-package
   evil-collection
   :after evil
   :ensure t
-  ;; :custom (evil-collection-corfu-key-themes '(default tab-n-go))
   :config
   (setq evil-collection-mode-list
         (delq 'corfu evil-collection-mode-list))
@@ -127,8 +120,6 @@
                 :wk (format "%s vertico-repeat" (nerd-icons-mdicon "nf-md-replay")))
     ";"   (list 'avy-resume
                 :wk (format "%s avy-resume" (nerd-icons-mdicon "nf-md-play")))
-    ;; "e"   (list 'treemacs
-    ;;             :wk (format "%s treemacs" (nerd-icons-mdicon "nf-md-file_tree")))
     "l"   (list :wk (format "%s localleader" (nerd-icons-mdicon "nf-md-hammer_wrench")))
 
     ;; unimpaired style
@@ -230,10 +221,6 @@
     "sp"  'consult-ripgrep
     "ss"  'consult-line
 
-    ;; ;; project
-    ;; "p"   (list 'aiser-project-prefix-map
-    ;;             :wk (format "%s project" (nerd-icons-mdicon "nf-md-folder_open_outline")))
-
     ;; app
     "a"   (list :wk (format "%s app" (nerd-icons-mdicon "nf-md-apps")))
     "ac"  'calendar
@@ -299,31 +286,34 @@
     "[t"  'tab-bar-switch-to-prev-tab)
   )
 
-;; Emacs 31: built-in CJK fullwidth <-> halfwidth conversion
-;; (defined in text-mode but preloaded).  With no active region they
-;; act on the word at point; with a region, on the whole region.
-(aiser/leader-def
-  "xf" 'fullwidth-region
-  "xh" 'halfwidth-region)
+;; Deferred until `general''s :config has created `aiser/leader-def'
+;; (which happens when nerd-icons loads).
+(with-eval-after-load 'nerd-icons
+  ;; Emacs 31: built-in CJK fullwidth <-> halfwidth conversion
+  ;; (defined in text-mode but preloaded).  With no active region they
+  ;; act on the word at point; with a region, on the whole region.
+  (aiser/leader-def
+    "xf" 'fullwidth-region
+    "xh" 'halfwidth-region)
 
-;; Emacs 31: whole-layout transforms inside the window map (SPC w).
-;; NOTE evil's own r/R rotate window *buffers* cyclically; these new
-;; commands transform the split *layout tree* itself:
-;;   t   transpose   - every horizontal split becomes vertical & vice versa
-;;   y   rotate clockwise / Y anticlockwise
-;;   F   flip left-right / V flip top-down
-(general-def :keymaps 'evil-window-map
-  "t" 'window-layout-transpose
-  "y" 'window-layout-rotate-clockwise
-  "Y" 'window-layout-rotate-anticlockwise
-  "F" 'window-layout-flip-leftright
-  "V" 'window-layout-flip-topdown)
+  ;; Emacs 31: whole-layout transforms inside the window map (SPC w).
+  ;; NOTE evil's own r/R rotate window *buffers* cyclically; these new
+  ;; commands transform the split *layout tree* itself:
+  ;;   t   transpose   - every horizontal split becomes vertical & vice versa
+  ;;   y   rotate clockwise / Y anticlockwise
+  ;;   F   flip left-right / V flip top-down
+  (general-def :keymaps 'evil-window-map
+    "t" 'window-layout-transpose
+    "y" 'window-layout-rotate-clockwise
+    "Y" 'window-layout-rotate-anticlockwise
+    "F" 'window-layout-flip-leftright
+    "V" 'window-layout-flip-topdown)
 
-;; Free C-h inside the window map: it shadows the generic help-char
-;; handler that which-key uses for paging while the SPC w popup is up.
-;; Window navigation is unaffected -- lowercase h/j/k/l in the same map
-;; do exactly what C-h/C-j/C-k/C-l did.
-(general-def :keymaps 'evil-window-map "C-h" nil)
+  ;; Free C-h inside the window map: it shadows the generic help-char
+  ;; handler that which-key uses for paging while the SPC w popup is up.
+  ;; Window navigation is unaffected -- lowercase h/j/k/l in the same map
+  ;; do exactly what C-h/C-j/C-k/C-l did.
+  (general-def :keymaps 'evil-window-map "C-h" nil))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here

@@ -48,7 +48,6 @@
           (:maildir "/[Gmail]/已发邮件"  :key ?s)
           (:maildir "/[Gmail]/草稿"     :key ?d)
           (:maildir "/[Gmail]/垃圾邮件"        :key ?t)
-          ;; (:maildir "/lists"              :key ?l)
           )
         )
 
@@ -73,10 +72,6 @@
 
         ;; SMTP login user
         smtpmail-smtp-user "wtchel088@gmail.com"
-
-        ;; Debug
-        ;; smtpmail-debug-info t
-        ;; smtpmail-debug-verb t
 
         ;; Don't ask repeatedly
         auth-source-cache-expiry nil)
