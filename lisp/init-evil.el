@@ -16,7 +16,9 @@
   :preface
   (customize-set-variable 'evil-want-keybinding nil) ;; Use with evil-collection
   (customize-set-variable 'evil-want-integration t) ;; Use with evil-collection
-  (customize-set-variable 'evil-undo-system 'undo-fu)
+  ;; Emacs 28+ built-in undo/redo; undo history persistence is handled by
+  ;; `undo-fu-session' (see init-utils.el), which works with native undo data.
+  (customize-set-variable 'evil-undo-system 'undo-redo)
   (customize-set-variable 'evil-want-C-u-scroll t) ;; Page scroll function
   (customize-set-variable 'evil-want-C-u-delete t) ;; Allow using Ctrl-u to delete to the beginning of the line
   (customize-set-variable 'evil-want-C-g-bindings t)

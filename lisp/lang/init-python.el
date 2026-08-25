@@ -2,20 +2,21 @@
 ;;; Commentary:
 ;;; Code:
 
-;; NOTE: python-ts-mode lives in the built-in `python' feature; with
-;; `treesit-enabled-modes' set to t, .py files reach it through the
-;; `(python-mode . python-ts-mode)' remap.  `:after (apheleia eglot)'
-;; runs the body once both the formatter (apheleia) and the LSP
-;; client (eglot) are loaded, keeping `python' itself lazy.
-
 (use-package python
   :ensure nil
-  :after (apheleia eglot)
-  :hook (python-ts-mode . eglot-ensure)
-  :config
-  (setf (alist-get 'python-ts-mode apheleia-mode-alist)
-        '(ruff-isort ruff))
+  :hook (python-ts-mode . eglot-ensure))
+
+;; Register the LSP server as soon as eglot loads, NOT inside a deferred
+;; `:after' body: if eglot was already loaded (e.g. by another language's
+;; `eglot-ensure') before this file runs, the deferred registration could
+;; race or be skipped entirely and eglot would silently find no server.
+(with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server"))))
+
+;; apheleia formatter mapping: only meaningful once both features exist.
+(with-eval-after-load 'apheleia
+  (setf (alist-get 'python-ts-mode apheleia-mode-alist)
+        '(ruff-isort ruff)))
 
 ;; NOTE: hook on python-ts-mode rather than python-mode: with
 ;; `treesit-enabled-modes' set to t, .py files open in python-ts-mode

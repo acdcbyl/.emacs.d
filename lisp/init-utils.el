@@ -16,13 +16,12 @@
 ;; wakatime
 (use-package wakatime-mode :ensure t :defer 5 :config (global-wakatime-mode))
 
-;; better undo
-(use-package undo-fu :ensure t)
-
-;; undo session
+;; Undo session persistence: serializes the standard `buffer-undo-list'
+;; to disk and restores it on revisit.  Works with the built-in
+;; `undo-redo' (see `evil-undo-system' in init-evil.el); no need for the
+;; `undo-fu' wrapper package anymore.
 (use-package undo-fu-session
   :ensure t
-  :after undo-fu
   :defer 1
   :config (undo-fu-session-global-mode 1))
 

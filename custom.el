@@ -20,9 +20,9 @@
                 org-download org-modern page-break-lines pdf-tools
                 popper qml-ts-mode quickrun rainbow-delimiters rimel
                 saveplace-pdf-view stripes symbols-outline tabspaces
-                telega treesit-fold undo-fu undo-fu-session vertico
-                vulpea vulpea-ui wakatime-mode yasnippet
-                yasnippet-capf yasnippet-snippets))
+                telega tempel tempel-collection treesit-fold undo-fu
+                undo-fu-session vertico vulpea vulpea-ui wakatime-mode
+                yasnippet yasnippet-capf yasnippet-snippets))
  '(package-vc-selected-packages
    '((emms-ui :url "https://github.com/roife/emms-ui")
      (nano-mu4e :url "https://github.com/rougier/nano-mu4e")

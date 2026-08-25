@@ -207,37 +207,40 @@
 ;;;   Snippet Config
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        ; yasnippet
-(use-package
-  yasnippet
+;; Tempel: lightweight Elisp-native templates. Registers as a
+;; completion-at-point backend, so templates show up directly in the
+;; Corfu popup alongside cape-dabbrev etc.
+(use-package tempel
   :ensure t
-  :hook
-  ((prog-mode . yas-minor-mode) (text-mode . yas-minor-mode))
-  :config (yas-reload-all))
-
-;; Official snippet collection
-(use-package yasnippet-snippets :ensure t :after yasnippet)
-
-;; Yasnippet Completion At Point Function
-(use-package yasnippet-capf
-  :ensure t
-  :commands yasnippet-capf
-  :functions cape-capf-super eglot-completion-at-point
-  :hook (((conf-mode prog-mode text-mode) . aiser/yasnippet-capf-h)
-         (eglot-managed-mode . aiser/eglot-capf))
+  ;; Bindings take effect while point is inside an expanded template.
+  :bind (:map tempel-map
+              ("TAB" . tempel-next)
+              ("S-TAB" . tempel-previous)
+              ("RET" . tempel-done))
   :init
-  (defun aiser/yasnippet-capf-h ()
-    (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+  ;; Personal templates live here (default); one template per .eld file
+  ;; (setopt tempel-path (locate-user-emacs-file "templates"))
+  (defun aiser/tempel-setup-capf ()
+    "Add Tempel's capf ahead of the other backends."
+    (add-to-list 'completion-at-point-functions #'tempel-complete))
+  :hook ((conf-mode prog-mode text-mode) . aiser/tempel-setup-capf))
 
-  ;; Making a Cape Super Capf for Eglot
-  ;; https://github.com/minad/corfu/wiki#making-a-cape-super-capf-for-eglot
-  (defun aiser/eglot-capf ()
-    (setq-local completion-at-point-functions
-                (list
-                 (cape-capf-super
-                  #'eglot-completion-at-point
-                  #'yasnippet-capf)
-                 #'cape-file))))
+;; Ready-made template collection (replaces yasnippet-snippets).
+;; Templates register automatically for all supported major modes.
+(use-package tempel-collection
+  :ensure t
+  :after tempel)
+
+;; Making a Cape Super Capf for Eglot
+;; https://github.com/minad/corfu/wiki#making-a-cape-super-capf-for-eglot
+(defun aiser/eglot-capf ()
+  (setq-local completion-at-point-functions
+              (list
+               (cape-capf-super
+                #'eglot-completion-at-point
+                #'tempel-complete)
+               #'cape-file)))
+(add-hook 'eglot-managed-mode-hook #'aiser/eglot-capf)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -269,7 +272,9 @@
 
 (with-eval-after-load 'go-ts-mode          (require 'init-go))
 (with-eval-after-load 'rust-ts-mode        (require 'init-rust))
-(with-eval-after-load 'python-ts-mode      (require 'init-python))
+;; NOTE: there is no `python-ts-mode' feature — python's treesit mode
+;; lives in the built-in `python' feature (python.el).
+(with-eval-after-load 'python              (require 'init-python))
 (with-eval-after-load 'js                  (require 'init-js))
 (with-eval-after-load 'typescript-ts-mode  (require 'init-js))
 (with-eval-after-load 'markdown-ts-mode    (require 'init-markdown))
@@ -277,6 +282,40 @@
 (with-eval-after-load 'kdl-ts-mode         (require 'init-kdl))
 (with-eval-after-load 'lua-ts-mode         (require 'init-lua))
 (with-eval-after-load 'fish-mode           (require 'init-fish))
+
+;; Bootstrap for third-party packages that PROVIDE their own major mode
+;; (qml-ts-mode, kdl-ts-mode, fish-mode): while such a package is absent,
+;; nothing autoloads its library, so the `with-eval-after-load' handlers
+;; above never fire and the config file -- which carries the :vc/:ensure
+;; install recipe -- stays unreachable.  On first open of a matching file,
+;; require the config (installing its package), then re-select the major
+;; mode for this buffer.  When everything is already installed, this is
+;; a no-op: the eval-after-load handler has already loaded the config.
+(defvar aiser/lang-config-bootstraps nil
+  "List of (FILE-REGEXP . CONFIG-FEATURE) pairs.
+See `aiser/lang-config-bootstrap'.")
+
+(defun aiser/lang-config-bootstrap ()
+  "Load missing lang configs on first open of their file type."
+  (when (and buffer-file-name aiser/lang-config-bootstraps)
+    (let ((file buffer-file-name))
+      (dolist (entry aiser/lang-config-bootstraps)
+        (when (string-match-p (car entry) file)
+          (setq aiser/lang-config-bootstraps
+                (delete entry aiser/lang-config-bootstraps))
+          (unless (featurep (cdr entry))
+            (require (cdr entry))
+            ;; The file opened before its major mode was available;
+            ;; redo mode selection now that the package is installed.
+            (when (eq major-mode 'fundamental-mode)
+              (normal-mode))))))))
+(add-hook 'find-file-hook #'aiser/lang-config-bootstrap)
+
+(mapc (lambda (entry)
+        (add-to-list 'aiser/lang-config-bootstraps entry))
+      '(("\\.qml\\'"  . init-qml)
+        ("\\.kdl\\'"  . init-kdl)
+        ("\\.fish\\'" . init-fish)))
 
 ;; Elisp config is always relevant to this setup; load it eagerly.
 (require 'init-elisp)
