@@ -57,7 +57,7 @@
   (setq
    gc-cons-threshold (* 64 1024 1024)
    gc-cons-percentage 0.15
-   read-process-output-max (* 1 1024 1024)
+   read-process-output-max (* 4 1024 1024) ; LSP JSON-RPC bursts (jamescherti.com/emacs-eglot-performance)
    ;; Restore file-name-handler-alist
    file-name-handler-alist aiser--file-name-handler-alist
    ;; Don’t compact font caches during GC.
@@ -82,7 +82,7 @@
 ;; ;; Make sure new frames use window-divider
 ;; (add-hook 'before-make-frame-hook 'window-divider-mode)
 ;; Default frame configuration: full screen, good-looking title bar on macOS
-(setq frame-resize-pixelwise t)
+;; (setq frame-resize-pixelwise t)
 (setq frame-inhibit-implied-resize t)
 (tool-bar-mode -1) ; All these tools are in the menu-bar anyway
 ;; Disable the menu bar

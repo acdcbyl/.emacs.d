@@ -170,6 +170,13 @@
   :custom
   (eglot-send-changes-idle-time 0.3)
   (eglot-extend-to-xref t) ; activate Eglot in referenced non-project files
+  ;; Don't block Emacs while the LSP server initializes; connect in background.
+  (eglot-sync-connect 0)
+  ;; Kill the server when its last managed buffer is closed -- useful when
+  ;; switching between multiple projects.
+  (eglot-autoshutdown t)
+  ;; Suppress mode-line progress redisplay churn while servers index/build.
+  (eglot-report-progress nil)
 
   :config
   ;; Avoid changing line heights if your font is wonky. See
@@ -178,6 +185,16 @@
   ;; Emacs 32 way of taming the jsonrpc events buffer; no need to
   ;; advice `jsonrpc--log-event' any more.
   (setopt eglot-events-buffer-config '(:size 0 :format full))
+  ;; Ceiling on file watches: protects fd/memory/startup cost on large
+  ;; repos (node_modules etc.).  NOTE: a plain defvar in Emacs 32, so
+  ;; this must live in :config (not :custom).
+  ;; (setopt eglot-max-file-watches 3000)
+  ;; Formatting is delegated to Apheleia; drop the server's formatting
+  ;; capabilities so it never advertises/uses them.
+  (dolist (cap '(:documentFormattingProvider
+                 :documentRangeFormattingProvider
+                 :documentOnTypeFormattingProvider))
+    (add-to-list 'eglot-ignored-server-capabilities cap))
   )
 
 ;;eglot doc
