@@ -62,6 +62,61 @@ disabled.
 
 (fn &optional ARG)" t)
 (register-definition-prefixes "mu4e-nano" '("mu4e-nano-"))
+
+
+;;; Generated autoloads from init-base.el
+
+(register-definition-prefixes "init-base" '("backup-file-name" "childframe-workable-p" "font-available-p" "setup-fonts"))
+
+
+;;; Generated autoloads from init-completion.el
+
+(register-definition-prefixes "init-completion" '("aiser/completion-preview-inhibit-corfu-p"))
+
+
+;;; Generated autoloads from init-dashboard.el
+
+(register-definition-prefixes "init-dashboard" '("aiser-use-dashboard" "dashboard-hide-modeline"))
+
+
+;;; Generated autoloads from init-dev.el
+
+(register-definition-prefixes "init-dev" '("+switch-to-compilation" "aiser/"))
+
+
+;;; Generated autoloads from init-org.el
+
+(register-definition-prefixes "init-org" '("aiser/vulpea-"))
+
+
+;;; Generated autoloads from init-utils.el
+
+(register-definition-prefixes "init-utils" '("+copy-current-buffer-name"))
+
+
+;;; Generated autoloads from init-dired.el
+
+(register-definition-prefixes "init-dired" '("+copy-current-file" "+delete-current-file" "+rename-current-file"))
+
+
+;;; Generated autoloads from init-emms.el
+
+(register-definition-prefixes "init-emms" '("+emms-"))
+
+
+;;; Generated autoloads from init-project.el
+
+(register-definition-prefixes "init-project" '("aiser-project-prefix-map"))
+
+
+;;; Generated autoloads from init-workspaces.el
+
+(register-definition-prefixes "init-workspaces" '("+transient-tab-bar-history" "aiser"))
+
+
+;;; Generated autoloads from init-workspaces-apps.el
+
+(register-definition-prefixes "init-workspaces-apps" '("aiser/workspace-"))
 
 ;;; End of scraped data
 

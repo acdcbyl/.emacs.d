@@ -55,7 +55,8 @@ tree-sitter/
 .rime/
 rime/
 .dap-breakpoints
-lisp/private.el
+user-lisp/private.el
+.user-lisp-autoloads.el
 
 # Vulpea note database (machine state, do not commit)
 vulpea.db
