@@ -7,13 +7,13 @@
 
 
 
-;;; Generated autoloads from elfeed-nano.el
+;;; Generated autoloads from plugins/elfeed-nano.el
 
-(autoload 'elfeed-nano--entry-start "elfeed-nano"
+(autoload 'elfeed-nano--entry-start "plugins/elfeed-nano"
 "Return the buffer position of the first line of entry N (0-based).
 
 (fn N)")
-(autoload 'elfeed-nano-mode "elfeed-nano"
+(autoload 'elfeed-nano-mode "plugins/elfeed-nano"
 "Lightweight nano-style elfeed UI.
 
 This is a minor mode.  If called interactively, toggle the `Elfeed-Nano
@@ -31,12 +31,67 @@ The mode's hook is called both when the mode is enabled and when it is
 disabled.
 
 (fn &optional ARG)" t)
-(register-definition-prefixes "elfeed-nano" '("elfeed-nano-"))
+(register-definition-prefixes "plugins/elfeed-nano" '("elfeed-nano-"))
 
 
-;;; Generated autoloads from mu4e-nano.el
+;;; Generated autoloads from init-base.el
 
-(autoload 'mu4e-nano-mode "mu4e-nano"
+(register-definition-prefixes "init-base" '("backup-file-name" "childframe-workable-p" "font-available-p" "setup-fonts"))
+
+
+;;; Generated autoloads from init-completion.el
+
+(register-definition-prefixes "init-completion" '("aiser/completion-preview-inhibit-corfu-p"))
+
+
+;;; Generated autoloads from init-dashboard.el
+
+(register-definition-prefixes "init-dashboard" '("aiser-use-dashboard" "dashboard-hide-modeline"))
+
+
+;;; Generated autoloads from init-dev.el
+
+(register-definition-prefixes "init-dev" '("+switch-to-compilation" "aiser/"))
+
+
+;;; Generated autoloads from init-dired.el
+
+(register-definition-prefixes "init-dired" '("+copy-current-file" "+delete-current-file" "+rename-current-file"))
+
+
+;;; Generated autoloads from init-emms.el
+
+(register-definition-prefixes "init-emms" '("+emms-"))
+
+
+;;; Generated autoloads from init-org.el
+
+(register-definition-prefixes "init-org" '("aiser/vulpea-"))
+
+
+;;; Generated autoloads from init-project.el
+
+(register-definition-prefixes "init-project" '("aiser-project-prefix-map"))
+
+
+;;; Generated autoloads from init-utils.el
+
+(register-definition-prefixes "init-utils" '("+copy-current-buffer-name"))
+
+
+;;; Generated autoloads from init-workspaces.el
+
+(register-definition-prefixes "init-workspaces" '("+transient-tab-bar-history" "aiser"))
+
+
+;;; Generated autoloads from init-workspaces-apps.el
+
+(register-definition-prefixes "init-workspaces-apps" '("aiser/workspace-"))
+
+
+;;; Generated autoloads from plugins/mu4e-nano.el
+
+(autoload 'mu4e-nano-mode "plugins/mu4e-nano"
 "Lightweight nano-style mu4e headers view.
 
 Each message is rendered as a two-line card with a nerd-icons status
@@ -61,62 +116,7 @@ The mode's hook is called both when the mode is enabled and when it is
 disabled.
 
 (fn &optional ARG)" t)
-(register-definition-prefixes "mu4e-nano" '("mu4e-nano-"))
-
-
-;;; Generated autoloads from init-base.el
-
-(register-definition-prefixes "init-base" '("backup-file-name" "childframe-workable-p" "font-available-p" "setup-fonts"))
-
-
-;;; Generated autoloads from init-completion.el
-
-(register-definition-prefixes "init-completion" '("aiser/completion-preview-inhibit-corfu-p"))
-
-
-;;; Generated autoloads from init-dashboard.el
-
-(register-definition-prefixes "init-dashboard" '("aiser-use-dashboard" "dashboard-hide-modeline"))
-
-
-;;; Generated autoloads from init-dev.el
-
-(register-definition-prefixes "init-dev" '("+switch-to-compilation" "aiser/"))
-
-
-;;; Generated autoloads from init-org.el
-
-(register-definition-prefixes "init-org" '("aiser/vulpea-"))
-
-
-;;; Generated autoloads from init-utils.el
-
-(register-definition-prefixes "init-utils" '("+copy-current-buffer-name"))
-
-
-;;; Generated autoloads from init-dired.el
-
-(register-definition-prefixes "init-dired" '("+copy-current-file" "+delete-current-file" "+rename-current-file"))
-
-
-;;; Generated autoloads from init-emms.el
-
-(register-definition-prefixes "init-emms" '("+emms-"))
-
-
-;;; Generated autoloads from init-project.el
-
-(register-definition-prefixes "init-project" '("aiser-project-prefix-map"))
-
-
-;;; Generated autoloads from init-workspaces.el
-
-(register-definition-prefixes "init-workspaces" '("+transient-tab-bar-history" "aiser"))
-
-
-;;; Generated autoloads from init-workspaces-apps.el
-
-(register-definition-prefixes "init-workspaces-apps" '("aiser/workspace-"))
+(register-definition-prefixes "plugins/mu4e-nano" '("mu4e-nano-"))
 
 ;;; End of scraped data
 

@@ -108,10 +108,10 @@
   (dashboard-projects-backend 'project-el)
   (dashboard-path-max-length 60)
   (dashboard-startup-banner "~/.emacs.d/assets/GNUEmacs.png")
-  (dashboard-image-banner-max-width 400)
+  (dashboard-image-banner-max-width 350)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
-  (dashboard-items '((recents . 10) (bookmarks . 5) (projects . 7)))
+  (dashboard-items '((recents . 5) (bookmarks . 3) (projects . 5)))
   (dashboard-startupify-list
    '(dashboard-insert-banner
      dashboard-insert-newline
